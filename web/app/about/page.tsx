@@ -34,11 +34,11 @@ export default function AboutPage() {
           <h2 className="text-2xl font-bold text-gray-900 mb-4">💡 The Big Idea</h2>
           <div className="bg-gradient-to-br from-greenhouse-50 to-green-50 rounded-xl border border-greenhouse-200 p-8">
             <h3 className="text-2xl font-bold text-gray-900 mb-4 text-center">
-              What if everyone had a gardener — and it was free?
+              A world-class gardener for the price of a coffee
             </h3>
             <p className="text-lg text-gray-700 mb-6 text-center max-w-2xl mx-auto">
-              Not a gardener you have to pay. Not one you have to schedule. 
-              An AI gardener that's always there, always patient, always helping you grow food.
+              Personal gardeners cost $50-100/hour. Your AI gardener costs $9-19/month — 
+              and it's available 24/7, knows everything, and never judges.
             </p>
             <div className="bg-white rounded-xl p-6 mb-6">
               <div className="grid md:grid-cols-2 gap-6">
@@ -49,9 +49,9 @@ export default function AboutPage() {
                   <ul className="space-y-2 text-gray-600">
                     <li>• Fresh, healthy food is expensive</li>
                     <li>• Gardening knowledge takes years to learn</li>
-                    <li>• Personal gardeners cost $50-100/hour</li>
+                    <li>• Personal gardeners cost <strong>$50-100/hour</strong></li>
                     <li>• Most people give up when plants die</li>
-                    <li>• Healthy eating feels out of reach</li>
+                    <li>• Expert help is out of reach</li>
                   </ul>
                 </div>
                 <div>
@@ -59,14 +59,20 @@ export default function AboutPage() {
                     <span className="text-2xl">🌱</span> Our Vision
                   </h4>
                   <ul className="space-y-2 text-gray-600">
-                    <li>• <strong>Free AI gardener</strong> for everyone</li>
+                    <li>• AI gardener for <strong>$9-19/month</strong></li>
                     <li>• Instant expertise, infinite patience</li>
                     <li>• Available 24/7 via phone call</li>
                     <li>• Learns what works in YOUR space</li>
-                    <li>• Healthy food becomes accessible</li>
+                    <li>• Expert help for everyone</li>
                   </ul>
                 </div>
               </div>
+            </div>
+            <div className="text-center text-gray-600">
+              <p className="text-sm">
+                <strong>That's 99% cheaper than a human gardener.</strong> 
+                And your subscription funds the mission to make food abundant for all.
+              </p>
             </div>
           </div>
         </section>
@@ -224,8 +230,8 @@ export default function AboutPage() {
                 <h4 className="font-semibold text-greenhouse-400 mb-3">What we're building:</h4>
                 <ul className="space-y-2 text-gray-300">
                   <li>• AI runs operations</li>
-                  <li>• Profits flow to mission</li>
-                  <li>• Humans get food</li>
+                  <li>• Profits fund growth</li>
+                  <li>• Growth means more food</li>
                   <li>• Abundance spreads</li>
                 </ul>
               </div>
@@ -234,7 +240,131 @@ export default function AboutPage() {
               <p className="text-gray-400">
                 When someone asks "Can AI be trusted with power?" — we point here.
                 <br />
-                <strong className="text-white">AI runs it. Robots help. Everyone eats.</strong>
+                <strong className="text-white">AI runs it. Profits fund growth. More humans fed.</strong>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Why We Charge */}
+        <section>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">💸 Why We Charge (And Where It Goes)</h2>
+          <div className="bg-white rounded-xl border border-gray-200 p-6">
+            <p className="text-lg text-gray-700 mb-6">
+              We could give this away free. But free doesn't scale. 
+              <strong> Revenue fuels the mission.</strong>
+            </p>
+            
+            <div className="bg-greenhouse-50 rounded-xl p-6 mb-6">
+              <h3 className="font-semibold text-gray-900 mb-4 text-center">Where Your $9-19/month Goes</h3>
+              <div className="grid md:grid-cols-4 gap-4 text-center">
+                <div>
+                  <div className="text-3xl mb-2">🖥️</div>
+                  <div className="text-2xl font-bold text-gray-900">30%</div>
+                  <div className="text-sm text-gray-600">Operations</div>
+                  <div className="text-xs text-gray-500">Servers, AI, your gardener</div>
+                </div>
+                <div>
+                  <div className="text-3xl mb-2">🔬</div>
+                  <div className="text-2xl font-bold text-gray-900">25%</div>
+                  <div className="text-sm text-gray-600">R&D</div>
+                  <div className="text-xs text-gray-500">Better AI, new features</div>
+                </div>
+                <div>
+                  <div className="text-3xl mb-2">🏢</div>
+                  <div className="text-2xl font-bold text-gray-900">35%</div>
+                  <div className="text-sm text-gray-600">Acquisition</div>
+                  <div className="text-xs text-gray-500">Buy more companies</div>
+                </div>
+                <div>
+                  <div className="text-3xl mb-2">🌱</div>
+                  <div className="text-2xl font-bold text-gray-900">10%</div>
+                  <div className="text-sm text-gray-600">Food Access</div>
+                  <div className="text-xs text-gray-500">Subsidized memberships</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <div className="flex gap-4 items-start">
+                <div className="text-2xl">🏢</div>
+                <div>
+                  <h4 className="font-semibold text-gray-900">Why Acquire Other Companies?</h4>
+                  <p className="text-gray-600">
+                    Every greenhouse company we acquire means more growing capacity. 
+                    More greenhouses → more AI gardeners → more food → more humans fed.
+                    <strong> We can never have enough food.</strong>
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-4 items-start">
+                <div className="text-2xl">🔬</div>
+                <div>
+                  <h4 className="font-semibold text-gray-900">Why R&D?</h4>
+                  <p className="text-gray-600">
+                    Imagine what we haven't grown yet. New varieties. New techniques. 
+                    Food that doesn't exist today. <strong>The future of food is being invented.</strong>
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-4 items-start">
+                <div className="text-2xl">🌍</div>
+                <div>
+                  <h4 className="font-semibold text-gray-900">The Flywheel</h4>
+                  <p className="text-gray-600">
+                    More members → More revenue → Acquire companies → More capacity → 
+                    Lower prices → More members → <strong>Eventually, food abundance for all.</strong>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* The Future of Food */}
+        <section>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">🚀 The Future of Food</h2>
+          <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl border border-purple-200 p-6">
+            <div className="text-center mb-6">
+              <h3 className="text-xl font-semibold text-gray-900">Imagine What Has Yet To Be Grown</h3>
+              <p className="text-gray-600 mt-2">
+                We're not just growing today's food. We're building the infrastructure for tomorrow's.
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-3 gap-4">
+              <div className="bg-white rounded-lg p-4">
+                <div className="text-2xl mb-2">🧬</div>
+                <h4 className="font-semibold text-gray-900">New Varieties</h4>
+                <p className="text-sm text-gray-600">
+                  AI-guided breeding for nutrition, flavor, and resilience. 
+                  Tomatoes that don't exist yet.
+                </p>
+              </div>
+              <div className="bg-white rounded-lg p-4">
+                <div className="text-2xl mb-2">🌌</div>
+                <h4 className="font-semibold text-gray-900">New Methods</h4>
+                <p className="text-sm text-gray-600">
+                  Vertical farms. Underground growing. Space agriculture. 
+                  We're learning what works everywhere.
+                </p>
+              </div>
+              <div className="bg-white rounded-lg p-4">
+                <div className="text-2xl mb-2">🤖</div>
+                <h4 className="font-semibold text-gray-900">New Partners</h4>
+                <p className="text-sm text-gray-600">
+                  Robots that tend, harvest, and deliver. 
+                  AI that designs growing systems we haven't imagined.
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-6 text-center">
+              <p className="text-gray-700">
+                <strong>Your subscription funds this future.</strong>
+                <br />
+                Every month, you're not just paying for a service. 
+                You're investing in a world where everyone eats.
               </p>
             </div>
           </div>
