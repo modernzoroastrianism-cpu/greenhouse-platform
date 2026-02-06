@@ -321,6 +321,277 @@ export default function AboutPage() {
           </div>
         </section>
 
+        {/* Nature's Pharmacy */}
+        <section>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">💊 Nature's Pharmacy vs Big Pharma</h2>
+          <div className="bg-white rounded-xl border border-gray-200 p-6">
+            <div className="grid md:grid-cols-2 gap-6 mb-6">
+              <div className="bg-red-50 rounded-lg p-4 border border-red-200">
+                <h3 className="font-semibold text-red-800 mb-3">💊 Pharmaceuticals</h3>
+                <ul className="space-y-2 text-sm text-red-700">
+                  <li>• $1.5 trillion industry globally</li>
+                  <li>• Treats symptoms, not causes</li>
+                  <li>• Side effects require more drugs</li>
+                  <li>• Patented, expensive, gatekept</li>
+                  <li>• You depend on corporations</li>
+                  <li>• Can't make your own</li>
+                </ul>
+              </div>
+              <div className="bg-green-50 rounded-lg p-4 border border-green-200">
+                <h3 className="font-semibold text-green-800 mb-3">🌿 Nature's Pharmacy</h3>
+                <ul className="space-y-2 text-sm text-green-700">
+                  <li>• Free once you grow it</li>
+                  <li>• Prevents disease at the source</li>
+                  <li>• No side effects, just nutrition</li>
+                  <li>• Open source genetics, your seeds</li>
+                  <li>• You control your health</li>
+                  <li>• Grow it in your greenhouse</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-r from-green-100 to-blue-100 rounded-lg p-6">
+              <h4 className="font-semibold text-gray-900 mb-3 text-center">
+                🧬 The Foods of the Future
+              </h4>
+              <p className="text-gray-700 text-center mb-4">
+                What if we could grow plants optimized for specific health outcomes?
+              </p>
+              <div className="grid md:grid-cols-3 gap-4 text-sm">
+                <div className="bg-white rounded-lg p-3 text-center">
+                  <div className="text-xl mb-1">🫀</div>
+                  <strong className="text-gray-900">Heart Health</strong>
+                  <p className="text-gray-600">Tomatoes bred for maximum lycopene</p>
+                </div>
+                <div className="bg-white rounded-lg p-3 text-center">
+                  <div className="text-xl mb-1">🧠</div>
+                  <strong className="text-gray-900">Brain Function</strong>
+                  <p className="text-gray-600">Greens optimized for omega-3s</p>
+                </div>
+                <div className="bg-white rounded-lg p-3 text-center">
+                  <div className="text-xl mb-1">🦴</div>
+                  <strong className="text-gray-900">Bone Density</strong>
+                  <p className="text-gray-600">Calcium-rich varieties</p>
+                </div>
+                <div className="bg-white rounded-lg p-3 text-center">
+                  <div className="text-xl mb-1">🔥</div>
+                  <strong className="text-gray-900">Inflammation</strong>
+                  <p className="text-gray-600">Turmeric and ginger hybrids</p>
+                </div>
+                <div className="bg-white rounded-lg p-3 text-center">
+                  <div className="text-xl mb-1">🛡️</div>
+                  <strong className="text-gray-900">Immune Boost</strong>
+                  <p className="text-gray-600">Elderberry, garlic, mushrooms</p>
+                </div>
+                <div className="bg-white rounded-lg p-3 text-center">
+                  <div className="text-xl mb-1">⚡</div>
+                  <strong className="text-gray-900">Energy</strong>
+                  <p className="text-gray-600">Nutrient-dense superfoods</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6 text-center">
+              <p className="text-gray-700">
+                <strong>Food is medicine. Your greenhouse is your pharmacy.</strong>
+                <br />
+                <span className="text-gray-600">
+                  And unlike pills, you can grow more whenever you want.
+                </span>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Food Sovereignty */}
+        <section>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">🏴 Food Sovereignty</h2>
+          <div className="bg-gray-900 text-white rounded-xl p-6">
+            <div className="text-center mb-6">
+              <h3 className="text-xl font-semibold">Your Greenhouse. Your Rules.</h3>
+              <p className="text-gray-400 mt-2">
+                No regulations. No pesticide requirements. No approval needed.
+                <br />
+                <strong className="text-white">Complete autonomy over what you grow and eat.</strong>
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <h4 className="font-semibold text-gray-300 mb-3">What you escape:</h4>
+                <ul className="space-y-2 text-gray-400">
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-400">✗</span>
+                    Industrial pesticides and herbicides
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-400">✗</span>
+                    GMO seeds you can't replant
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-400">✗</span>
+                    Food picked weeks ago, shipped thousands of miles
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-400">✗</span>
+                    Corporate control of food supply
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-400">✗</span>
+                    Government agencies deciding what's "safe"
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-semibold text-greenhouse-400 mb-3">What you gain:</h4>
+                <ul className="space-y-2 text-gray-300">
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-400">✓</span>
+                    Grow anything you want, any way you want
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-400">✓</span>
+                    Save seeds, share with neighbors
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-400">✓</span>
+                    Harvest and eat the same day
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-400">✓</span>
+                    Know exactly what's in your food
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-400">✓</span>
+                    You decide what's healthy for your family
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="mt-6 pt-6 border-t border-gray-700">
+              <p className="text-center text-gray-400">
+                In a world of increasing regulation and corporate control,
+                <br />
+                <strong className="text-white">your greenhouse is a zone of freedom.</strong>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Decentralized Food */}
+        <section>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">🌐 Decentralized Food Network</h2>
+          <div className="bg-white rounded-xl border border-gray-200 p-6">
+            <p className="text-gray-600 mb-6 text-center">
+              Millions of small growers instead of a few mega-farms. 
+              <strong> No single point of failure.</strong>
+            </p>
+
+            <div className="grid md:grid-cols-2 gap-6 mb-6">
+              <div className="bg-red-50 rounded-lg p-4 border border-red-200">
+                <h4 className="font-semibold text-red-800 mb-2">Centralized Food System</h4>
+                <p className="text-sm text-red-700 mb-2">What we have now:</p>
+                <ul className="text-sm text-red-600 space-y-1">
+                  <li>• 4 companies control 80%+ of meat</li>
+                  <li>• One disease can wipe out a crop nationally</li>
+                  <li>• Supply chains break during crises</li>
+                  <li>• Grocery stores have 3 days of inventory</li>
+                  <li>• Depends on trucking, fuel, stability</li>
+                </ul>
+              </div>
+              <div className="bg-green-50 rounded-lg p-4 border border-green-200">
+                <h4 className="font-semibold text-green-800 mb-2">Decentralized Food Network</h4>
+                <p className="text-sm text-green-700 mb-2">What we're building:</p>
+                <ul className="text-sm text-green-600 space-y-1">
+                  <li>• Millions of independent growers</li>
+                  <li>• Diverse crops = no single failure</li>
+                  <li>• Local production, short supply chains</li>
+                  <li>• Every greenhouse is a backup</li>
+                  <li>• Works during disasters</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+              <h4 className="font-semibold text-blue-800 mb-2 text-center">Every Greenhouse = A Node</h4>
+              <p className="text-sm text-blue-700 text-center">
+                Like Bitcoin decentralized money, we're decentralizing food production.
+                <br />
+                The more nodes (greenhouses), the more resilient the network.
+                <br />
+                <strong>No government, no corporation, no disaster can take it down.</strong>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* AI Chefs Still Need Ingredients */}
+        <section>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">🤖👨‍🍳 The Foundation Layer</h2>
+          <div className="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-xl border border-orange-200 p-6">
+            <div className="text-center mb-6">
+              <h3 className="text-xl font-semibold text-gray-900">
+                Even Robot Chefs Need Fresh Ingredients
+              </h3>
+              <p className="text-gray-600 mt-2">
+                AI can cook. Robots can plate. But they can't create nutrition from nothing.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-lg p-6 mb-6">
+              <h4 className="font-semibold text-gray-900 mb-4 text-center">The Future Kitchen Stack</h4>
+              <div className="space-y-3">
+                <div className="flex items-center gap-4 p-3 bg-gray-50 rounded-lg">
+                  <div className="text-2xl">🤖</div>
+                  <div className="flex-1">
+                    <strong className="text-gray-900">AI Recipe Generation</strong>
+                    <p className="text-sm text-gray-600">Creates perfect recipes for your health goals</p>
+                  </div>
+                  <div className="text-gray-400">Layer 4</div>
+                </div>
+                <div className="flex items-center gap-4 p-3 bg-gray-50 rounded-lg">
+                  <div className="text-2xl">🦾</div>
+                  <div className="flex-1">
+                    <strong className="text-gray-900">Robotic Cooking</strong>
+                    <p className="text-sm text-gray-600">Prepares meals with perfect precision</p>
+                  </div>
+                  <div className="text-gray-400">Layer 3</div>
+                </div>
+                <div className="flex items-center gap-4 p-3 bg-gray-50 rounded-lg">
+                  <div className="text-2xl">📦</div>
+                  <div className="flex-1">
+                    <strong className="text-gray-900">Ingredient Logistics</strong>
+                    <p className="text-sm text-gray-600">Gets food from source to kitchen</p>
+                  </div>
+                  <div className="text-gray-400">Layer 2</div>
+                </div>
+                <div className="flex items-center gap-4 p-3 bg-greenhouse-100 rounded-lg border-2 border-greenhouse-500">
+                  <div className="text-2xl">🌱</div>
+                  <div className="flex-1">
+                    <strong className="text-gray-900">Growing (We Are Here)</strong>
+                    <p className="text-sm text-gray-600">Fresh, nutrient-dense, local ingredients</p>
+                  </div>
+                  <div className="text-greenhouse-600 font-bold">Layer 1</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="text-center">
+              <p className="text-gray-700 mb-2">
+                <strong>We are the foundation layer.</strong>
+              </p>
+              <p className="text-gray-600">
+                No matter how advanced AI cooking becomes, it all starts with what's grown.
+                <br />
+                The best robot chef with wilted, nutrient-depleted produce makes bad food.
+                <br />
+                <strong>Garbage in, garbage out. Fresh in, health out.</strong>
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* The Future of Food */}
         <section>
           <h2 className="text-2xl font-bold text-gray-900 mb-4">🚀 The Future of Food</h2>
@@ -359,12 +630,22 @@ export default function AboutPage() {
               </div>
             </div>
 
+            <div className="mt-6 bg-white rounded-lg p-4">
+              <h4 className="font-semibold text-gray-900 mb-3 text-center">Plants We Haven't Discovered Yet</h4>
+              <p className="text-sm text-gray-600 text-center">
+                There are compounds in plants we haven't identified. Effects we haven't studied. 
+                Combinations that could cure diseases we currently treat with drugs.
+                <br /><br />
+                <strong>Your greenhouse is a laboratory. The future of medicine might grow in your backyard.</strong>
+              </p>
+            </div>
+
             <div className="mt-6 text-center">
               <p className="text-gray-700">
                 <strong>Your subscription funds this future.</strong>
                 <br />
                 Every month, you're not just paying for a service. 
-                You're investing in a world where everyone eats.
+                You're investing in a world where everyone eats — and heals.
               </p>
             </div>
           </div>
