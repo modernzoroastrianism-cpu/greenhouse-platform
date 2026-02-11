@@ -1,6 +1,6 @@
 'use client'
 
-import { ArrowRight, Bot, Leaf, Users, TrendingUp, Zap, Home, DollarSign, Network, ShoppingCart, Sprout } from 'lucide-react'
+import { ArrowRight, Bot, Leaf, Users, TrendingUp, Home, DollarSign, Network, ShoppingCart, Sprout, Shield, Truck, Heart } from 'lucide-react'
 import Link from 'next/link'
 
 export default function LandingPage() {
@@ -8,64 +8,141 @@ export default function LandingPage() {
     <div className="min-h-screen bg-white">
       {/* Hero */}
       <header className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-green-900 via-emerald-800 to-teal-900" />
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-900 via-green-800 to-teal-900" />
         
         <div className="relative max-w-5xl mx-auto px-6 py-20 text-center">
           <div className="mb-8">
-            <span className="inline-block px-4 py-2 bg-yellow-400/20 backdrop-blur rounded-full text-yellow-300 text-sm font-bold mb-6 animate-pulse">
-              🚀 The First AI-Powered Growing Network
+            {/* AMNI Logo */}
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <span className="text-5xl">🌱</span>
+              <span className="text-4xl md:text-5xl font-bold text-white tracking-tight">AMNI</span>
+            </div>
+            
+            <span className="inline-block px-4 py-2 bg-yellow-400/20 backdrop-blur rounded-full text-yellow-300 text-sm font-bold mb-6">
+              🚀 Production by the Mass, Not Mass Production
             </span>
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
               Your AI grows food.
               <br />
-              Sells the excess.
+              Sells to the marketplace.
               <br />
-              <span className="text-emerald-300">Recruits for you.</span>
+              <span className="text-emerald-300">Builds your network.</span>
             </h1>
             <p className="text-xl md:text-2xl text-emerald-100 max-w-3xl mx-auto mb-4">
-              Buy a greenhouse. Get an AI agent.
+              Join the ecosystem. Get a growing package. Your AI handles the rest.
               <br />
-              <span className="text-white font-semibold">It works while you sleep.</span>
-            </p>
-            <p className="text-lg text-emerald-200/80 max-w-2xl mx-auto">
-              Grow food for your family. Sell the surplus locally. 
-              Your AI recruits new growers — you earn from everyone it brings in.
+              <span className="text-white font-semibold">Profit-share with every producer you bring in.</span>
             </p>
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-            <Link href="/join" 
+            <Link href="/packages" 
                className="flex items-center gap-2 bg-yellow-400 text-gray-900 px-8 py-4 rounded-full text-lg font-bold hover:bg-yellow-300 transition-colors shadow-lg">
-              Join the Network
+              View Packages
               <ArrowRight className="w-5 h-5" />
             </Link>
-            <Link href="/calculator"
-               className="flex items-center gap-2 text-white/90 hover:text-white px-6 py-4 transition-colors underline underline-offset-4">
-              See earning potential →
+            <Link href="/marketplace"
+               className="flex items-center gap-2 bg-white/10 backdrop-blur text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white/20 transition-colors">
+              <ShoppingCart className="w-5 h-5" />
+              Explore Marketplace
             </Link>
           </div>
 
-          {/* Social Proof */}
-          <div className="flex items-center justify-center gap-2 text-emerald-200/70 text-sm">
-            <span className="flex -space-x-2">
-              {['🧑‍🌾', '👩‍🌾', '👨‍🌾', '🧑‍🌾', '👩‍🌾'].map((emoji, i) => (
-                <span key={i} className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center">{emoji}</span>
-              ))}
+          {/* Trust badges */}
+          <div className="flex flex-wrap items-center justify-center gap-6 text-emerald-200/70 text-sm">
+            <span className="flex items-center gap-2">
+              <Shield className="w-4 h-4" />
+              AMNI Handles Legal & Insurance
             </span>
-            <span>Join 1,000+ growers building the network</span>
+            <span className="flex items-center gap-2">
+              <Truck className="w-4 h-4" />
+              Fulfillment Network
+            </span>
+            <span className="flex items-center gap-2">
+              <Heart className="w-4 h-4" />
+              Profit Sharing
+            </span>
           </div>
         </div>
       </header>
 
-      {/* How It Works - Simple */}
+      {/* The Problem */}
+      <section className="py-16 px-6 bg-red-50">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+              The grocery system is broken
+            </h2>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6 text-center">
+            <div className="bg-white rounded-xl p-6">
+              <div className="text-3xl mb-2">🏪</div>
+              <div className="font-bold text-gray-900">4 Retailers Control Everything</div>
+              <div className="text-sm text-gray-600">They decide what's grown, how it's priced, who sells</div>
+            </div>
+            <div className="bg-white rounded-xl p-6">
+              <div className="text-3xl mb-2">🗑️</div>
+              <div className="font-bold text-gray-900">400M lbs Wasted</div>
+              <div className="text-sm text-gray-600">Food perishes in warehouses while 1 billion go hungry</div>
+            </div>
+            <div className="bg-white rounded-xl p-6">
+              <div className="text-3xl mb-2">🚚</div>
+              <div className="font-bold text-gray-900">1,500+ Miles</div>
+              <div className="text-sm text-gray-600">Average distance food travels from farm to plate</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* The AMNI Solution */}
+      <section className="py-20 px-6">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              The AMNI Solution
+            </h2>
+            <p className="text-xl text-gray-600">
+              Direct connection: Producers → AMNI → Consumers
+              <br />
+              <strong>No retailers. No waste. Local everything.</strong>
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <SolutionCard
+              emoji="🌱"
+              title="You Produce"
+              description="Get a growing package. Your AI guides everything. Grow high-quality, local food."
+              link="/packages"
+              linkText="See packages"
+            />
+            <SolutionCard
+              emoji="🏪"
+              title="AMNI Buys"
+              description="We purchase your surplus at fair prices. We handle legal, insurance, regulations."
+              link="/marketplace"
+              linkText="View marketplace"
+            />
+            <SolutionCard
+              emoji="🛒"
+              title="Consumers Get"
+              description="Fresh, local, affordable. Subscriptions, meal kits, or individual orders."
+              link="/shop"
+              linkText="Shop now"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works - For Producers */}
       <section className="py-20 px-6 bg-gray-50">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              How it works
+              How it works for producers
             </h2>
             <p className="text-xl text-gray-600">
-              Four steps to passive income from food
+              Your AI does the hard work. You share in the profits.
             </p>
           </div>
 
@@ -73,26 +150,26 @@ export default function LandingPage() {
             <StepCard
               number="1"
               icon={<Home className="w-8 h-8" />}
-              title="Get a Greenhouse"
-              description="Start with any size. Your growing hub."
+              title="Get a Package"
+              description="Indoor, outdoor, or urban. Financing available."
             />
             <StepCard
               number="2"
               icon={<Bot className="w-8 h-8" />}
-              title="Activate Your AI"
-              description="Your personal AI agent starts working immediately."
+              title="AI Guides You"
+              description="24/7 expert guidance. No experience needed."
             />
             <StepCard
               number="3"
               icon={<Leaf className="w-8 h-8" />}
-              title="Grow & Sell"
-              description="AI grows food. You eat. AI sells excess locally."
+              title="Sell to AMNI"
+              description="We buy your surplus. Fair prices, instant payment."
             />
             <StepCard
               number="4"
               icon={<Network className="w-8 h-8" />}
-              title="Earn From Network"
-              description="AI recruits new growers. You earn on their activity."
+              title="Grow Network"
+              description="Your AI recruits. You earn on everyone they bring."
             />
           </div>
         </div>
@@ -115,30 +192,30 @@ export default function LandingPage() {
               emoji="🌱"
               title="Grows Your Food"
               tasks={[
-                "Monitors temperature, humidity, soil",
+                "Monitors all conditions",
                 "Tells you exactly what to do",
-                "Catches problems before you see them",
-                "Optimizes for maximum yield"
+                "Catches problems early",
+                "Maximizes yield & quality"
               ]}
             />
             <AITaskCard
               emoji="💰"
-              title="Sells Your Excess"
+              title="Sells to AMNI"
               tasks={[
-                "Lists surplus on local marketplace",
-                "Handles customer messages",
+                "Lists your available surplus",
                 "Coordinates pickup/delivery",
-                "Deposits earnings to your account"
+                "Handles all paperwork",
+                "Deposits earnings instantly"
               ]}
             />
             <AITaskCard
               emoji="🚀"
-              title="Recruits For You"
+              title="Recruits Producers"
               tasks={[
-                "Finds potential growers online",
-                "Explains the network benefits",
-                "Handles all the conversations",
-                "Signs them up under YOU"
+                "Finds potential growers",
+                "Explains AMNI benefits",
+                "Handles conversations",
+                "Signs them under YOU"
               ]}
             />
           </div>
@@ -154,91 +231,85 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* The Math */}
+      {/* Earning Structure */}
       <section className="py-20 px-6 bg-emerald-900 text-white">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              The earning potential
+              Three ways to earn
             </h2>
             <p className="text-xl text-emerald-200">
-              Three income streams working simultaneously
+              Production by the mass. Profit sharing for all.
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6 mb-12">
             <IncomeCard
               icon={<Leaf className="w-6 h-6" />}
-              title="Food Savings"
+              title="Food + Savings"
               amount="$200-500"
               period="/month"
-              description="Grow what you'd buy. Average family saves $300/month on groceries."
+              description="Eat what you grow. Save on groceries. Health included."
             />
             <IncomeCard
-              icon={<ShoppingCart className="w-6 h-6" />}
+              icon={<DollarSign className="w-6 h-6" />}
               title="Surplus Sales"
               amount="$100-1000"
               period="/month"
-              description="Your AI sells what you don't eat. Local, fresh, premium prices."
+              description="AMNI buys your excess at fair prices. Guaranteed market."
             />
             <IncomeCard
               icon={<Users className="w-6 h-6" />}
-              title="Network Earnings"
+              title="Network Profit Share"
               amount="Unlimited"
               period=""
-              description="Earn on every sale from everyone your AI recruits. And their recruits."
+              description="Earn % on every producer your AI brings to AMNI."
             />
           </div>
 
           {/* Network Example */}
           <div className="bg-white/10 rounded-2xl p-8">
-            <h3 className="text-xl font-bold mb-6 text-center">Example: Your AI recruits 3 people...</h3>
+            <h3 className="text-xl font-bold mb-6 text-center">Your AI recruits 3 producers...</h3>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-white/20">
                     <th className="text-left py-2 text-emerald-300">Level</th>
-                    <th className="text-center py-2 text-emerald-300">People</th>
-                    <th className="text-center py-2 text-emerald-300">If each sells $500/mo</th>
-                    <th className="text-right py-2 text-emerald-300">Your 10% cut</th>
+                    <th className="text-center py-2 text-emerald-300">Producers</th>
+                    <th className="text-center py-2 text-emerald-300">Combined Sales</th>
+                    <th className="text-right py-2 text-emerald-300">Your Share</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr className="border-b border-white/10">
                     <td className="py-3">You</td>
                     <td className="text-center">1</td>
-                    <td className="text-center">$500</td>
-                    <td className="text-right">$500 (yours)</td>
+                    <td className="text-center">$500/mo</td>
+                    <td className="text-right">$500</td>
                   </tr>
                   <tr className="border-b border-white/10">
-                    <td className="py-3">Level 1 <span className="text-emerald-400 text-xs">(your AI recruited)</span></td>
+                    <td className="py-3">Level 1</td>
                     <td className="text-center">3</td>
-                    <td className="text-center">$1,500</td>
+                    <td className="text-center">$1,500/mo</td>
                     <td className="text-right text-emerald-400">+$150</td>
                   </tr>
                   <tr className="border-b border-white/10">
-                    <td className="py-3">Level 2 <span className="text-emerald-400 text-xs">(their AIs recruited)</span></td>
+                    <td className="py-3">Level 2</td>
                     <td className="text-center">9</td>
-                    <td className="text-center">$4,500</td>
+                    <td className="text-center">$4,500/mo</td>
                     <td className="text-right text-emerald-400">+$225</td>
                   </tr>
                   <tr className="border-b border-white/10">
                     <td className="py-3">Level 3</td>
                     <td className="text-center">27</td>
-                    <td className="text-center">$13,500</td>
+                    <td className="text-center">$13,500/mo</td>
                     <td className="text-right text-emerald-400">+$337</td>
                   </tr>
-                  <tr className="border-b border-white/10">
-                    <td className="py-3">Level 4</td>
-                    <td className="text-center">81</td>
-                    <td className="text-center">$40,500</td>
-                    <td className="text-right text-emerald-400">+$405</td>
-                  </tr>
                   <tr className="font-bold">
-                    <td className="py-3">Total Monthly</td>
-                    <td className="text-center">121 growers</td>
-                    <td className="text-center">$60,500</td>
-                    <td className="text-right text-yellow-400">$1,617/mo</td>
+                    <td className="py-3">Total</td>
+                    <td className="text-center">40 producers</td>
+                    <td className="text-center">$20,000/mo</td>
+                    <td className="text-right text-yellow-400">$1,212/mo</td>
                   </tr>
                 </tbody>
               </table>
@@ -250,183 +321,59 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Why This Isn't Scammy MLM */}
+      {/* Why AMNI is Different */}
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              "Isn't this MLM?"
+              Why AMNI is different
             </h2>
-            <p className="text-xl text-gray-600">
-              Yes. But not the kind that ruins friendships.
-            </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
             <div className="bg-red-50 rounded-2xl p-8 border border-red-100">
-              <h3 className="text-lg font-bold text-red-800 mb-4">❌ Traditional MLM</h3>
+              <h3 className="text-lg font-bold text-red-800 mb-4">❌ The Old Way</h3>
               <ul className="space-y-3 text-gray-700">
                 <li className="flex items-start gap-3">
                   <span className="text-red-400">✗</span>
-                  YOU awkwardly pitch friends and family
+                  Retailers take 30-50% markup
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-red-400">✗</span>
-                  Product is overpriced junk nobody needs
+                  You can't sell direct — regulations, insurance
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-red-400">✗</span>
-                  99% of people lose money
+                  Find your own customers
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-red-400">✗</span>
-                  Value only exists if you recruit
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-red-400">✗</span>
-                  Leaves you with garage full of supplements
+                  No expertise? Figure it out yourself.
                 </li>
               </ul>
             </div>
 
             <div className="bg-emerald-50 rounded-2xl p-8 border border-emerald-100">
-              <h3 className="text-lg font-bold text-emerald-800 mb-4">✅ AI Growing Network</h3>
+              <h3 className="text-lg font-bold text-emerald-800 mb-4">✅ The AMNI Way</h3>
               <ul className="space-y-3 text-gray-700">
                 <li className="flex items-start gap-3">
                   <span className="text-emerald-500">✓</span>
-                  <strong>AI recruits for you</strong> — zero awkwardness
+                  <strong>Fair prices</strong> — no retailer middlemen
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-emerald-500">✓</span>
-                  Product is food you actually eat
+                  <strong>AMNI handles compliance</strong> — legal, insurance, regs
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-emerald-500">✓</span>
-                  Even if you recruit no one, you have food
+                  <strong>Guaranteed market</strong> — AMNI buys your surplus
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-emerald-500">✓</span>
-                  Value exists at every level (food security)
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-emerald-500">✓</span>
-                  Worst case: fresh vegetables for your family
+                  <strong>AI expert 24/7</strong> — no experience needed
                 </li>
               </ul>
             </div>
-          </div>
-
-          <div className="mt-12 bg-gray-100 rounded-2xl p-8 text-center">
-            <p className="text-xl text-gray-800 mb-2">
-              <strong>The floor is food security.</strong>
-            </p>
-            <p className="text-gray-600">
-              Traditional MLM worst case: you lose money and friends.
-              <br />
-              Our worst case: you grow food for your family. That's it.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* FOMO Section */}
-      <section className="py-20 px-6 bg-gradient-to-br from-yellow-400 to-amber-500">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-            Early adopters build the biggest networks
-          </h2>
-          <p className="text-xl text-gray-800 mb-8 max-w-2xl mx-auto">
-            Every day you wait, someone else's AI is recruiting the people who could've been in YOUR network.
-          </p>
-          
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
-            <div className="bg-white/90 rounded-xl p-6">
-              <div className="text-3xl mb-2">🥇</div>
-              <div className="font-bold text-gray-900">Join in Month 1</div>
-              <div className="text-sm text-gray-600">4 levels deep by month 6</div>
-            </div>
-            <div className="bg-white/70 rounded-xl p-6">
-              <div className="text-3xl mb-2">🥈</div>
-              <div className="font-bold text-gray-900">Join in Month 3</div>
-              <div className="text-sm text-gray-600">2 levels deep by month 6</div>
-            </div>
-            <div className="bg-white/50 rounded-xl p-6">
-              <div className="text-3xl mb-2">🥉</div>
-              <div className="font-bold text-gray-900">Join in Month 6</div>
-              <div className="text-sm text-gray-600">Starting from scratch</div>
-            </div>
-          </div>
-
-          <Link href="/join"
-             className="inline-flex items-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-gray-800 transition-colors shadow-lg">
-            Claim Your Position
-            <ArrowRight className="w-5 h-5" />
-          </Link>
-        </div>
-      </section>
-
-      {/* What You Get */}
-      <section className="py-20 px-6">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              What you get when you join
-            </h2>
-          </div>
-
-          <div className="bg-gray-50 rounded-2xl p-8 mb-8">
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">🏠 Starter Package</h3>
-                <ul className="space-y-2 text-gray-700">
-                  <li className="flex items-center gap-2">
-                    <span className="text-emerald-500">✓</span>
-                    Greenhouse kit (multiple sizes available)
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-emerald-500">✓</span>
-                    Smart sensors (temp, humidity, soil)
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-emerald-500">✓</span>
-                    Starter seeds and supplies
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-emerald-500">✓</span>
-                    Setup guide and video training
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">🤖 Your AI Agent</h3>
-                <ul className="space-y-2 text-gray-700">
-                  <li className="flex items-center gap-2">
-                    <span className="text-emerald-500">✓</span>
-                    Personal AI gardener (24/7 available)
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-emerald-500">✓</span>
-                    Automated surplus sales system
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-emerald-500">✓</span>
-                    AI recruitment engine (works for you)
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-emerald-500">✓</span>
-                    Network dashboard and earnings tracker
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div className="text-center">
-            <p className="text-gray-600 mb-6">Starting packages from $499</p>
-            <Link href="/packages"
-               className="text-emerald-600 hover:text-emerald-700 font-medium underline underline-offset-4">
-              View all package options →
-            </Link>
           </div>
         </div>
       </section>
@@ -436,14 +383,14 @@ export default function LandingPage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              This isn't just about food.
+              This isn't just business.
               <br />
-              <span className="text-amber-700">It's about the good life.</span>
+              <span className="text-amber-700">It's the good life.</span>
             </h2>
             <p className="text-xl text-gray-600">
-              Your grandparents had gardens, canned their harvest, and knew their neighbors.
+              Your grandparents had gardens, canned their harvest, knew their neighbors.
               <br />
-              We're bringing that back.
+              AMNI brings that back.
             </p>
           </div>
 
@@ -472,12 +419,12 @@ export default function LandingPage() {
 
           <div className="bg-white rounded-2xl p-8 text-center">
             <p className="text-lg text-gray-700 mb-4">
-              <strong>Would we all be healthier and happier living like our ancestors did?</strong>
+              <strong>Would we all be healthier and happier living like this?</strong>
             </p>
             <p className="text-gray-600 mb-6">
-              Growing food. Preserving the harvest. Sharing meals with neighbors.
+              Growing food. Preserving the harvest. Sharing meals. Building community.
               <br />
-              We're just using AI to make it possible again.
+              AI just makes it possible again.
             </p>
             <Link href="/lifestyle" className="text-amber-700 font-semibold hover:underline">
               Learn about the good life →
@@ -486,45 +433,66 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* The Bigger Picture */}
-      <section className="py-20 px-6 bg-gray-900 text-white">
+      {/* FOMO */}
+      <section className="py-20 px-6 bg-gradient-to-br from-yellow-400 to-amber-500">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            You're not just growing food.
-            <br />
-            <span className="text-emerald-400">You're proving AI can help humanity.</span>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+            Early producers build the biggest networks
           </h2>
-          <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
-            Everyone's scared AI will take their jobs. We're building the counter-example:
-            AI that grows food, creates income, and works <em>for</em> people.
+          <p className="text-xl text-gray-800 mb-8 max-w-2xl mx-auto">
+            Every day you wait, someone else's AI is recruiting the producers who could be in YOUR network.
           </p>
-          <p className="text-gray-400">
-            Every greenhouse is a node in a decentralized food network.
-            <br />
-            Every AI agent is proof that artificial intelligence can be aligned with human flourishing.
-          </p>
+          
+          <div className="grid md:grid-cols-3 gap-6 mb-12">
+            <div className="bg-white/90 rounded-xl p-6">
+              <div className="text-3xl mb-2">🥇</div>
+              <div className="font-bold text-gray-900">Join Month 1</div>
+              <div className="text-sm text-gray-600">4 levels deep by month 6</div>
+            </div>
+            <div className="bg-white/70 rounded-xl p-6">
+              <div className="text-3xl mb-2">🥈</div>
+              <div className="font-bold text-gray-900">Join Month 3</div>
+              <div className="text-sm text-gray-600">2 levels deep by month 6</div>
+            </div>
+            <div className="bg-white/50 rounded-xl p-6">
+              <div className="text-3xl mb-2">🥉</div>
+              <div className="font-bold text-gray-900">Join Month 6</div>
+              <div className="text-sm text-gray-600">Starting from scratch</div>
+            </div>
+          </div>
+
+          <Link href="/packages"
+             className="inline-flex items-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-gray-800 transition-colors shadow-lg">
+            Claim Your Position
+            <ArrowRight className="w-5 h-5" />
+          </Link>
         </div>
       </section>
 
-      {/* Final CTA */}
+      {/* CTA */}
       <section className="py-20 px-6 bg-gradient-to-br from-emerald-600 to-teal-700 text-white">
         <div className="max-w-3xl mx-auto text-center">
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <span className="text-4xl">🌱</span>
+            <span className="text-3xl font-bold">AMNI</span>
+          </div>
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Your AI is ready to work.
+            Join the ecosystem.
           </h2>
           <p className="text-xl text-emerald-100 mb-8">
-            Growing. Selling. Recruiting. 24/7.
-            <br />
-            The only question is when you start.
+            Get a package. Start producing. Your AI handles the rest.
           </p>
-          <Link href="/join"
-             className="inline-flex items-center gap-2 bg-yellow-400 text-gray-900 px-8 py-4 rounded-full text-lg font-bold hover:bg-yellow-300 transition-colors shadow-lg">
-            Join the Network Now
-            <ArrowRight className="w-5 h-5" />
-          </Link>
-          <p className="mt-6 text-emerald-200 text-sm">
-            Questions? <Link href="/faq" className="underline hover:text-white">Read the FAQ</Link> or talk to our AI
-          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link href="/packages"
+               className="flex items-center gap-2 bg-yellow-400 text-gray-900 px-8 py-4 rounded-full text-lg font-bold hover:bg-yellow-300 transition-colors shadow-lg">
+              View Packages
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+            <Link href="/marketplace"
+               className="flex items-center gap-2 bg-white/10 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white/20 transition-colors">
+              Explore Marketplace
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -533,43 +501,65 @@ export default function LandingPage() {
         <div className="max-w-5xl mx-auto">
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
-              <div className="text-2xl mb-2">🌱🤖</div>
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-2xl">🌱</span>
+                <span className="text-xl font-bold text-white">AMNI</span>
+              </div>
               <p className="text-sm">
-                AI-powered growing network.
+                Production by the mass.
                 <br />
-                Food security + passive income.
+                Not mass production.
               </p>
             </div>
             <div>
-              <h4 className="text-white font-medium mb-3">Get Started</h4>
+              <h4 className="text-white font-medium mb-3">Produce</h4>
               <ul className="space-y-2 text-sm">
-                <li><Link href="/join" className="hover:text-white">Join Now</Link></li>
                 <li><Link href="/packages" className="hover:text-white">Packages</Link></li>
+                <li><Link href="/join" className="hover:text-white">Join Network</Link></li>
                 <li><Link href="/calculator" className="hover:text-white">Earning Calculator</Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="text-white font-medium mb-3">Learn More</h4>
+              <h4 className="text-white font-medium mb-3">Consume</h4>
               <ul className="space-y-2 text-sm">
-                <li><Link href="/how-it-works" className="hover:text-white">How It Works</Link></li>
-                <li><Link href="/about" className="hover:text-white">About</Link></li>
-                <li><Link href="/faq" className="hover:text-white">FAQ</Link></li>
+                <li><Link href="/marketplace" className="hover:text-white">Marketplace</Link></li>
+                <li><Link href="/subscriptions" className="hover:text-white">Subscriptions</Link></li>
+                <li><Link href="/meal-kits" className="hover:text-white">Meal Kits</Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="text-white font-medium mb-3">Network</h4>
+              <h4 className="text-white font-medium mb-3">AMNI</h4>
               <ul className="space-y-2 text-sm">
-                <li><Link href="/marketplace" className="hover:text-white">Food Marketplace</Link></li>
-                <li><Link href="/dashboard" className="hover:text-white">Grower Dashboard</Link></li>
-                <li><a href="https://github.com/modernzoroastrianism-cpu/greenhouse-platform" className="hover:text-white">Open Source</a></li>
+                <li><Link href="/about" className="hover:text-white">About</Link></li>
+                <li><Link href="/lifestyle" className="hover:text-white">The Good Life</Link></li>
+                <li><Link href="/how-it-works" className="hover:text-white">How It Works</Link></li>
               </ul>
             </div>
           </div>
           <div className="border-t border-gray-800 pt-8 text-center text-sm">
-            <p>Built by AI, for humans 🌱</p>
+            <p>🌱 AMNI — Resilient sharing ecosystem for the future of food</p>
           </div>
         </div>
       </footer>
+    </div>
+  )
+}
+
+function SolutionCard({ emoji, title, description, link, linkText }: {
+  emoji: string
+  title: string
+  description: string
+  link: string
+  linkText: string
+}) {
+  return (
+    <div className="bg-gray-50 rounded-2xl p-6 text-center">
+      <div className="text-5xl mb-4">{emoji}</div>
+      <h3 className="text-xl font-bold text-gray-900 mb-2">{title}</h3>
+      <p className="text-gray-600 mb-4">{description}</p>
+      <Link href={link} className="text-emerald-600 font-medium hover:underline">
+        {linkText} →
+      </Link>
     </div>
   )
 }
