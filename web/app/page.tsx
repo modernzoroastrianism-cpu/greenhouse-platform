@@ -8,30 +8,42 @@ export default function LandingPage() {
     <div className="min-h-screen bg-white">
       {/* Hero */}
       <header className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-900 via-green-800 to-teal-900" />
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-emerald-900 to-gray-900" />
         
         <div className="relative max-w-5xl mx-auto px-6 py-20 text-center">
           <div className="mb-8">
             {/* AMNI Logo */}
-            <div className="flex items-center justify-center gap-3 mb-6">
+            <div className="flex items-center justify-center gap-3 mb-8">
               <span className="text-5xl">🌱</span>
               <span className="text-4xl md:text-5xl font-bold text-white tracking-tight">AMNI</span>
             </div>
             
-            <span className="inline-block px-4 py-2 bg-yellow-400/20 backdrop-blur rounded-full text-yellow-300 text-sm font-bold mb-6">
-              🚀 Production by the Mass, Not Mass Production
-            </span>
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
-              Your AI grows food.
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+              What could be more important
               <br />
-              Sells to the marketplace.
-              <br />
-              <span className="text-emerald-300">Builds your network.</span>
+              <span className="text-emerald-400">than growing food?</span>
             </h1>
-            <p className="text-xl md:text-2xl text-emerald-100 max-w-3xl mx-auto mb-4">
-              Join the ecosystem. Get a growing package. Your AI handles the rest.
+            
+            <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto mb-6">
+              The future of food is the future of us.
+            </p>
+
+            <div className="bg-red-900/40 backdrop-blur rounded-2xl p-6 max-w-2xl mx-auto mb-8 border border-red-800/50">
+              <p className="text-xl md:text-2xl text-white font-medium">
+                The human race will consume more food in the next 50 years
+                <br />
+                than it has in the <span className="text-red-400 font-bold">past 10,000 years combined.</span>
+              </p>
+              <p className="text-lg text-gray-400 mt-4">Is this problem worth solving?</p>
+              <Link href="/food-crisis" className="inline-block mt-4 text-red-400 font-medium hover:text-red-300 underline underline-offset-4">
+                See the full crisis →
+              </Link>
+            </div>
+
+            <p className="text-lg text-emerald-200 max-w-2xl mx-auto">
+              <span className="text-white font-semibold">AMNI is the solution.</span> Production by the mass, not mass production.
               <br />
-              <span className="text-white font-semibold">Profit-share with every producer you bring in.</span>
+              Get a growing package. Your AI handles the rest. Profit-share with your network.
             </p>
           </div>
 
