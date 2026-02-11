@@ -431,6 +431,61 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* The Good Life */}
+      <section className="py-20 px-6 bg-amber-50">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              This isn't just about food.
+              <br />
+              <span className="text-amber-700">It's about the good life.</span>
+            </h2>
+            <p className="text-xl text-gray-600">
+              Your grandparents had gardens, canned their harvest, and knew their neighbors.
+              <br />
+              We're bringing that back.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-4 gap-6 mb-12">
+            <div className="text-center">
+              <div className="text-4xl mb-2">🌱</div>
+              <div className="font-semibold text-gray-900">Grow</div>
+              <div className="text-sm text-gray-600">Your own food</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl mb-2">🫙</div>
+              <div className="font-semibold text-gray-900">Preserve</div>
+              <div className="text-sm text-gray-600">Jams, pickles, sauces</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl mb-2">🍽️</div>
+              <div className="font-semibold text-gray-900">Share</div>
+              <div className="text-sm text-gray-600">Dinner with neighbors</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl mb-2">🤝</div>
+              <div className="font-semibold text-gray-900">Community</div>
+              <div className="text-sm text-gray-600">Block by block</div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl p-8 text-center">
+            <p className="text-lg text-gray-700 mb-4">
+              <strong>Would we all be healthier and happier living like our ancestors did?</strong>
+            </p>
+            <p className="text-gray-600 mb-6">
+              Growing food. Preserving the harvest. Sharing meals with neighbors.
+              <br />
+              We're just using AI to make it possible again.
+            </p>
+            <Link href="/lifestyle" className="text-amber-700 font-semibold hover:underline">
+              Learn about the good life →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* The Bigger Picture */}
       <section className="py-20 px-6 bg-gray-900 text-white">
         <div className="max-w-4xl mx-auto text-center">
