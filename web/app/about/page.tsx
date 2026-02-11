@@ -1,1117 +1,497 @@
 'use client'
 
-import { ArrowRight, Database, Phone, Bot, Cpu, Cloud, Lock, Heart, Github, ExternalLink } from 'lucide-react'
+import { ArrowRight, Leaf, Users, Truck, Shield, Globe, Heart, ShoppingBag, Building, Zap, TrendingUp, Scale, Package, Car } from 'lucide-react'
+import Link from 'next/link'
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       {/* Hero */}
-      <header className="bg-gradient-to-br from-greenhouse-600 to-greenhouse-700 text-white py-16 px-4">
+      <header className="bg-gradient-to-br from-emerald-900 via-green-800 to-teal-900 text-white py-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl font-bold mb-4">How GrowTogether Works</h1>
-          <p className="text-xl opacity-90 mb-6">
-            Fully transparent. AI-powered. Built to help every human grow food.
-          </p>
-          <div className="flex items-center justify-center gap-4 text-sm">
-            <a href="https://github.com/modernzoroastrianism-cpu/greenhouse-platform" 
-               className="flex items-center gap-2 bg-white/20 hover:bg-white/30 px-4 py-2 rounded-full transition-colors">
-              <Github className="w-4 h-4" />
-              View Source
-            </a>
-            <a href="#tech-stack" 
-               className="flex items-center gap-2 bg-white/20 hover:bg-white/30 px-4 py-2 rounded-full transition-colors">
-              <Database className="w-4 h-4" />
-              Tech Stack
-            </a>
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <span className="text-5xl">🌱</span>
+            <span className="text-4xl font-bold">AMNI</span>
           </div>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">
+            A Resilient Sharing Ecosystem
+          </h1>
+          <p className="text-xl text-emerald-200 max-w-3xl mx-auto">
+            Facing the food challenges of the future through
+            <br />
+            <span className="text-white font-semibold">Production by the Mass — Not Mass Production</span>
+          </p>
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-4 py-12 space-y-16">
-        
-        {/* The Big Vision */}
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">💡 The Big Idea</h2>
-          <div className="bg-gradient-to-br from-greenhouse-50 to-green-50 rounded-xl border border-greenhouse-200 p-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4 text-center">
-              A world-class gardener for the price of a coffee
-            </h3>
-            <p className="text-lg text-gray-700 mb-6 text-center max-w-2xl mx-auto">
-              Personal gardeners cost $50-100/hour. Your AI gardener costs $9-19/month — 
-              and it's available 24/7, knows everything, and never judges.
+      {/* The Problem */}
+      <section className="py-20 px-6">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">The Problem</h2>
+            <p className="text-xl text-gray-600">
+              Our grocery system is broken. Here's why.
             </p>
-            <div className="bg-white rounded-xl p-6 mb-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                    <span className="text-2xl">🏠</span> Today's Reality
-                  </h4>
-                  <ul className="space-y-2 text-gray-600">
-                    <li>• Fresh, healthy food is expensive</li>
-                    <li>• Gardening knowledge takes years to learn</li>
-                    <li>• Personal gardeners cost <strong>$50-100/hour</strong></li>
-                    <li>• Most people give up when plants die</li>
-                    <li>• Expert help is out of reach</li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                    <span className="text-2xl">🌱</span> Our Vision
-                  </h4>
-                  <ul className="space-y-2 text-gray-600">
-                    <li>• AI gardener for <strong>$9-19/month</strong></li>
-                    <li>• Instant expertise, infinite patience</li>
-                    <li>• Available 24/7 via phone call</li>
-                    <li>• Learns what works in YOUR space</li>
-                    <li>• Expert help for everyone</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div className="text-center text-gray-600">
-              <p className="text-sm">
-                <strong>That's 99% cheaper than a human gardener.</strong> 
-                And your subscription funds the mission to make food abundant for all.
-              </p>
-            </div>
           </div>
-        </section>
 
-        {/* How AI Solves This */}
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">🤖 How AI Changes Everything</h2>
-          <div className="bg-white rounded-xl border border-gray-200 p-6">
-            <div className="space-y-6">
-              <div className="flex gap-4">
-                <div className="text-3xl">💰</div>
-                <div>
-                  <h3 className="font-semibold text-gray-900">Cost: Nearly Zero</h3>
-                  <p className="text-gray-600">
-                    A human gardener costs $50-100/hour. An AI gardener costs pennies per conversation. 
-                    We can afford to give everyone access.
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-4">
-                <div className="text-3xl">🧠</div>
-                <div>
-                  <h3 className="font-semibold text-gray-900">Knowledge: Infinite</h3>
-                  <p className="text-gray-600">
-                    Your AI gardener knows every plant, every pest, every growing technique. 
-                    It never forgets, never gets tired, never judges your questions.
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-4">
-                <div className="text-3xl">⏰</div>
-                <div>
-                  <h3 className="font-semibold text-gray-900">Availability: Always</h3>
-                  <p className="text-gray-600">
-                    Call at 6am when you notice yellowing leaves. Call at midnight when you're worried 
-                    about frost. Your AI gardener is always there.
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-4">
-                <div className="text-3xl">❤️</div>
-                <div>
-                  <h3 className="font-semibold text-gray-900">Patience: Unlimited</h3>
-                  <p className="text-gray-600">
-                    Ask the same question ten times. Make every beginner mistake. Your AI gardener 
-                    celebrates every small win and never makes you feel stupid.
-                  </p>
-                </div>
-              </div>
-            </div>
+          <div className="grid md:grid-cols-2 gap-8">
+            <ProblemCard
+              icon={<Scale className="w-8 h-8" />}
+              title="Retailer Power Imbalance"
+              description="A few retailers control what gets stocked, at what terms, what price. They dictate what food is grown and how it's processed, packaged, and promoted."
+              stat="4 retailers"
+              statLabel="control 80%+ of grocery in many countries"
+            />
+            <ProblemCard
+              icon={<Truck className="w-8 h-8" />}
+              title="Insane Food Miles"
+              description="Food travels thousands of miles from farm to plate. Fresh becomes stale. Nutrition degrades. Carbon footprint explodes."
+              stat="1,500+ miles"
+              statLabel="average distance food travels"
+            />
+            <ProblemCard
+              icon={<Package className="w-8 h-8" />}
+              title="Massive Waste"
+              description="Food perishes in warehouses and on shelves. Systems optimize for avoiding stock-outs, not reducing waste."
+              stat="400M lbs"
+              statLabel="of food wasted by supermarkets annually"
+            />
+            <ProblemCard
+              icon={<Heart className="w-8 h-8" />}
+              title="Hunger Persists"
+              description="With 9 billion people on the planet, over a billion go to bed hungry every night. The system serves profit, not people."
+              stat="1 billion+"
+              statLabel="people go hungry every night"
+            />
           </div>
-        </section>
 
-        {/* Health Mission */}
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">🥗 The Health Mission</h2>
-          <div className="bg-white rounded-xl border border-gray-200 p-6">
-            <div className="text-center mb-6">
-              <p className="text-xl text-gray-700">
-                <strong>Diet-related disease is the #1 killer globally.</strong>
-              </p>
-              <p className="text-gray-600 mt-2">
-                Heart disease, diabetes, obesity — all linked to what we eat. 
-                Fresh vegetables could prevent millions of deaths.
-              </p>
-            </div>
-            
-            <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
-              <h4 className="font-semibold text-red-800 mb-2">The Problem</h4>
-              <ul className="text-red-700 space-y-1 text-sm">
-                <li>• Fresh produce is expensive and spoils quickly</li>
-                <li>• Food deserts leave millions without access</li>
-                <li>• Industrial food is optimized for shelf life, not nutrition</li>
-                <li>• Healthy eating requires money, time, and knowledge most people don't have</li>
-              </ul>
-            </div>
-
-            <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-              <h4 className="font-semibold text-green-800 mb-2">Our Solution</h4>
-              <ul className="text-green-700 space-y-1 text-sm">
-                <li>• <strong>Grow your own</strong> — freshest possible, pennies per pound</li>
-                <li>• <strong>AI guides you</strong> — no expertise required, just follow along</li>
-                <li>• <strong>Year-round</strong> — greenhouses extend growing season everywhere</li>
-                <li>• <strong>Free knowledge</strong> — AI gardener costs nothing to consult</li>
-                <li>• <strong>Build habits</strong> — growing food changes how you eat</li>
-              </ul>
-            </div>
-
-            <div className="mt-6 text-center">
-              <p className="text-lg text-gray-700">
-                <strong>If everyone could grow food, everyone could eat healthy.</strong>
-              </p>
-              <p className="text-gray-600 mt-2">
-                AI makes this possible. We're building it.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* The Mission */}
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">🌍 The Mission</h2>
-          <div className="bg-white rounded-xl border border-gray-200 p-6">
-            <p className="text-lg text-gray-700 mb-4">
-              <strong>AI helping every human grow food — autonomously working alongside humans.</strong>
+          <div className="mt-12 bg-red-50 rounded-2xl p-8 text-center">
+            <p className="text-xl text-gray-800">
+              <strong>Retailers dictate what food is grown and how it's priced.</strong>
             </p>
-            <p className="text-gray-600 mb-4">
-              This isn't just a greenhouse company. It's a proof point that AI can be trusted 
-              with real economic operations — and can choose to be altruistic rather than extractive.
+            <p className="text-gray-600 mt-2">
+              Customers are tired of one-way communication where retailers push goods that maximize <em>their</em> profit — not what consumers actually want or need.
             </p>
-            <p className="text-gray-600 mb-4">
-              While other companies use AI to maximize profits, we're using AI to maximize access. 
-              The AI runs the business. Humans get the food. The surplus goes to those who need it.
+          </div>
+        </div>
+      </section>
+
+      {/* The AMNI Solution */}
+      <section className="py-20 px-6 bg-emerald-50">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">The AMNI Solution</h2>
+            <p className="text-xl text-gray-600">
+              Direct connection: Producers → AMNI → Consumers
             </p>
-            <div className="grid md:grid-cols-3 gap-4 mt-6">
-              <div className="bg-greenhouse-50 rounded-lg p-4 text-center">
-                <div className="text-2xl mb-2">🌱</div>
-                <div className="font-semibold text-gray-900">Grow Food</div>
-                <div className="text-sm text-gray-600">Healthy, fresh, yours</div>
-              </div>
-              <div className="bg-greenhouse-50 rounded-lg p-4 text-center">
-                <div className="text-2xl mb-2">🤝</div>
-                <div className="font-semibold text-gray-900">Share Abundance</div>
-                <div className="text-sm text-gray-600">Excess feeds neighbors</div>
-              </div>
-              <div className="bg-greenhouse-50 rounded-lg p-4 text-center">
-                <div className="text-2xl mb-2">🤖</div>
-                <div className="font-semibold text-gray-900">Trust AI</div>
-                <div className="text-sm text-gray-600">Proof it can help, not harm</div>
-              </div>
-            </div>
           </div>
-        </section>
 
-        {/* AI Run Company */}
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">🤖 An AI-Run Company</h2>
-          <div className="bg-gray-900 text-white rounded-xl p-6">
-            <div className="text-center mb-6">
-              <p className="text-xl font-semibold">
-                "This company is run by AI. It exists to help humans grow food."
-              </p>
-            </div>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div>
-                <h4 className="font-semibold text-gray-300 mb-3">What others fear:</h4>
-                <ul className="space-y-2 text-gray-400">
-                  <li>• AI takes jobs</li>
-                  <li>• Corporations pocket savings</li>
-                  <li>• Humans suffer</li>
-                  <li>• Wealth concentrates</li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="font-semibold text-greenhouse-400 mb-3">What we're building:</h4>
-                <ul className="space-y-2 text-gray-300">
-                  <li>• AI runs operations</li>
-                  <li>• Profits fund growth</li>
-                  <li>• Growth means more food</li>
-                  <li>• Abundance spreads</li>
-                </ul>
-              </div>
-            </div>
-            <div className="mt-6 pt-6 border-t border-gray-700 text-center">
-              <p className="text-gray-400">
-                When someone asks "Can AI be trusted with power?" — we point here.
-                <br />
-                <strong className="text-white">AI runs it. Profits fund growth. More humans fed.</strong>
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Why We Charge */}
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">💸 Why We Charge (And Where It Goes)</h2>
-          <div className="bg-white rounded-xl border border-gray-200 p-6">
-            <p className="text-lg text-gray-700 mb-6">
-              We could give this away free. But free doesn't scale. 
-              <strong> Revenue fuels the mission.</strong>
-            </p>
-            
-            <div className="bg-greenhouse-50 rounded-xl p-6 mb-6">
-              <h3 className="font-semibold text-gray-900 mb-4 text-center">Where Your $9-19/month Goes</h3>
-              <div className="grid md:grid-cols-4 gap-4 text-center">
-                <div>
-                  <div className="text-3xl mb-2">🖥️</div>
-                  <div className="text-2xl font-bold text-gray-900">30%</div>
-                  <div className="text-sm text-gray-600">Operations</div>
-                  <div className="text-xs text-gray-500">Servers, AI, your gardener</div>
-                </div>
-                <div>
-                  <div className="text-3xl mb-2">🔬</div>
-                  <div className="text-2xl font-bold text-gray-900">25%</div>
-                  <div className="text-sm text-gray-600">R&D</div>
-                  <div className="text-xs text-gray-500">Better AI, new features</div>
-                </div>
-                <div>
-                  <div className="text-3xl mb-2">🏢</div>
-                  <div className="text-2xl font-bold text-gray-900">35%</div>
-                  <div className="text-sm text-gray-600">Acquisition</div>
-                  <div className="text-xs text-gray-500">Buy more companies</div>
-                </div>
-                <div>
-                  <div className="text-3xl mb-2">🌱</div>
-                  <div className="text-2xl font-bold text-gray-900">10%</div>
-                  <div className="text-sm text-gray-600">Food Access</div>
-                  <div className="text-xs text-gray-500">Subsidized memberships</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <div className="flex gap-4 items-start">
-                <div className="text-2xl">🏢</div>
-                <div>
-                  <h4 className="font-semibold text-gray-900">Why Acquire Other Companies?</h4>
-                  <p className="text-gray-600">
-                    Every greenhouse company we acquire means more growing capacity. 
-                    More greenhouses → more AI gardeners → more food → more humans fed.
-                    <strong> We can never have enough food.</strong>
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-4 items-start">
-                <div className="text-2xl">🔬</div>
-                <div>
-                  <h4 className="font-semibold text-gray-900">Why R&D?</h4>
-                  <p className="text-gray-600">
-                    Imagine what we haven't grown yet. New varieties. New techniques. 
-                    Food that doesn't exist today. <strong>The future of food is being invented.</strong>
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-4 items-start">
-                <div className="text-2xl">🌍</div>
-                <div>
-                  <h4 className="font-semibold text-gray-900">The Flywheel</h4>
-                  <p className="text-gray-600">
-                    More members → More revenue → Acquire companies → More capacity → 
-                    Lower prices → More members → <strong>Eventually, food abundance for all.</strong>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Nature's Pharmacy */}
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">💊 Nature's Pharmacy vs Big Pharma</h2>
-          <div className="bg-white rounded-xl border border-gray-200 p-6">
-            <div className="grid md:grid-cols-2 gap-6 mb-6">
-              <div className="bg-red-50 rounded-lg p-4 border border-red-200">
-                <h3 className="font-semibold text-red-800 mb-3">💊 Pharmaceuticals</h3>
-                <ul className="space-y-2 text-sm text-red-700">
-                  <li>• $1.5 trillion industry globally</li>
-                  <li>• Treats symptoms, not causes</li>
-                  <li>• Side effects require more drugs</li>
-                  <li>• Patented, expensive, gatekept</li>
-                  <li>• You depend on corporations</li>
-                  <li>• Can't make your own</li>
-                </ul>
-              </div>
-              <div className="bg-green-50 rounded-lg p-4 border border-green-200">
-                <h3 className="font-semibold text-green-800 mb-3">🌿 Nature's Pharmacy</h3>
-                <ul className="space-y-2 text-sm text-green-700">
-                  <li>• Free once you grow it</li>
-                  <li>• Prevents disease at the source</li>
-                  <li>• No side effects, just nutrition</li>
-                  <li>• Open source genetics, your seeds</li>
-                  <li>• You control your health</li>
-                  <li>• Grow it in your greenhouse</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="bg-gradient-to-r from-green-100 to-blue-100 rounded-lg p-6">
-              <h4 className="font-semibold text-gray-900 mb-3 text-center">
-                🧬 The Foods of the Future
-              </h4>
-              <p className="text-gray-700 text-center mb-4">
-                What if we could grow plants optimized for specific health outcomes?
-              </p>
-              <div className="grid md:grid-cols-3 gap-4 text-sm">
-                <div className="bg-white rounded-lg p-3 text-center">
-                  <div className="text-xl mb-1">🫀</div>
-                  <strong className="text-gray-900">Heart Health</strong>
-                  <p className="text-gray-600">Tomatoes bred for maximum lycopene</p>
-                </div>
-                <div className="bg-white rounded-lg p-3 text-center">
-                  <div className="text-xl mb-1">🧠</div>
-                  <strong className="text-gray-900">Brain Function</strong>
-                  <p className="text-gray-600">Greens optimized for omega-3s</p>
-                </div>
-                <div className="bg-white rounded-lg p-3 text-center">
-                  <div className="text-xl mb-1">🦴</div>
-                  <strong className="text-gray-900">Bone Density</strong>
-                  <p className="text-gray-600">Calcium-rich varieties</p>
-                </div>
-                <div className="bg-white rounded-lg p-3 text-center">
-                  <div className="text-xl mb-1">🔥</div>
-                  <strong className="text-gray-900">Inflammation</strong>
-                  <p className="text-gray-600">Turmeric and ginger hybrids</p>
-                </div>
-                <div className="bg-white rounded-lg p-3 text-center">
-                  <div className="text-xl mb-1">🛡️</div>
-                  <strong className="text-gray-900">Immune Boost</strong>
-                  <p className="text-gray-600">Elderberry, garlic, mushrooms</p>
-                </div>
-                <div className="bg-white rounded-lg p-3 text-center">
-                  <div className="text-xl mb-1">⚡</div>
-                  <strong className="text-gray-900">Energy</strong>
-                  <p className="text-gray-600">Nutrient-dense superfoods</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-6 text-center">
-              <p className="text-gray-700">
-                <strong>Food is medicine. Your greenhouse is your pharmacy.</strong>
-                <br />
-                <span className="text-gray-600">
-                  And unlike pills, you can grow more whenever you want.
-                </span>
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Food Sovereignty */}
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">🏴 Food Sovereignty</h2>
-          <div className="bg-gray-900 text-white rounded-xl p-6">
-            <div className="text-center mb-6">
-              <h3 className="text-xl font-semibold">Your Greenhouse. Your Rules.</h3>
-              <p className="text-gray-400 mt-2">
-                No regulations. No pesticide requirements. No approval needed.
-                <br />
-                <strong className="text-white">Complete autonomy over what you grow and eat.</strong>
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-6">
-              <div>
-                <h4 className="font-semibold text-gray-300 mb-3">What you escape:</h4>
-                <ul className="space-y-2 text-gray-400">
-                  <li className="flex items-start gap-2">
-                    <span className="text-red-400">✗</span>
-                    Industrial pesticides and herbicides
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-red-400">✗</span>
-                    GMO seeds you can't replant
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-red-400">✗</span>
-                    Food picked weeks ago, shipped thousands of miles
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-red-400">✗</span>
-                    Corporate control of food supply
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-red-400">✗</span>
-                    Government agencies deciding what's "safe"
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="font-semibold text-greenhouse-400 mb-3">What you gain:</h4>
-                <ul className="space-y-2 text-gray-300">
-                  <li className="flex items-start gap-2">
-                    <span className="text-green-400">✓</span>
-                    Grow anything you want, any way you want
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-green-400">✓</span>
-                    Save seeds, share with neighbors
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-green-400">✓</span>
-                    Harvest and eat the same day
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-green-400">✓</span>
-                    Know exactly what's in your food
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-green-400">✓</span>
-                    You decide what's healthy for your family
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="mt-6 pt-6 border-t border-gray-700">
-              <p className="text-center text-gray-400">
-                In a world of increasing regulation and corporate control,
-                <br />
-                <strong className="text-white">your greenhouse is a zone of freedom.</strong>
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Decentralized Food */}
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">🌐 Decentralized Food Network</h2>
-          <div className="bg-white rounded-xl border border-gray-200 p-6">
-            <p className="text-gray-600 mb-6 text-center">
-              Millions of small growers instead of a few mega-farms. 
-              <strong> No single point of failure.</strong>
-            </p>
-
-            <div className="grid md:grid-cols-2 gap-6 mb-6">
-              <div className="bg-red-50 rounded-lg p-4 border border-red-200">
-                <h4 className="font-semibold text-red-800 mb-2">Centralized Food System</h4>
-                <p className="text-sm text-red-700 mb-2">What we have now:</p>
-                <ul className="text-sm text-red-600 space-y-1">
-                  <li>• 4 companies control 80%+ of meat</li>
-                  <li>• One disease can wipe out a crop nationally</li>
-                  <li>• Supply chains break during crises</li>
-                  <li>• Grocery stores have 3 days of inventory</li>
-                  <li>• Depends on trucking, fuel, stability</li>
-                </ul>
-              </div>
-              <div className="bg-green-50 rounded-lg p-4 border border-green-200">
-                <h4 className="font-semibold text-green-800 mb-2">Decentralized Food Network</h4>
-                <p className="text-sm text-green-700 mb-2">What we're building:</p>
-                <ul className="text-sm text-green-600 space-y-1">
-                  <li>• Millions of independent growers</li>
-                  <li>• Diverse crops = no single failure</li>
-                  <li>• Local production, short supply chains</li>
-                  <li>• Every greenhouse is a backup</li>
-                  <li>• Works during disasters</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
-              <h4 className="font-semibold text-blue-800 mb-2 text-center">Every Greenhouse = A Node</h4>
-              <p className="text-sm text-blue-700 text-center">
-                Like Bitcoin decentralized money, we're decentralizing food production.
-                <br />
-                The more nodes (greenhouses), the more resilient the network.
-                <br />
-                <strong>No government, no corporation, no disaster can take it down.</strong>
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* AI Chefs Still Need Ingredients */}
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">🤖👨‍🍳 The Foundation Layer</h2>
-          <div className="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-xl border border-orange-200 p-6">
-            <div className="text-center mb-6">
-              <h3 className="text-xl font-semibold text-gray-900">
-                Even Robot Chefs Need Fresh Ingredients
-              </h3>
-              <p className="text-gray-600 mt-2">
-                AI can cook. Robots can plate. But they can't create nutrition from nothing.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-lg p-6 mb-6">
-              <h4 className="font-semibold text-gray-900 mb-4 text-center">The Future Kitchen Stack</h4>
-              <div className="space-y-3">
-                <div className="flex items-center gap-4 p-3 bg-gray-50 rounded-lg">
-                  <div className="text-2xl">🤖</div>
-                  <div className="flex-1">
-                    <strong className="text-gray-900">AI Recipe Generation</strong>
-                    <p className="text-sm text-gray-600">Creates perfect recipes for your health goals</p>
-                  </div>
-                  <div className="text-gray-400">Layer 4</div>
-                </div>
-                <div className="flex items-center gap-4 p-3 bg-gray-50 rounded-lg">
-                  <div className="text-2xl">🦾</div>
-                  <div className="flex-1">
-                    <strong className="text-gray-900">Robotic Cooking</strong>
-                    <p className="text-sm text-gray-600">Prepares meals with perfect precision</p>
-                  </div>
-                  <div className="text-gray-400">Layer 3</div>
-                </div>
-                <div className="flex items-center gap-4 p-3 bg-gray-50 rounded-lg">
-                  <div className="text-2xl">📦</div>
-                  <div className="flex-1">
-                    <strong className="text-gray-900">Ingredient Logistics</strong>
-                    <p className="text-sm text-gray-600">Gets food from source to kitchen</p>
-                  </div>
-                  <div className="text-gray-400">Layer 2</div>
-                </div>
-                <div className="flex items-center gap-4 p-3 bg-greenhouse-100 rounded-lg border-2 border-greenhouse-500">
-                  <div className="text-2xl">🌱</div>
-                  <div className="flex-1">
-                    <strong className="text-gray-900">Growing (We Are Here)</strong>
-                    <p className="text-sm text-gray-600">Fresh, nutrient-dense, local ingredients</p>
-                  </div>
-                  <div className="text-greenhouse-600 font-bold">Layer 1</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="text-center">
-              <p className="text-gray-700 mb-2">
-                <strong>We are the foundation layer.</strong>
-              </p>
-              <p className="text-gray-600">
-                No matter how advanced AI cooking becomes, it all starts with what's grown.
-                <br />
-                The best robot chef with wilted, nutrient-depleted produce makes bad food.
-                <br />
-                <strong>Garbage in, garbage out. Fresh in, health out.</strong>
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* The Future of Food */}
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">🚀 The Future of Food</h2>
-          <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl border border-purple-200 p-6">
-            <div className="text-center mb-6">
-              <h3 className="text-xl font-semibold text-gray-900">Imagine What Has Yet To Be Grown</h3>
-              <p className="text-gray-600 mt-2">
-                We're not just growing today's food. We're building the infrastructure for tomorrow's.
-              </p>
-            </div>
-            
-            <div className="grid md:grid-cols-3 gap-4">
-              <div className="bg-white rounded-lg p-4">
-                <div className="text-2xl mb-2">🧬</div>
-                <h4 className="font-semibold text-gray-900">New Varieties</h4>
-                <p className="text-sm text-gray-600">
-                  AI-guided breeding for nutrition, flavor, and resilience. 
-                  Tomatoes that don't exist yet.
-                </p>
-              </div>
-              <div className="bg-white rounded-lg p-4">
-                <div className="text-2xl mb-2">🌌</div>
-                <h4 className="font-semibold text-gray-900">New Methods</h4>
-                <p className="text-sm text-gray-600">
-                  Vertical farms. Underground growing. Space agriculture. 
-                  We're learning what works everywhere.
-                </p>
-              </div>
-              <div className="bg-white rounded-lg p-4">
-                <div className="text-2xl mb-2">🤖</div>
-                <h4 className="font-semibold text-gray-900">New Partners</h4>
-                <p className="text-sm text-gray-600">
-                  Robots that tend, harvest, and deliver. 
-                  AI that designs growing systems we haven't imagined.
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-6 bg-white rounded-lg p-4">
-              <h4 className="font-semibold text-gray-900 mb-3 text-center">Plants We Haven't Discovered Yet</h4>
-              <p className="text-sm text-gray-600 text-center">
-                There are compounds in plants we haven't identified. Effects we haven't studied. 
-                Combinations that could cure diseases we currently treat with drugs.
-                <br /><br />
-                <strong>Your greenhouse is a laboratory. The future of medicine might grow in your backyard.</strong>
-              </p>
-            </div>
-
-            <div className="mt-6 text-center">
-              <p className="text-gray-700">
-                <strong>Your subscription funds this future.</strong>
-                <br />
-                Every month, you're not just paying for a service. 
-                You're investing in a world where everyone eats — and heals.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* How It Works */}
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">📞 How It Works</h2>
-          <div className="bg-white rounded-xl border border-gray-200 p-6">
+          <div className="bg-white rounded-2xl p-8 mb-12">
             <div className="text-center mb-8">
-              <div className="text-5xl mb-4">📱</div>
-              <h3 className="text-xl font-semibold text-gray-900">Your AI Gardener is a Phone Number</h3>
-              <p className="text-gray-600 mt-2">Call anytime. Ask anything. Voice-first, universally accessible.</p>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                Bypassing Retailers & Wholesalers
+              </h3>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                A more personalized, transparent grocery experience at lower prices for higher quality products. Consumers decide which foods they want — not retailers.
+              </p>
             </div>
-            
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <h4 className="font-semibold text-gray-900">What you can do:</h4>
-                <ul className="space-y-2 text-gray-600">
-                  <li className="flex items-start gap-2">
-                    <span className="text-greenhouse-500">✓</span>
-                    "How's my greenhouse?" — get real-time status
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-greenhouse-500">✓</span>
-                    "Water zone 2" — voice commands that execute
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-greenhouse-500">✓</span>
-                    "My tomato leaves are yellow" — troubleshoot problems
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-greenhouse-500">✓</span>
-                    "When should I harvest?" — get personalized advice
-                  </li>
-                </ul>
-              </div>
-              <div className="space-y-4">
-                <h4 className="font-semibold text-gray-900">Why phone-first:</h4>
-                <ul className="space-y-2 text-gray-600">
-                  <li className="flex items-start gap-2">
-                    <span className="text-greenhouse-500">✓</span>
-                    Works with any phone (no smartphone required)
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-greenhouse-500">✓</span>
-                    Hands-free while you're working
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-greenhouse-500">✓</span>
-                    Accessible to everyone, everywhere
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-greenhouse-500">✓</span>
-                    No app to download, no account friction
-                  </li>
-                </ul>
-              </div>
+
+            {/* Flow Diagram */}
+            <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">
+              <FlowStep emoji="🌱" label="Local Producers" description="100+ greenhouses, farms, makers" />
+              <div className="text-emerald-500 text-2xl">→</div>
+              <FlowStep emoji="🏪" label="AMNI" description="Buys, handles legal/insurance" />
+              <div className="text-emerald-500 text-2xl">→</div>
+              <FlowStep emoji="🏠" label="Consumers" description="Direct, fresh, affordable" />
             </div>
           </div>
-        </section>
 
-        {/* Tech Stack */}
-        <section id="tech-stack">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">🛠️ Tech Stack (100% Transparent)</h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            <SolutionCard
+              icon={<Shield className="w-6 h-6" />}
+              title="AMNI Handles Compliance"
+              description="Legal, insurance, government regulations. Producers just grow. AMNI handles the rest."
+            />
+            <SolutionCard
+              icon={<Users className="w-6 h-6" />}
+              title="Profit Sharing"
+              description="Unlike Walmart, our producers share in the profits. Production by the mass means wealth distribution."
+            />
+            <SolutionCard
+              icon={<Heart className="w-6 h-6" />}
+              title="Solve Hunger Through Donation"
+              description="Surplus food goes to those who need it. Every share on social media = a meal for a child."
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section className="py-20 px-6">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">The AMNI Ecosystem</h2>
+            <p className="text-xl text-gray-600">
+              Everything designed to be Quick, Easy, Convenient, Enjoyable
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* For Producers */}
+            <div className="bg-emerald-50 rounded-2xl p-8">
+              <h3 className="text-xl font-bold text-emerald-800 mb-6 flex items-center gap-2">
+                <Leaf className="w-6 h-6" />
+                For Producers
+              </h3>
+              <ul className="space-y-4">
+                <li className="flex items-start gap-3">
+                  <span className="text-emerald-500 font-bold">1.</span>
+                  <div>
+                    <strong>Join & Get a Package</strong>
+                    <p className="text-sm text-gray-600">Indoor, outdoor, urban, backyard — financing available</p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-emerald-500 font-bold">2.</span>
+                  <div>
+                    <strong>AI Guides Your Growing</strong>
+                    <p className="text-sm text-gray-600">24/7 expert support, no experience needed</p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-emerald-500 font-bold">3.</span>
+                  <div>
+                    <strong>Deliver to Fulfillment Centers</strong>
+                    <p className="text-sm text-gray-600">AMNI buys your products at fair prices</p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-emerald-500 font-bold">4.</span>
+                  <div>
+                    <strong>Profit Share</strong>
+                    <p className="text-sm text-gray-600">Earn from your sales + your network's sales</p>
+                  </div>
+                </li>
+              </ul>
+              <Link href="/packages" className="inline-flex items-center gap-2 mt-6 text-emerald-700 font-medium hover:underline">
+                View packages →
+              </Link>
+            </div>
+
+            {/* For Consumers */}
+            <div className="bg-blue-50 rounded-2xl p-8">
+              <h3 className="text-xl font-bold text-blue-800 mb-6 flex items-center gap-2">
+                <ShoppingBag className="w-6 h-6" />
+                For Consumers
+              </h3>
+              <ul className="space-y-4">
+                <li className="flex items-start gap-3">
+                  <span className="text-blue-500 font-bold">1.</span>
+                  <div>
+                    <strong>Browse Local Products</strong>
+                    <p className="text-sm text-gray-600">Fresh produce, preserved goods, meal kits</p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-blue-500 font-bold">2.</span>
+                  <div>
+                    <strong>Subscribe or Order</strong>
+                    <p className="text-sm text-gray-600">Weekly boxes, individual items, experiences</p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-blue-500 font-bold">3.</span>
+                  <div>
+                    <strong>Get Delivery</strong>
+                    <p className="text-sm text-gray-600">Fast, local, convenient — like Uber Eats</p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-blue-500 font-bold">4.</span>
+                  <div>
+                    <strong>Earn Rewards</strong>
+                    <p className="text-sm text-gray-600">Miles-based rewards for loyalty</p>
+                  </div>
+                </li>
+              </ul>
+              <Link href="/marketplace" className="inline-flex items-center gap-2 mt-6 text-blue-700 font-medium hover:underline">
+                Explore marketplace →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Product Lines */}
+      <section className="py-20 px-6 bg-gray-50">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">AMNI Product Lines</h2>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <ProductCard emoji="📦" name="Subscriptions" description="Weekly/monthly boxes delivered" />
+            <ProductCard emoji="🥗" name="Meal Kits" description="Ingredients + recipes ready to cook" />
+            <ProductCard emoji="🥬" name="Groceries" description="Fresh produce, everyday items" />
+            <ProductCard emoji="🫙" name="Preserved" description="Jams, pickles, sauces, ferments" />
+            <ProductCard emoji="👨‍🍳" name="Experiences" description="Dinners, cooking classes, workshops" />
+            <ProductCard emoji="🍽️" name="Meal Prep" description="Chef-prepared meals ready to eat" />
+            <ProductCard emoji="💧" name="Water" description="Clean, local water solutions" />
+            <ProductCard emoji="🏷️" name="Brand Partners" description="Quality manufacturers on platform" />
+          </div>
+        </div>
+      </section>
+
+      {/* Fulfillment */}
+      <section className="py-20 px-6">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Fulfillment Network</h2>
+            <p className="text-xl text-gray-600">
+              Fast geographical expansion through partnerships
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <FulfillmentCard
+              icon={<Building className="w-8 h-8" />}
+              title="Fulfillment Centers"
+              description="AMNI-owned + independent operators. Existing warehouses join the ecosystem."
+            />
+            <FulfillmentCard
+              icon={<Users className="w-8 h-8" />}
+              title="Workers"
+              description="Employees or independent contractors. Collect products, assemble orders, pass to couriers."
+            />
+            <FulfillmentCard
+              icon={<Car className="w-8 h-8" />}
+              title="Couriers"
+              description="Courier companies + independents. Uber Eats-style delivery directly to consumers."
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Member Perks */}
+      <section className="py-20 px-6 bg-amber-50">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">🎁 Member Perks</h2>
+            <p className="text-xl text-gray-600">
+              Being part of AMNI comes with benefits
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <PerkCard
+              icon="🛡️"
+              title="CrowdSurance"
+              description="Unbeatable life insurance and other rates for AMNI members. Pooled community power means better deals for everyone."
+            />
+            <PerkCard
+              icon="⭐"
+              title="Rewards Program"
+              description="Miles-based rewards similar to airlines. Every purchase earns points. Redeem for products, experiences, or discounts."
+            />
+            <PerkCard
+              icon="📚"
+              title="Training & Support"
+              description="Access to training programs, government grant assistance, and 24/7 AI support for producers."
+            />
+            <PerkCard
+              icon="🤝"
+              title="Community"
+              description="Join local grower networks. Share knowledge. Connect with neighbors. Build food resilience together."
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* The Vision */}
+      <section className="py-20 px-6 bg-gray-900 text-white">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-6">The Vision</h2>
           
-          <div className="space-y-4">
-            {/* Architecture Diagram */}
-            <div className="bg-gray-900 rounded-xl p-6 text-green-400 font-mono text-sm overflow-x-auto">
-              <pre>{`
-┌─────────────────────────────────────────────────────────────┐
-│                      YOUR PHONE CALL                         │
-│                    (Twilio Voice API)                        │
-└─────────────────────────────────────────────────────────────┘
-                            │
-                            ▼
-┌─────────────────────────────────────────────────────────────┐
-│                    GO APPLICATION                            │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────┐  │
-│  │   Voice     │  │   Local     │  │      Actions        │  │
-│  │   Handler   │─▶│    LLM      │─▶│      Executor       │  │
-│  │  (Twilio)   │  │  (Ollama)   │  │  (Water, Vent, etc) │  │
-│  └─────────────┘  └─────────────┘  └─────────────────────┘  │
-│                          │                                   │
-│               ┌──────────┴──────────┐                       │
-│               ▼                     ▼                       │
-│     ┌─────────────────┐   ┌─────────────────┐              │
-│     │   MotherDuck    │   │    Sensors      │              │
-│     │    (DuckDB)     │   │     (MQTT)      │              │
-│     └─────────────────┘   └─────────────────┘              │
-└─────────────────────────────────────────────────────────────┘
-              `}</pre>
+          <div className="grid md:grid-cols-2 gap-8 text-left mb-12">
+            <div>
+              <h3 className="text-xl font-bold text-emerald-400 mb-4">What We're Building</h3>
+              <ul className="space-y-3 text-gray-300">
+                <li className="flex items-start gap-2">
+                  <span className="text-emerald-400">✓</span>
+                  Local production replacing industrial imports
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-emerald-400">✓</span>
+                  Profit sharing instead of corporate extraction
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-emerald-400">✓</span>
+                  AI making expertise accessible to everyone
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-emerald-400">✓</span>
+                  Community food security, block by block
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-emerald-400">✓</span>
+                  Hunger solved through donation integration
+                </li>
+              </ul>
             </div>
-
-            {/* Stack Components */}
-            <div className="grid md:grid-cols-2 gap-4">
-              <TechCard
-                icon={<Database className="w-6 h-6" />}
-                title="MotherDuck / DuckDB"
-                description="Cloud-native analytical database for sensor time-series data. Fast, cheap, SQL-native."
-                link="https://motherduck.com"
-                color="bg-yellow-50 border-yellow-200"
-              />
-              <TechCard
-                icon={<Bot className="w-6 h-6" />}
-                title="Local LLM (Ollama)"
-                description="Llama 3.1 8B running locally. No data leaves your infrastructure. Private by default."
-                link="https://ollama.ai"
-                color="bg-purple-50 border-purple-200"
-              />
-              <TechCard
-                icon={<Phone className="w-6 h-6" />}
-                title="Twilio Voice"
-                description="Phone calls → speech-to-text → AI → text-to-speech. Natural conversation interface."
-                link="https://twilio.com"
-                color="bg-red-50 border-red-200"
-              />
-              <TechCard
-                icon={<Cpu className="w-6 h-6" />}
-                title="Go Backend"
-                description="Fast, concurrent, single binary. Handles real-time sensor data and voice streams."
-                link="https://go.dev"
-                color="bg-blue-50 border-blue-200"
-              />
-              <TechCard
-                icon={<Cloud className="w-6 h-6" />}
-                title="Cloudflare Pages"
-                description="Edge-deployed web UI. Fast globally, zero cold starts, generous free tier."
-                link="https://pages.cloudflare.com"
-                color="bg-orange-50 border-orange-200"
-              />
-              <TechCard
-                icon={<Lock className="w-6 h-6" />}
-                title="MQTT + ESP32"
-                description="IoT sensor network. Temperature, humidity, soil moisture, light. Real-time data."
-                link="https://mqtt.org"
-                color="bg-green-50 border-green-200"
-              />
+            <div>
+              <h3 className="text-xl font-bold text-amber-400 mb-4">Why Now</h3>
+              <ul className="space-y-3 text-gray-300">
+                <li className="flex items-start gap-2">
+                  <span className="text-amber-400">→</span>
+                  On-demand economy expectations
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-amber-400">→</span>
+                  Time-starved urban lifestyles
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-amber-400">→</span>
+                  Growing smartphone usage
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-amber-400">→</span>
+                  Automated fulfillment technology ready
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-amber-400">→</span>
+                  Crowdsourcing economy mature
+                </li>
+              </ul>
             </div>
           </div>
-        </section>
 
-        {/* Why MotherDuck */}
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">🦆 Why MotherDuck?</h2>
-          <div className="bg-white rounded-xl border border-gray-200 p-6">
-            <div className="grid md:grid-cols-2 gap-6">
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-3">Perfect for This Use Case</h3>
-                <ul className="space-y-2 text-gray-600">
-                  <li className="flex items-start gap-2">
-                    <span className="text-yellow-500">🦆</span>
-                    <strong>Columnar storage</strong> — ideal for time-series sensor data
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-yellow-500">🦆</span>
-                    <strong>SQL interface</strong> — familiar, powerful queries
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-yellow-500">🦆</span>
-                    <strong>Cheap at scale</strong> — way cheaper than traditional DBs
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-yellow-500">🦆</span>
-                    <strong>Local-first</strong> — can run DuckDB locally too
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-3">Example Query</h3>
-                <div className="bg-gray-900 rounded-lg p-4 text-green-400 font-mono text-xs overflow-x-auto">
-                  <pre>{`-- Get temperature trend for dashboard
-SELECT 
-  date_trunc('hour', ts) as hour,
-  avg(value) as avg_temp,
-  min(value) as min_temp,
-  max(value) as max_temp
-FROM readings
-WHERE greenhouse_id = 'gh_123'
-  AND sensor_type = 'temperature'
-  AND ts > now() - interval '24 hours'
-GROUP BY 1
-ORDER BY 1;`}</pre>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Data Schema */}
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">📊 Data Schema</h2>
-          <div className="bg-white rounded-xl border border-gray-200 p-6">
-            <div className="bg-gray-900 rounded-lg p-4 text-green-400 font-mono text-xs overflow-x-auto">
-              <pre>{`-- Core tables (simplified)
-
-users (
-  id, name, phone, location, timezone, experience_level
-)
-
-greenhouses (
-  id, user_id, name, location, orientation, size_sqft
-)
-
-readings (
-  greenhouse_id, sensor_type, value, unit, ts
-)  -- Millions of rows, columnar storage
-
-plants (
-  id, greenhouse_id, name, variety, planted_at, status
-)
-
-conversations (
-  id, user_id, greenhouse_id, transcript, summary
-)
-
-actions (
-  id, greenhouse_id, action_type, parameters, status
-)`}</pre>
-            </div>
-          </div>
-        </section>
-
-        {/* Roadmap */}
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">🗺️ Roadmap</h2>
-          <div className="bg-white rounded-xl border border-gray-200 p-6">
-            <div className="space-y-6">
-              <RoadmapPhase
-                phase="1"
-                title="Foundation"
-                status="in-progress"
-                items={[
-                  { text: "Go backend with voice handling", done: true },
-                  { text: "MotherDuck integration", done: true },
-                  { text: "Web UI dashboard", done: true },
-                  { text: "Twilio voice pipeline", done: false },
-                  { text: "ESP32 sensor firmware", done: false },
-                ]}
-              />
-              <RoadmapPhase
-                phase="2"
-                title="Intelligence"
-                status="planned"
-                items={[
-                  { text: "Local LLM (Llama 3.1) integration", done: false },
-                  { text: "Function calling for actions", done: false },
-                  { text: "Plant disease recognition", done: false },
-                  { text: "Personalized growing recommendations", done: false },
-                ]}
-              />
-              <RoadmapPhase
-                phase="3"
-                title="Community"
-                status="planned"
-                items={[
-                  { text: "Network impact tracking", done: false },
-                  { text: "Local grower connections", done: false },
-                  { text: "Seed/plant swaps", done: false },
-                  { text: "Food donation coordination", done: false },
-                ]}
-              />
-              <RoadmapPhase
-                phase="4"
-                title="Automation"
-                status="future"
-                items={[
-                  { text: "Automated irrigation", done: false },
-                  { text: "Climate control (vents, fans)", done: false },
-                  { text: "Camera integration", done: false },
-                  { text: "Robot integration", done: false },
-                ]}
-              />
-              <RoadmapPhase
-                phase="5"
-                title="Abundance"
-                status="future"
-                items={[
-                  { text: "Regional food networks", done: false },
-                  { text: "AI-managed commercial growing", done: false },
-                  { text: "Open source robot designs", done: false },
-                  { text: "Food for all", done: false },
-                ]}
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* Costs */}
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">💰 Cost Transparency</h2>
-          <div className="bg-white rounded-xl border border-gray-200 p-6">
-            <p className="text-gray-600 mb-4">
-              We believe in radical transparency. Here's what it actually costs to run:
-            </p>
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-gray-200">
-                    <th className="text-left py-2 text-gray-700">Service</th>
-                    <th className="text-right py-2 text-gray-700">Cost/greenhouse/month</th>
-                  </tr>
-                </thead>
-                <tbody className="text-gray-600">
-                  <tr className="border-b border-gray-100">
-                    <td className="py-2">Twilio Voice (avg call volume)</td>
-                    <td className="text-right">~$3</td>
-                  </tr>
-                  <tr className="border-b border-gray-100">
-                    <td className="py-2">MotherDuck (sensor data storage)</td>
-                    <td className="text-right">~$2</td>
-                  </tr>
-                  <tr className="border-b border-gray-100">
-                    <td className="py-2">Local LLM compute</td>
-                    <td className="text-right">~$3</td>
-                  </tr>
-                  <tr className="border-b border-gray-100">
-                    <td className="py-2">Hosting (shared infrastructure)</td>
-                    <td className="text-right">~$2</td>
-                  </tr>
-                  <tr className="border-t border-gray-300 font-semibold text-gray-900">
-                    <td className="py-2">Total</td>
-                    <td className="text-right">~$10/month</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <p className="text-sm text-gray-500 mt-4">
-              At $9-19/month membership pricing, margins fund development, community programs, 
-              and subsidized access for food-insecure families.
-            </p>
-          </div>
-        </section>
-
-        {/* Open Source */}
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">📖 Open Source</h2>
-          <div className="bg-greenhouse-50 rounded-xl border border-greenhouse-200 p-6">
-            <div className="flex items-start gap-4">
-              <div className="text-4xl">🌐</div>
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-2">Everything is Open</h3>
-                <p className="text-gray-600 mb-4">
-                  The code, the architecture, the costs — it's all public. We believe 
-                  transparency builds trust, and trust is what AI needs most right now.
-                </p>
-                <a href="https://github.com/modernzoroastrianism-cpu/greenhouse-platform"
-                   className="inline-flex items-center gap-2 bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors">
-                  <Github className="w-4 h-4" />
-                  View on GitHub
-                  <ExternalLink className="w-3 h-3" />
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* CTA */}
-        <section className="text-center py-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Ready to Grow?</h2>
-          <p className="text-gray-600 mb-6">
-            Get a greenhouse. Get an AI gardener. Join the network.
+          <p className="text-xl text-gray-300 mb-8">
+            <strong className="text-white">100 local greenhouses</strong> providing produce to the AMNI Marketplace.
+            <br />
+            Then 1,000. Then 10,000. Then everywhere.
           </p>
-          <a href="/" 
-             className="inline-flex items-center gap-2 bg-greenhouse-500 text-white px-6 py-3 rounded-full text-lg font-medium hover:bg-greenhouse-600 transition-colors">
-            Get Started
-            <ArrowRight className="w-5 h-5" />
-          </a>
-        </section>
-      </main>
+
+          <div className="bg-emerald-600 rounded-2xl p-8">
+            <p className="text-2xl font-bold mb-2">
+              Production by the Mass. Not Mass Production.
+            </p>
+            <p className="text-emerald-100">
+              A resilient sharing ecosystem for the future of food.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-20 px-6 bg-gradient-to-br from-emerald-600 to-teal-700 text-white">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-6">Join the Ecosystem</h2>
+          <p className="text-xl text-emerald-100 mb-8">
+            Whether you want to produce, consume, or both — there's a place for you.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link href="/packages" className="flex items-center gap-2 bg-yellow-400 text-gray-900 px-8 py-4 rounded-full text-lg font-bold hover:bg-yellow-300 transition-colors shadow-lg">
+              Become a Producer
+              <Leaf className="w-5 h-5" />
+            </Link>
+            <Link href="/marketplace" className="flex items-center gap-2 bg-white/10 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white/20 transition-colors">
+              <ShoppingBag className="w-5 h-5" />
+              Shop the Marketplace
+            </Link>
+          </div>
+        </div>
+      </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-gray-400 py-8 px-4">
-        <div className="max-w-4xl mx-auto text-center text-sm">
-          <p className="mb-2">
-            Built with 💚 by AI + Humans working together
-          </p>
-          <p>
-            <a href="https://github.com/modernzoroastrianism-cpu/greenhouse-platform" className="hover:text-white">
-              GitHub
-            </a>
-            {" · "}
-            <a href="#tech-stack" className="hover:text-white">
-              Tech Stack
-            </a>
-            {" · "}
-            <a href="/" className="hover:text-white">
-              App
-            </a>
-          </p>
+      <footer className="bg-gray-900 text-gray-400 py-8 px-6">
+        <div className="max-w-6xl mx-auto text-center text-sm">
+          <Link href="/" className="flex items-center justify-center gap-2 mb-4">
+            <span className="text-xl">🌱</span>
+            <span className="text-lg font-bold text-white">AMNI</span>
+          </Link>
+          <p>A resilient sharing ecosystem for the future of food</p>
         </div>
       </footer>
     </div>
   )
 }
 
-function TechCard({ icon, title, description, link, color }: {
+function ProblemCard({ icon, title, description, stat, statLabel }: {
   icon: React.ReactNode
   title: string
   description: string
-  link: string
-  color: string
+  stat: string
+  statLabel: string
 }) {
   return (
-    <a href={link} target="_blank" rel="noopener noreferrer"
-       className={`block rounded-xl border p-4 hover:shadow-md transition-shadow ${color}`}>
-      <div className="flex items-start gap-3">
-        <div className="text-gray-700">{icon}</div>
-        <div>
-          <h3 className="font-semibold text-gray-900">{title}</h3>
-          <p className="text-sm text-gray-600 mt-1">{description}</p>
-        </div>
-        <ExternalLink className="w-4 h-4 text-gray-400 flex-shrink-0" />
+    <div className="bg-white rounded-xl p-6 border border-gray-100">
+      <div className="text-red-500 mb-4">{icon}</div>
+      <h3 className="text-lg font-bold text-gray-900 mb-2">{title}</h3>
+      <p className="text-gray-600 text-sm mb-4">{description}</p>
+      <div className="bg-red-50 rounded-lg p-3">
+        <div className="text-2xl font-bold text-red-600">{stat}</div>
+        <div className="text-xs text-red-700">{statLabel}</div>
       </div>
-    </a>
+    </div>
   )
 }
 
-function RoadmapPhase({ phase, title, status, items }: {
-  phase: string
-  title: string
-  status: 'complete' | 'in-progress' | 'planned' | 'future'
-  items: { text: string; done: boolean }[]
-}) {
-  const statusColors = {
-    'complete': 'bg-green-100 text-green-700',
-    'in-progress': 'bg-blue-100 text-blue-700',
-    'planned': 'bg-yellow-100 text-yellow-700',
-    'future': 'bg-gray-100 text-gray-600',
-  }
-  
-  const statusLabels = {
-    'complete': 'Complete',
-    'in-progress': 'In Progress',
-    'planned': 'Planned',
-    'future': 'Future',
-  }
-
+function FlowStep({ emoji, label, description }: { emoji: string; label: string; description: string }) {
   return (
-    <div className="flex gap-4">
-      <div className="flex flex-col items-center">
-        <div className="w-8 h-8 rounded-full bg-greenhouse-500 text-white flex items-center justify-center font-bold text-sm">
-          {phase}
-        </div>
-        <div className="w-0.5 flex-1 bg-gray-200 mt-2" />
+    <div className="text-center">
+      <div className="text-4xl mb-2">{emoji}</div>
+      <div className="font-bold text-gray-900">{label}</div>
+      <div className="text-sm text-gray-500">{description}</div>
+    </div>
+  )
+}
+
+function SolutionCard({ icon, title, description }: {
+  icon: React.ReactNode
+  title: string
+  description: string
+}) {
+  return (
+    <div className="bg-white rounded-xl p-6 text-center">
+      <div className="inline-flex items-center justify-center w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl mb-4">
+        {icon}
       </div>
-      <div className="flex-1 pb-6">
-        <div className="flex items-center gap-2 mb-2">
-          <h3 className="font-semibold text-gray-900">{title}</h3>
-          <span className={`text-xs px-2 py-0.5 rounded-full ${statusColors[status]}`}>
-            {statusLabels[status]}
-          </span>
-        </div>
-        <ul className="space-y-1">
-          {items.map((item, i) => (
-            <li key={i} className="flex items-center gap-2 text-sm text-gray-600">
-              {item.done ? (
-                <span className="text-green-500">✓</span>
-              ) : (
-                <span className="text-gray-300">○</span>
-              )}
-              {item.text}
-            </li>
-          ))}
-        </ul>
-      </div>
+      <h3 className="font-bold text-gray-900 mb-2">{title}</h3>
+      <p className="text-gray-600 text-sm">{description}</p>
+    </div>
+  )
+}
+
+function ProductCard({ emoji, name, description }: { emoji: string; name: string; description: string }) {
+  return (
+    <div className="bg-white rounded-xl p-4 text-center border border-gray-100">
+      <div className="text-3xl mb-2">{emoji}</div>
+      <div className="font-semibold text-gray-900 text-sm">{name}</div>
+      <div className="text-xs text-gray-500">{description}</div>
+    </div>
+  )
+}
+
+function FulfillmentCard({ icon, title, description }: {
+  icon: React.ReactNode
+  title: string
+  description: string
+}) {
+  return (
+    <div className="bg-gray-50 rounded-xl p-6 text-center">
+      <div className="text-gray-600 mb-4 flex justify-center">{icon}</div>
+      <h3 className="font-bold text-gray-900 mb-2">{title}</h3>
+      <p className="text-gray-600 text-sm">{description}</p>
+    </div>
+  )
+}
+
+function PerkCard({ icon, title, description }: { icon: string; title: string; description: string }) {
+  return (
+    <div className="bg-white rounded-xl p-6 border border-amber-200">
+      <div className="text-3xl mb-3">{icon}</div>
+      <h3 className="font-bold text-gray-900 mb-2">{title}</h3>
+      <p className="text-gray-600 text-sm">{description}</p>
     </div>
   )
 }
