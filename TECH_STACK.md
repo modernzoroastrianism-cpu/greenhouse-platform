@@ -909,6 +909,562 @@ class AcquisitionFundService {
 export const acquisitionFund = new AcquisitionFundService();
 ```
 
+### Crowdfunding & Fractional Ownership
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    CROWDFUNDING INVESTMENT PLATFORM                         │
+│                                                                             │
+│   ┌─────────────────────────────────────────────────────────────────────┐   │
+│   │                      FUND SOURCES (3 streams)                       │   │
+│   │                                                                     │   │
+│   │   ┌──────────────┐   ┌──────────────┐   ┌──────────────┐           │   │
+│   │   │  AUTOMATIC   │   │   MEMBER     │   │   PUBLIC     │           │   │
+│   │   │   15% Rev    │   │  INVESTMENT  │   │ CROWDFUNDING │           │   │
+│   │   │              │   │              │   │              │           │   │
+│   │   │ Every sale   │   │ Reinvest     │   │ Anyone can   │           │   │
+│   │   │ contributes  │   │ earnings or  │   │ buy shares   │           │   │
+│   │   │ automatically│   │ add capital  │   │ min $100     │           │   │
+│   │   └──────┬───────┘   └──────┬───────┘   └──────┬───────┘           │   │
+│   │          │                  │                  │                    │   │
+│   │          └──────────────────┼──────────────────┘                    │   │
+│   │                             │                                       │   │
+│   │                             ▼                                       │   │
+│   │              ┌──────────────────────────────┐                       │   │
+│   │              │      ACQUISITION FUND        │                       │   │
+│   │              │                              │                       │   │
+│   │              │   Balance: $XXX,XXX          │                       │   │
+│   │              │   Total Shares: XXX,XXX      │                       │   │
+│   │              │   Share Price: $X.XX         │                       │   │
+│   │              └──────────────┬───────────────┘                       │   │
+│   │                             │                                       │   │
+│   └─────────────────────────────┼───────────────────────────────────────┘   │
+│                                 │                                           │
+│   ┌─────────────────────────────┼───────────────────────────────────────┐   │
+│   │                      FARM MARKETPLACE                               │   │
+│   │                                                                     │   │
+│   │   ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐    │   │
+│   │   │  Sunny Valley   │  │  Desert Bloom   │  │  Coming Soon... │    │   │
+│   │   │  Farm           │  │  Greenhouse     │  │                 │    │   │
+│   │   │                 │  │                 │  │  [Get Notified] │    │   │
+│   │   │  72% Funded     │  │  Due Diligence  │  │                 │    │   │
+│   │   │  $72K / $100K   │  │  $250K target   │  │                 │    │   │
+│   │   │                 │  │                 │  │                 │    │   │
+│   │   │  [Invest $100+] │  │  [Coming Soon]  │  │                 │    │   │
+│   │   └─────────────────┘  └─────────────────┘  └─────────────────┘    │   │
+│   │                                                                     │   │
+│   └─────────────────────────────────────────────────────────────────────┘   │
+│                                 │                                           │
+│   ┌─────────────────────────────┼───────────────────────────────────────┐   │
+│   │                    SECONDARY MARKETPLACE                            │   │
+│   │                                                                     │   │
+│   │   Buy/Sell shares between investors                                 │   │
+│   │                                                                     │   │
+│   │   ┌─────────────────────────────────────────────────────────────┐   │   │
+│   │   │  ORDER BOOK                                                 │   │   │
+│   │   │                                                             │   │   │
+│   │   │  SELL ORDERS          │  BUY ORDERS                         │   │   │
+│   │   │  100 @ $1.05          │  150 @ $0.98                        │   │   │
+│   │   │  250 @ $1.08          │  200 @ $0.95                        │   │   │
+│   │   │  500 @ $1.10          │  300 @ $0.92                        │   │   │
+│   │   │                                                             │   │   │
+│   │   │  [Place Order]                                              │   │   │
+│   │   └─────────────────────────────────────────────────────────────┘   │   │
+│   │                                                                     │   │
+│   └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Investment/Crowdfunding Data Model
+
+```sql
+-- Share Classes (each farm can have its own share class)
+CREATE TABLE share_classes (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  asset_id UUID REFERENCES acquired_assets(id),
+  name TEXT NOT NULL, -- 'Sunny Valley Farm Shares'
+  symbol TEXT NOT NULL, -- 'SVF'
+  total_shares BIGINT NOT NULL, -- Total shares issued
+  available_shares BIGINT NOT NULL, -- Shares available for purchase
+  price_per_share_cents INT NOT NULL, -- Current price
+  min_investment_cents INT NOT NULL DEFAULT 10000, -- $100 min for public
+  member_min_investment_cents INT NOT NULL DEFAULT 5000, -- $50 min for members
+  status TEXT NOT NULL DEFAULT 'fundraising', -- fundraising, closed, trading
+  fundraising_goal_cents BIGINT,
+  fundraising_deadline DATE,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Share Holdings (who owns what)
+CREATE TABLE share_holdings (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  share_class_id UUID REFERENCES share_classes(id),
+  holder_type TEXT NOT NULL, -- 'member', 'public_investor', 'fund'
+  member_id UUID REFERENCES members(id), -- null for public investors
+  investor_id UUID REFERENCES public_investors(id), -- null for members
+  shares_owned BIGINT NOT NULL,
+  cost_basis_cents BIGINT NOT NULL, -- Total paid
+  acquired_at TIMESTAMPTZ DEFAULT NOW(),
+  
+  UNIQUE(share_class_id, member_id),
+  UNIQUE(share_class_id, investor_id)
+);
+
+-- Public Investors (non-members who invest)
+CREATE TABLE public_investors (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  email TEXT NOT NULL UNIQUE,
+  full_name TEXT NOT NULL,
+  phone TEXT,
+  
+  -- KYC
+  kyc_status TEXT NOT NULL DEFAULT 'pending', -- pending, verified, rejected
+  kyc_verified_at TIMESTAMPTZ,
+  identity_document_url TEXT,
+  
+  -- Banking
+  stripe_customer_id TEXT,
+  stripe_connect_id TEXT, -- For receiving payouts
+  bank_account_last4 TEXT,
+  
+  -- Accreditation (for larger investments)
+  accredited_investor BOOLEAN DEFAULT FALSE,
+  accreditation_verified_at TIMESTAMPTZ,
+  
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Investment Transactions
+CREATE TABLE investment_transactions (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  share_class_id UUID REFERENCES share_classes(id),
+  holder_type TEXT NOT NULL,
+  member_id UUID REFERENCES members(id),
+  investor_id UUID REFERENCES public_investors(id),
+  
+  transaction_type TEXT NOT NULL, -- 'purchase', 'sale', 'dividend_reinvest', 'transfer'
+  shares INT NOT NULL,
+  price_per_share_cents INT NOT NULL,
+  total_amount_cents BIGINT NOT NULL,
+  fees_cents INT DEFAULT 0,
+  
+  -- Payment
+  payment_method TEXT, -- 'stripe', 'bank_transfer', 'earnings_reinvest'
+  stripe_payment_id TEXT,
+  
+  status TEXT NOT NULL DEFAULT 'pending', -- pending, completed, failed, refunded
+  completed_at TIMESTAMPTZ,
+  
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Auto-Reinvest Settings
+CREATE TABLE reinvest_settings (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  member_id UUID REFERENCES members(id) UNIQUE,
+  
+  reinvest_percentage INT NOT NULL DEFAULT 0, -- 0-100%
+  reinvest_target TEXT NOT NULL DEFAULT 'fund', -- 'fund' or specific share_class_id
+  
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Secondary Market Orders
+CREATE TABLE market_orders (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  share_class_id UUID REFERENCES share_classes(id),
+  holder_type TEXT NOT NULL,
+  member_id UUID REFERENCES members(id),
+  investor_id UUID REFERENCES public_investors(id),
+  
+  order_type TEXT NOT NULL, -- 'buy', 'sell'
+  order_status TEXT NOT NULL DEFAULT 'open', -- open, filled, partial, cancelled
+  
+  shares_requested INT NOT NULL,
+  shares_filled INT NOT NULL DEFAULT 0,
+  price_per_share_cents INT NOT NULL, -- Limit price
+  
+  expires_at TIMESTAMPTZ, -- null = GTC (good til cancelled)
+  filled_at TIMESTAMPTZ,
+  cancelled_at TIMESTAMPTZ,
+  
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Order Fills (matches between buy/sell)
+CREATE TABLE order_fills (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  buy_order_id UUID REFERENCES market_orders(id),
+  sell_order_id UUID REFERENCES market_orders(id),
+  
+  shares INT NOT NULL,
+  price_per_share_cents INT NOT NULL,
+  total_amount_cents BIGINT NOT NULL,
+  
+  buyer_fee_cents INT DEFAULT 0,
+  seller_fee_cents INT DEFAULT 0,
+  
+  filled_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Investor Dividends (for both members and public investors)
+CREATE TABLE investor_dividends (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  distribution_id UUID REFERENCES dividend_distributions(id),
+  share_class_id UUID REFERENCES share_classes(id),
+  
+  holder_type TEXT NOT NULL,
+  member_id UUID REFERENCES members(id),
+  investor_id UUID REFERENCES public_investors(id),
+  
+  shares_held BIGINT NOT NULL,
+  dividend_per_share_cents INT NOT NULL,
+  gross_dividend_cents BIGINT NOT NULL,
+  
+  -- Reinvestment
+  reinvest_amount_cents BIGINT DEFAULT 0,
+  payout_amount_cents BIGINT NOT NULL,
+  
+  status TEXT NOT NULL DEFAULT 'pending',
+  paid_at TIMESTAMPTZ,
+  stripe_transfer_id TEXT,
+  
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+```
+
+### Crowdfunding Service
+
+```typescript
+// services/crowdfunding.ts
+
+class CrowdfundingService {
+  
+  // Create a new farm investment opportunity
+  async createFarmOffering(
+    asset: AcquiredAsset,
+    params: {
+      totalShares: number;
+      pricePerShare: number;
+      fundraisingGoal: number;
+      deadline: Date;
+    }
+  ): Promise<ShareClass> {
+    const shareClass = await db.insert(shareClasses).values({
+      assetId: asset.id,
+      name: `${asset.name} Shares`,
+      symbol: this.generateSymbol(asset.name),
+      totalShares: params.totalShares,
+      availableShares: params.totalShares,
+      pricePerShareCents: params.pricePerShare * 100,
+      fundraisingGoalCents: params.fundraisingGoal * 100,
+      fundraisingDeadline: params.deadline,
+      status: 'fundraising'
+    }).returning();
+    
+    return shareClass;
+  }
+  
+  // Member invests in fund or specific farm
+  async memberInvest(
+    memberId: string,
+    shareClassId: string,
+    amount: number, // dollars
+    source: 'cash' | 'earnings'
+  ): Promise<InvestmentTransaction> {
+    const shareClass = await this.getShareClass(shareClassId);
+    const member = await getMember(memberId);
+    
+    // Check minimums
+    if (amount * 100 < shareClass.memberMinInvestmentCents) {
+      throw new Error(`Minimum investment is $${shareClass.memberMinInvestmentCents / 100}`);
+    }
+    
+    // Calculate shares
+    const shares = Math.floor((amount * 100) / shareClass.pricePerShareCents);
+    const totalCost = shares * shareClass.pricePerShareCents;
+    
+    if (shares > shareClass.availableShares) {
+      throw new Error('Not enough shares available');
+    }
+    
+    // Process payment
+    let paymentId: string | null = null;
+    if (source === 'cash') {
+      paymentId = await this.chargeStripe(member.stripeCustomerId, totalCost);
+    } else {
+      // Deduct from pending earnings
+      await this.deductFromEarnings(memberId, totalCost);
+    }
+    
+    // Create transaction
+    const transaction = await db.insert(investmentTransactions).values({
+      shareClassId,
+      holderType: 'member',
+      memberId,
+      transactionType: 'purchase',
+      shares,
+      pricePerShareCents: shareClass.pricePerShareCents,
+      totalAmountCents: totalCost,
+      paymentMethod: source === 'cash' ? 'stripe' : 'earnings_reinvest',
+      stripePaymentId: paymentId,
+      status: 'completed',
+      completedAt: new Date()
+    }).returning();
+    
+    // Update holdings
+    await this.updateHoldings(memberId, null, shareClassId, shares, totalCost);
+    
+    // Update available shares
+    await db.update(shareClasses)
+      .set({ availableShares: sql`available_shares - ${shares}` })
+      .where(eq(shareClasses.id, shareClassId));
+    
+    // Check if fundraising complete
+    await this.checkFundraisingComplete(shareClassId);
+    
+    return transaction;
+  }
+  
+  // Public investor invests
+  async publicInvest(
+    investorId: string,
+    shareClassId: string,
+    amount: number
+  ): Promise<InvestmentTransaction> {
+    const shareClass = await this.getShareClass(shareClassId);
+    const investor = await this.getPublicInvestor(investorId);
+    
+    // Check KYC
+    if (investor.kycStatus !== 'verified') {
+      throw new Error('KYC verification required before investing');
+    }
+    
+    // Check minimums
+    if (amount * 100 < shareClass.minInvestmentCents) {
+      throw new Error(`Minimum investment is $${shareClass.minInvestmentCents / 100}`);
+    }
+    
+    // For larger investments, check accreditation
+    if (amount > 10000 && !investor.accreditedInvestor) {
+      throw new Error('Accredited investor status required for investments over $10,000');
+    }
+    
+    const shares = Math.floor((amount * 100) / shareClass.pricePerShareCents);
+    const totalCost = shares * shareClass.pricePerShareCents;
+    
+    // Process payment
+    const paymentId = await this.chargeStripe(investor.stripeCustomerId, totalCost);
+    
+    // Create transaction
+    const transaction = await db.insert(investmentTransactions).values({
+      shareClassId,
+      holderType: 'public_investor',
+      investorId,
+      transactionType: 'purchase',
+      shares,
+      pricePerShareCents: shareClass.pricePerShareCents,
+      totalAmountCents: totalCost,
+      paymentMethod: 'stripe',
+      stripePaymentId: paymentId,
+      status: 'completed',
+      completedAt: new Date()
+    }).returning();
+    
+    // Update holdings
+    await this.updateHoldings(null, investorId, shareClassId, shares, totalCost);
+    
+    // Update available shares
+    await db.update(shareClasses)
+      .set({ availableShares: sql`available_shares - ${shares}` })
+      .where(eq(shareClasses.id, shareClassId));
+    
+    return transaction;
+  }
+  
+  // Set auto-reinvest preferences
+  async setReinvestPreference(
+    memberId: string,
+    percentage: number, // 0-100
+    target: string // 'fund' or share_class_id
+  ): Promise<void> {
+    await db.insert(reinvestSettings)
+      .values({
+        memberId,
+        reinvestPercentage: percentage,
+        reinvestTarget: target
+      })
+      .onConflictDoUpdate({
+        target: reinvestSettings.memberId,
+        set: {
+          reinvestPercentage: percentage,
+          reinvestTarget: target,
+          updatedAt: new Date()
+        }
+      });
+  }
+  
+  // Process auto-reinvestments during dividend distribution
+  async processReinvestments(distributionId: string): Promise<void> {
+    const dividends = await db.select()
+      .from(investorDividends)
+      .where(eq(investorDividends.distributionId, distributionId));
+    
+    for (const dividend of dividends) {
+      if (dividend.holderType === 'member') {
+        const settings = await this.getReinvestSettings(dividend.memberId);
+        
+        if (settings && settings.reinvestPercentage > 0) {
+          const reinvestAmount = Math.floor(
+            dividend.grossDividendCents * (settings.reinvestPercentage / 100)
+          );
+          
+          if (reinvestAmount >= 5000) { // $50 minimum
+            await this.memberInvest(
+              dividend.memberId,
+              settings.reinvestTarget,
+              reinvestAmount / 100,
+              'earnings'
+            );
+            
+            // Update dividend record
+            await db.update(investorDividends)
+              .set({
+                reinvestAmountCents: reinvestAmount,
+                payoutAmountCents: dividend.grossDividendCents - reinvestAmount
+              })
+              .where(eq(investorDividends.id, dividend.id));
+          }
+        }
+      }
+    }
+  }
+  
+  // Secondary market: Place order
+  async placeOrder(
+    holderId: { memberId?: string; investorId?: string },
+    shareClassId: string,
+    orderType: 'buy' | 'sell',
+    shares: number,
+    pricePerShare: number, // dollars
+    expiresAt?: Date
+  ): Promise<MarketOrder> {
+    const shareClass = await this.getShareClass(shareClassId);
+    
+    if (shareClass.status !== 'trading') {
+      throw new Error('Secondary market not open for this asset');
+    }
+    
+    // For sell orders, verify holdings
+    if (orderType === 'sell') {
+      const holdings = await this.getHoldings(holderId, shareClassId);
+      if (holdings.sharesOwned < shares) {
+        throw new Error('Insufficient shares to sell');
+      }
+    }
+    
+    // For buy orders, verify/reserve funds
+    if (orderType === 'buy') {
+      const totalCost = shares * pricePerShare * 100;
+      await this.reserveFunds(holderId, totalCost);
+    }
+    
+    const order = await db.insert(marketOrders).values({
+      shareClassId,
+      holderType: holderId.memberId ? 'member' : 'public_investor',
+      memberId: holderId.memberId,
+      investorId: holderId.investorId,
+      orderType,
+      sharesRequested: shares,
+      pricePerShareCents: pricePerShare * 100,
+      expiresAt
+    }).returning();
+    
+    // Try to match immediately
+    await this.matchOrders(shareClassId);
+    
+    return order;
+  }
+  
+  // Order matching engine
+  async matchOrders(shareClassId: string): Promise<void> {
+    // Get open buy orders (highest price first)
+    const buyOrders = await db.select()
+      .from(marketOrders)
+      .where(and(
+        eq(marketOrders.shareClassId, shareClassId),
+        eq(marketOrders.orderType, 'buy'),
+        eq(marketOrders.orderStatus, 'open')
+      ))
+      .orderBy(desc(marketOrders.pricePerShareCents));
+    
+    // Get open sell orders (lowest price first)
+    const sellOrders = await db.select()
+      .from(marketOrders)
+      .where(and(
+        eq(marketOrders.shareClassId, shareClassId),
+        eq(marketOrders.orderType, 'sell'),
+        eq(marketOrders.orderStatus, 'open')
+      ))
+      .orderBy(asc(marketOrders.pricePerShareCents));
+    
+    // Match orders
+    for (const buyOrder of buyOrders) {
+      for (const sellOrder of sellOrders) {
+        // Check if prices cross
+        if (buyOrder.pricePerShareCents >= sellOrder.pricePerShareCents) {
+          const matchShares = Math.min(
+            buyOrder.sharesRequested - buyOrder.sharesFilled,
+            sellOrder.sharesRequested - sellOrder.sharesFilled
+          );
+          
+          if (matchShares > 0) {
+            await this.executeFill(buyOrder, sellOrder, matchShares);
+          }
+        }
+      }
+    }
+  }
+  
+  // Get investment portfolio
+  async getPortfolio(holderId: { memberId?: string; investorId?: string }): Promise<Portfolio> {
+    const holdings = await db.select()
+      .from(shareHoldings)
+      .leftJoin(shareClasses, eq(shareHoldings.shareClassId, shareClasses.id))
+      .leftJoin(acquiredAssets, eq(shareClasses.assetId, acquiredAssets.id))
+      .where(
+        holderId.memberId 
+          ? eq(shareHoldings.memberId, holderId.memberId)
+          : eq(shareHoldings.investorId, holderId.investorId)
+      );
+    
+    const totalValue = holdings.reduce((sum, h) => 
+      sum + (h.sharesOwned * h.shareClasses.pricePerShareCents), 0
+    );
+    
+    const totalCost = holdings.reduce((sum, h) => sum + h.costBasisCents, 0);
+    
+    return {
+      holdings: holdings.map(h => ({
+        asset: h.acquiredAssets,
+        shareClass: h.shareClasses,
+        sharesOwned: h.sharesOwned,
+        currentValue: h.sharesOwned * h.shareClasses.pricePerShareCents / 100,
+        costBasis: h.costBasisCents / 100,
+        gain: ((h.sharesOwned * h.shareClasses.pricePerShareCents) - h.costBasisCents) / 100
+      })),
+      totalValue: totalValue / 100,
+      totalCost: totalCost / 100,
+      totalGain: (totalValue - totalCost) / 100,
+      totalGainPercent: totalCost > 0 ? ((totalValue - totalCost) / totalCost) * 100 : 0
+    };
+  }
+}
+
+export const crowdfunding = new CrowdfundingService();
+```
+
 ### Acquisition Fund Dashboard (Admin)
 
 ```typescript

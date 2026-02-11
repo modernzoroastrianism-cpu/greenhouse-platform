@@ -341,44 +341,235 @@ export default function CompensationPage() {
         </div>
       </section>
 
-      {/* Layer 4: Acquisition Dividends */}
+      {/* Layer 4: Acquisition Fund - Complete Section */}
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center gap-3 mb-8">
             <div className="w-12 h-12 rounded-xl bg-amber-500 flex items-center justify-center text-white text-xl font-bold">4</div>
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">Acquisition Dividends</h2>
-              <p className="text-gray-600">Share in macro farm acquisitions</p>
+              <h2 className="text-2xl font-bold text-gray-900">The Acquisition Fund</h2>
+              <p className="text-gray-600">Crowdfunded farm ownership with fractional shares</p>
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-8 border border-amber-200">
+          {/* How the Fund Gets Funded */}
+          <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-8 border border-amber-200 mb-8">
+            <h3 className="text-xl font-bold text-gray-900 mb-6 text-center">How The Fund Gets Funded</h3>
+            
+            <div className="grid md:grid-cols-3 gap-6 mb-8">
+              <div className="bg-white rounded-xl p-6 text-center border border-amber-200">
+                <div className="text-3xl mb-3">💰</div>
+                <h4 className="font-bold text-gray-900 mb-2">15% Network Revenue</h4>
+                <p className="text-sm text-gray-600">
+                  Every sale on the marketplace, every package purchased — 15% automatically goes to the fund.
+                </p>
+                <div className="mt-3 text-xs text-amber-700 font-medium">AUTOMATIC</div>
+              </div>
+              
+              <div className="bg-white rounded-xl p-6 text-center border border-amber-200">
+                <div className="text-3xl mb-3">📈</div>
+                <h4 className="font-bold text-gray-900 mb-2">Member Investment</h4>
+                <p className="text-sm text-gray-600">
+                  Reinvest your earnings or add new capital. Buy fractional shares in the fund directly.
+                </p>
+                <div className="mt-3 text-xs text-emerald-700 font-medium">VOLUNTARY</div>
+              </div>
+              
+              <div className="bg-white rounded-xl p-6 text-center border border-amber-200">
+                <div className="text-3xl mb-3">🌍</div>
+                <h4 className="font-bold text-gray-900 mb-2">Public Crowdfunding</h4>
+                <p className="text-sm text-gray-600">
+                  Anyone can invest in AMNI farms — even non-members. Fractional ownership for everyone.
+                </p>
+                <div className="mt-3 text-xs text-blue-700 font-medium">OPEN TO ALL</div>
+              </div>
+            </div>
+
+            {/* Fund Flow Diagram */}
+            <div className="bg-white rounded-xl p-6 border border-amber-200">
+              <h4 className="font-bold text-gray-900 mb-4 text-center">Fund Flow</h4>
+              <div className="flex flex-col md:flex-row items-center justify-center gap-4 text-sm">
+                <div className="flex flex-col items-center">
+                  <div className="bg-amber-100 rounded-lg px-4 py-2 font-medium">Network Revenue (15%)</div>
+                  <div className="text-amber-500">↓</div>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="bg-emerald-100 rounded-lg px-4 py-2 font-medium">Member Investments</div>
+                  <div className="text-emerald-500">↓</div>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="bg-blue-100 rounded-lg px-4 py-2 font-medium">Public Crowdfunding</div>
+                  <div className="text-blue-500">↓</div>
+                </div>
+              </div>
+              <div className="flex justify-center my-4">
+                <div className="bg-gradient-to-r from-amber-400 via-emerald-400 to-blue-400 rounded-xl px-8 py-4 text-white font-bold text-center">
+                  ACQUISITION FUND<br />
+                  <span className="text-sm font-normal">Buys Real Farms & Greenhouses</span>
+                </div>
+              </div>
+              <div className="flex justify-center">
+                <div className="text-gray-400">↓</div>
+              </div>
+              <div className="flex justify-center mt-2">
+                <div className="bg-purple-100 rounded-lg px-6 py-2 font-medium text-purple-800">
+                  Monthly Dividends to All Shareholders
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Fractional Ownership Marketplace */}
+          <div className="bg-white rounded-2xl p-8 border border-gray-200 mb-8">
+            <h3 className="text-xl font-bold text-gray-900 mb-6">🏪 Farm Investment Marketplace</h3>
+            <p className="text-gray-600 mb-6">
+              Like Fundrise or Republic, but for food production. Buy fractional shares in real farms.
+            </p>
+            
+            <div className="grid md:grid-cols-2 gap-6 mb-6">
+              <div className="border border-gray-200 rounded-xl p-5">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-sm font-medium text-gray-500">AVAILABLE NOW</span>
+                  <span className="bg-emerald-100 text-emerald-800 text-xs px-2 py-1 rounded-full">72% Funded</span>
+                </div>
+                <h4 className="font-bold text-gray-900 mb-1">Sunny Valley Farm</h4>
+                <p className="text-sm text-gray-500 mb-3">Ohio • 50 acres • Vegetables</p>
+                <div className="flex items-center justify-between text-sm mb-3">
+                  <span className="text-gray-600">Min investment</span>
+                  <span className="font-bold">$100</span>
+                </div>
+                <div className="flex items-center justify-between text-sm mb-3">
+                  <span className="text-gray-600">Projected yield</span>
+                  <span className="font-bold text-emerald-600">8-12% annually</span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div className="bg-emerald-500 h-2 rounded-full" style={{width: '72%'}}></div>
+                </div>
+                <p className="text-xs text-gray-500 mt-2">$72,000 of $100,000 raised</p>
+              </div>
+              
+              <div className="border border-gray-200 rounded-xl p-5">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-sm font-medium text-gray-500">COMING SOON</span>
+                  <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Due Diligence</span>
+                </div>
+                <h4 className="font-bold text-gray-900 mb-1">Desert Bloom Greenhouse</h4>
+                <p className="text-sm text-gray-500 mb-3">Arizona • 2 acres • Hydroponics</p>
+                <div className="flex items-center justify-between text-sm mb-3">
+                  <span className="text-gray-600">Target raise</span>
+                  <span className="font-bold">$250,000</span>
+                </div>
+                <div className="flex items-center justify-between text-sm mb-3">
+                  <span className="text-gray-600">Projected yield</span>
+                  <span className="font-bold text-emerald-600">10-15% annually</span>
+                </div>
+                <button className="w-full bg-gray-100 text-gray-600 py-2 rounded-lg text-sm font-medium">
+                  Get Notified
+                </button>
+              </div>
+            </div>
+
+            <div className="bg-blue-50 rounded-xl p-4 border border-blue-200">
+              <p className="text-sm text-blue-800">
+                <strong>How it works:</strong> Buy shares starting at $100. Receive monthly dividends based on farm production. 
+                Sell your shares anytime on the secondary marketplace. Full transparency — see real-time production data.
+              </p>
+            </div>
+          </div>
+
+          {/* Investment Options */}
+          <div className="bg-gray-50 rounded-2xl p-8 border border-gray-200 mb-8">
+            <h3 className="text-xl font-bold text-gray-900 mb-6">Investment Options</h3>
+            
+            <div className="space-y-4">
+              <div className="bg-white rounded-xl p-5 border border-gray-200 flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center text-xl">🔄</div>
+                <div className="flex-1">
+                  <h4 className="font-bold text-gray-900">Reinvest Earnings</h4>
+                  <p className="text-sm text-gray-600">Automatically reinvest your dividends to compound your ownership</p>
+                </div>
+                <div className="text-right">
+                  <div className="text-sm text-gray-500">Auto-invest</div>
+                  <div className="font-bold text-emerald-600">10-100%</div>
+                </div>
+              </div>
+              
+              <div className="bg-white rounded-xl p-5 border border-gray-200 flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center text-xl">💵</div>
+                <div className="flex-1">
+                  <h4 className="font-bold text-gray-900">Direct Investment</h4>
+                  <p className="text-sm text-gray-600">Add new capital anytime. No minimums for members.</p>
+                </div>
+                <div className="text-right">
+                  <div className="text-sm text-gray-500">Member min</div>
+                  <div className="font-bold text-emerald-600">$50</div>
+                </div>
+              </div>
+              
+              <div className="bg-white rounded-xl p-5 border border-gray-200 flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-xl">🌐</div>
+                <div className="flex-1">
+                  <h4 className="font-bold text-gray-900">Public Investment</h4>
+                  <p className="text-sm text-gray-600">Non-members can invest too. Buy into specific farms.</p>
+                </div>
+                <div className="text-right">
+                  <div className="text-sm text-gray-500">Public min</div>
+                  <div className="font-bold text-blue-600">$100</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Dividend Distribution */}
+          <div className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-2xl p-8 border border-purple-200">
+            <h3 className="text-xl font-bold text-gray-900 mb-6">Dividend Distribution</h3>
+            
             <div className="grid md:grid-cols-2 gap-8">
               <div>
-                <h3 className="font-bold text-gray-900 mb-4">The Acquisition Fund</h3>
-                <p className="text-gray-700 mb-4">
-                  15% of all network revenue goes into the Acquisition Fund. This fund buys struggling farms and greenhouses.
-                </p>
-                <p className="text-gray-700">
-                  When the fund acquires a farm, <strong>all members share in that farm's production</strong> based on their tenure and contribution level.
-                </p>
-              </div>
-              <div className="bg-white rounded-xl p-6">
-                <h4 className="font-bold text-gray-900 mb-3">Dividend Distribution:</h4>
-                <ul className="space-y-2 text-sm text-gray-600">
-                  <li className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-amber-500"></span>
-                    <span>40% to members by tenure</span>
+                <h4 className="font-bold text-gray-900 mb-4">For AMNI Members:</h4>
+                <p className="text-gray-600 mb-4">Members earn dividends from TWO sources:</p>
+                <ul className="space-y-3 text-sm">
+                  <li className="flex items-start gap-2">
+                    <span className="w-6 h-6 rounded-full bg-amber-100 flex items-center justify-center text-xs font-bold text-amber-700">1</span>
+                    <span><strong>Tenure + Production Pool</strong> — Your share of the 15% network contribution (40% by tenure, 40% by your production)</span>
                   </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-amber-500"></span>
-                    <span>40% to members by production volume</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-amber-500"></span>
-                    <span>20% reinvested into next acquisition</span>
+                  <li className="flex items-start gap-2">
+                    <span className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center text-xs font-bold text-emerald-700">2</span>
+                    <span><strong>Direct Investment Returns</strong> — Dividends from any additional shares you purchased</span>
                   </li>
                 </ul>
+              </div>
+              
+              <div>
+                <h4 className="font-bold text-gray-900 mb-4">For Public Investors:</h4>
+                <p className="text-gray-600 mb-4">Non-members earn dividends based solely on their investment:</p>
+                <ul className="space-y-3 text-sm">
+                  <li className="flex items-start gap-2">
+                    <span className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-xs font-bold text-blue-700">1</span>
+                    <span><strong>Pro-rata share</strong> of farm production based on shares owned</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-xs font-bold text-blue-700">2</span>
+                    <span><strong>Monthly payouts</strong> via bank transfer or reinvestment</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-xs font-bold text-blue-700">3</span>
+                    <span><strong>Secondary market</strong> — sell shares to other investors anytime</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+            <div className="mt-6 bg-white rounded-xl p-4 border border-purple-200">
+              <div className="flex items-center justify-between flex-wrap gap-4">
+                <div>
+                  <div className="text-sm text-gray-500">20% of all farm production</div>
+                  <div className="font-bold text-gray-900">Reinvested into next acquisition</div>
+                </div>
+                <div className="text-right">
+                  <div className="text-sm text-gray-500">Compounding growth</div>
+                  <div className="font-bold text-purple-600">Forever expanding 🌱</div>
+                </div>
               </div>
             </div>
           </div>
