@@ -19,9 +19,12 @@ export default function LandingPage() {
             </div>
 
             {/* AMNI Logo */}
-            <div className="flex items-center justify-center gap-3 mb-8">
-              <span className="text-5xl">🌱</span>
-              <span className="text-4xl md:text-5xl font-bold text-white tracking-tight">AMNI</span>
+            <div className="flex flex-col items-center mb-8">
+              <div className="flex items-center justify-center gap-3 mb-2">
+                <span className="text-5xl">🌱</span>
+                <span className="text-4xl md:text-5xl font-bold text-white tracking-tight">AMNI</span>
+              </div>
+              <p className="text-emerald-400 text-lg font-medium tracking-wide">As Mother Nature Intended</p>
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
