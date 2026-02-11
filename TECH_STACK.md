@@ -392,4 +392,621 @@ function calculateMonthlyCommissions(member: Member): CommissionBreakdown {
 
 ---
 
+## Acquisition Fund Architecture
+
+### Overview
+
+The Acquisition Fund is a core differentiator — 15% of ALL network revenue goes into a fund that buys real farms and greenhouses. Members share in the production of these acquisitions.
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         ACQUISITION FUND FLOW                               │
+│                                                                             │
+│   NETWORK REVENUE                                                           │
+│        │                                                                    │
+│        ▼                                                                    │
+│   ┌─────────────────────────────────────────────────────────────────────┐   │
+│   │                    REVENUE SPLIT (100%)                             │   │
+│   │                                                                     │   │
+│   │   ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐           │   │
+│   │   │   60%    │  │   15%    │  │   15%    │  │   10%    │           │   │
+│   │   │ Producer │  │ Acquis.  │  │Operations│  │ Donation │           │   │
+│   │   │ Payouts  │  │  Fund    │  │          │  │          │           │   │
+│   │   └──────────┘  └────┬─────┘  └──────────┘  └──────────┘           │   │
+│   └──────────────────────┼──────────────────────────────────────────────┘   │
+│                          │                                                   │
+│                          ▼                                                   │
+│   ┌─────────────────────────────────────────────────────────────────────┐   │
+│   │                    ACQUISITION FUND                                 │   │
+│   │                                                                     │   │
+│   │   Balance: $XXX,XXX                                                 │   │
+│   │   Status: Accumulating / Acquiring / Distributing                   │   │
+│   │                                                                     │   │
+│   │   ┌─────────────────────────────────────────────────────────────┐   │   │
+│   │   │  When fund reaches acquisition threshold ($50K-$500K):      │   │   │
+│   │   │                                                             │   │   │
+│   │   │  1. Scout: AI identifies struggling farms for sale          │   │   │
+│   │   │  2. Evaluate: Due diligence, soil tests, infrastructure     │   │   │
+│   │   │  3. Vote: Acquisition Council approves (Cultivator members) │   │   │
+│   │   │  4. Purchase: Legal entity (AMNI Holdings LLC) buys asset   │   │   │
+│   │   │  5. Operate: Staff or member-operated                       │   │   │
+│   │   │  6. Distribute: Production dividends to all members         │   │   │
+│   │   └─────────────────────────────────────────────────────────────┘   │   │
+│   └─────────────────────────────────────────────────────────────────────┘   │
+│                          │                                                   │
+│                          ▼                                                   │
+│   ┌─────────────────────────────────────────────────────────────────────┐   │
+│   │                    ACQUIRED ASSETS                                  │   │
+│   │                                                                     │   │
+│   │   ┌──────────────┐  ┌──────────────┐  ┌──────────────┐             │   │
+│   │   │   Farm #1    │  │   Farm #2    │  │  Greenhouse  │    ...      │   │
+│   │   │  Ohio, 50ac  │  │  TX, 120ac   │  │  CA, 2ac     │             │   │
+│   │   │              │  │              │  │              │             │   │
+│   │   │ Prod: $15K/mo│  │ Prod: $40K/mo│  │ Prod: $8K/mo │             │   │
+│   │   └──────┬───────┘  └──────┬───────┘  └──────┬───────┘             │   │
+│   │          │                 │                 │                      │   │
+│   │          └─────────────────┼─────────────────┘                      │   │
+│   │                            │                                        │   │
+│   │                            ▼                                        │   │
+│   │                  Total Acquisition Production                       │   │
+│   │                        $63,000/month                                │   │
+│   └─────────────────────────────────────────────────────────────────────┘   │
+│                          │                                                   │
+│                          ▼                                                   │
+│   ┌─────────────────────────────────────────────────────────────────────┐   │
+│   │                    DIVIDEND DISTRIBUTION                            │   │
+│   │                                                                     │   │
+│   │   Acquisition Production: $63,000/month                             │   │
+│   │                                                                     │   │
+│   │   ┌─────────────────────────────────────────────────────────────┐   │   │
+│   │   │  SPLIT:                                                     │   │   │
+│   │   │                                                             │   │   │
+│   │   │  40% → Tenure Pool     │ $25,200 split by months active     │   │   │
+│   │   │  40% → Production Pool │ $25,200 split by production volume │   │   │
+│   │   │  20% → Reinvestment    │ $12,600 back into fund             │   │   │
+│   │   └─────────────────────────────────────────────────────────────┘   │   │
+│   │                                                                     │   │
+│   │   Example member dividend:                                          │   │
+│   │   - 18 months tenure (top 20%) → $50/month from tenure pool        │   │
+│   │   - $2,000/month production (top 30%) → $35/month from prod pool   │   │
+│   │   - Total dividend: $85/month                                       │   │
+│   └─────────────────────────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Data Model
+
+```sql
+-- Acquisition Fund
+CREATE TABLE acquisition_fund (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  balance_cents BIGINT NOT NULL DEFAULT 0,
+  status TEXT NOT NULL DEFAULT 'accumulating', -- accumulating, acquiring, distributing
+  last_contribution_at TIMESTAMPTZ,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Fund Contributions (from every transaction)
+CREATE TABLE fund_contributions (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  order_id UUID REFERENCES orders(id),
+  amount_cents BIGINT NOT NULL,
+  source_type TEXT NOT NULL, -- 'marketplace_sale', 'package_purchase', 'subscription'
+  contributed_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Acquired Assets (farms, greenhouses)
+CREATE TABLE acquired_assets (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name TEXT NOT NULL,
+  asset_type TEXT NOT NULL, -- 'farm', 'greenhouse', 'processing_facility'
+  location_address TEXT,
+  location_lat DECIMAL(10, 8),
+  location_lng DECIMAL(11, 8),
+  acreage DECIMAL(10, 2),
+  purchase_price_cents BIGINT NOT NULL,
+  purchase_date DATE NOT NULL,
+  status TEXT NOT NULL DEFAULT 'active', -- active, sold, inactive
+  
+  -- Legal
+  holding_entity TEXT NOT NULL, -- 'AMNI Holdings LLC'
+  deed_document_url TEXT,
+  
+  -- Operations
+  operator_type TEXT NOT NULL, -- 'staff', 'member', 'contracted'
+  operator_member_id UUID REFERENCES members(id),
+  
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Asset Production (monthly tracking)
+CREATE TABLE asset_production (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  asset_id UUID REFERENCES acquired_assets(id),
+  period_start DATE NOT NULL,
+  period_end DATE NOT NULL,
+  
+  gross_revenue_cents BIGINT NOT NULL,
+  operating_costs_cents BIGINT NOT NULL,
+  net_production_cents BIGINT NOT NULL, -- gross - costs
+  
+  -- Breakdown
+  produce_sold_lbs DECIMAL(10, 2),
+  products_sold_count INT,
+  
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  
+  UNIQUE(asset_id, period_start)
+);
+
+-- Dividend Distributions
+CREATE TABLE dividend_distributions (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  period_start DATE NOT NULL,
+  period_end DATE NOT NULL,
+  
+  total_production_cents BIGINT NOT NULL, -- sum of all asset production
+  tenure_pool_cents BIGINT NOT NULL, -- 40%
+  production_pool_cents BIGINT NOT NULL, -- 40%
+  reinvestment_cents BIGINT NOT NULL, -- 20%
+  
+  status TEXT NOT NULL DEFAULT 'pending', -- pending, calculated, distributed
+  distributed_at TIMESTAMPTZ,
+  
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Member Dividend Payouts
+CREATE TABLE member_dividends (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  distribution_id UUID REFERENCES dividend_distributions(id),
+  member_id UUID REFERENCES members(id),
+  
+  -- Calculation inputs
+  tenure_months INT NOT NULL,
+  tenure_rank_percentile DECIMAL(5, 2), -- e.g., 0.85 = top 15%
+  production_total_cents BIGINT NOT NULL,
+  production_rank_percentile DECIMAL(5, 2),
+  
+  -- Payouts
+  tenure_payout_cents BIGINT NOT NULL,
+  production_payout_cents BIGINT NOT NULL,
+  total_payout_cents BIGINT NOT NULL,
+  
+  status TEXT NOT NULL DEFAULT 'pending', -- pending, paid
+  paid_at TIMESTAMPTZ,
+  stripe_transfer_id TEXT,
+  
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Acquisition Proposals (for council voting)
+CREATE TABLE acquisition_proposals (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  
+  -- Target property
+  property_name TEXT NOT NULL,
+  property_address TEXT,
+  property_lat DECIMAL(10, 8),
+  property_lng DECIMAL(11, 8),
+  asking_price_cents BIGINT NOT NULL,
+  acreage DECIMAL(10, 2),
+  
+  -- Analysis
+  estimated_annual_production_cents BIGINT,
+  estimated_operating_costs_cents BIGINT,
+  estimated_roi_percent DECIMAL(5, 2),
+  due_diligence_report_url TEXT,
+  
+  -- Voting
+  status TEXT NOT NULL DEFAULT 'proposed', -- proposed, voting, approved, rejected, purchased
+  votes_for INT DEFAULT 0,
+  votes_against INT DEFAULT 0,
+  voting_deadline TIMESTAMPTZ,
+  
+  -- Outcome
+  decision TEXT, -- 'approved', 'rejected'
+  decision_at TIMESTAMPTZ,
+  acquired_asset_id UUID REFERENCES acquired_assets(id),
+  
+  proposed_by UUID REFERENCES members(id), -- AI or Cultivator member
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Council Votes (Cultivator members only)
+CREATE TABLE council_votes (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  proposal_id UUID REFERENCES acquisition_proposals(id),
+  member_id UUID REFERENCES members(id),
+  vote TEXT NOT NULL, -- 'for', 'against', 'abstain'
+  comment TEXT,
+  voted_at TIMESTAMPTZ DEFAULT NOW(),
+  
+  UNIQUE(proposal_id, member_id)
+);
+```
+
+### Acquisition Fund Service
+
+```typescript
+// services/acquisitionFund.ts
+
+interface FundStatus {
+  balance: number;
+  status: 'accumulating' | 'acquiring' | 'distributing';
+  targetThreshold: number;
+  percentToThreshold: number;
+  acquiredAssets: AcquiredAsset[];
+  totalAssetProduction: number;
+  pendingProposals: AcquisitionProposal[];
+}
+
+class AcquisitionFundService {
+  
+  // Called on every transaction
+  async contribute(orderId: string, totalAmount: number): Promise<void> {
+    const contributionAmount = Math.floor(totalAmount * 0.15); // 15%
+    
+    await db.transaction(async (tx) => {
+      // Record contribution
+      await tx.insert(fundContributions).values({
+        orderId,
+        amountCents: contributionAmount,
+        sourceType: 'marketplace_sale'
+      });
+      
+      // Update fund balance
+      await tx.update(acquisitionFund)
+        .set({ 
+          balanceCents: sql`balance_cents + ${contributionAmount}`,
+          lastContributionAt: new Date()
+        });
+    });
+    
+    // Check if we hit acquisition threshold
+    await this.checkAcquisitionThreshold();
+  }
+  
+  async checkAcquisitionThreshold(): Promise<void> {
+    const fund = await this.getFundStatus();
+    
+    // Thresholds based on fund size
+    const thresholds = [
+      { min: 50000, label: 'Small greenhouse' },
+      { min: 150000, label: 'Medium farm' },
+      { min: 500000, label: 'Large operation' },
+    ];
+    
+    const applicableThreshold = thresholds
+      .filter(t => fund.balance >= t.min)
+      .pop();
+    
+    if (applicableThreshold && fund.status === 'accumulating') {
+      // Trigger acquisition search
+      await this.initiateAcquisitionSearch(applicableThreshold);
+    }
+  }
+  
+  async initiateAcquisitionSearch(threshold: { min: number, label: string }): Promise<void> {
+    // AI scouts for properties
+    // This could integrate with real estate APIs, auction sites, etc.
+    
+    await db.update(acquisitionFund)
+      .set({ status: 'acquiring' });
+    
+    // Notify Acquisition Council (Cultivator members)
+    const council = await this.getAcquisitionCouncil();
+    for (const member of council) {
+      await notify(member, {
+        title: 'Acquisition Fund Ready',
+        body: `Fund has reached $${threshold.min.toLocaleString()}. Scouting for ${threshold.label} opportunities.`
+      });
+    }
+  }
+  
+  async createProposal(property: PropertyDetails): Promise<AcquisitionProposal> {
+    const proposal = await db.insert(acquisitionProposals).values({
+      propertyName: property.name,
+      propertyAddress: property.address,
+      askingPriceCents: property.price * 100,
+      acreage: property.acreage,
+      estimatedAnnualProductionCents: property.estimatedProduction * 100,
+      estimatedRoiPercent: property.estimatedROI,
+      status: 'voting',
+      votingDeadline: addDays(new Date(), 7) // 7 day vote
+    }).returning();
+    
+    // Notify council
+    await this.notifyCouncilOfProposal(proposal);
+    
+    return proposal;
+  }
+  
+  async castVote(proposalId: string, memberId: string, vote: 'for' | 'against' | 'abstain'): Promise<void> {
+    // Verify member is Cultivator level
+    const member = await getMember(memberId);
+    if (member.boardLevel !== 'Cultivator') {
+      throw new Error('Only Cultivator members can vote on acquisitions');
+    }
+    
+    await db.insert(councilVotes).values({
+      proposalId,
+      memberId,
+      vote
+    });
+    
+    // Update vote counts
+    await this.updateVoteCounts(proposalId);
+    
+    // Check if voting is complete
+    await this.checkVotingComplete(proposalId);
+  }
+  
+  async executeAcquisition(proposalId: string): Promise<AcquiredAsset> {
+    const proposal = await getProposal(proposalId);
+    
+    // Create acquired asset record
+    const asset = await db.insert(acquiredAssets).values({
+      name: proposal.propertyName,
+      assetType: 'farm',
+      locationAddress: proposal.propertyAddress,
+      purchasePriceCents: proposal.askingPriceCents,
+      purchaseDate: new Date(),
+      holdingEntity: 'AMNI Holdings LLC',
+      operatorType: 'staff'
+    }).returning();
+    
+    // Deduct from fund
+    await db.update(acquisitionFund)
+      .set({ 
+        balanceCents: sql`balance_cents - ${proposal.askingPriceCents}`,
+        status: 'accumulating' // Back to accumulating
+      });
+    
+    // Update proposal
+    await db.update(acquisitionProposals)
+      .set({ 
+        status: 'purchased',
+        acquiredAssetId: asset.id 
+      })
+      .where(eq(acquisitionProposals.id, proposalId));
+    
+    // Notify all members
+    await this.notifyAllMembersOfAcquisition(asset);
+    
+    return asset;
+  }
+  
+  // Monthly dividend distribution
+  async calculateAndDistributeDividends(periodStart: Date, periodEnd: Date): Promise<void> {
+    // Get total production from all acquired assets
+    const assetProduction = await db.select()
+      .from(assetProduction)
+      .where(and(
+        gte(assetProduction.periodStart, periodStart),
+        lte(assetProduction.periodEnd, periodEnd)
+      ));
+    
+    const totalProduction = assetProduction.reduce(
+      (sum, p) => sum + p.netProductionCents, 0
+    );
+    
+    if (totalProduction === 0) return;
+    
+    // Calculate pools
+    const tenurePool = Math.floor(totalProduction * 0.40);
+    const productionPool = Math.floor(totalProduction * 0.40);
+    const reinvestment = Math.floor(totalProduction * 0.20);
+    
+    // Create distribution record
+    const distribution = await db.insert(dividendDistributions).values({
+      periodStart,
+      periodEnd,
+      totalProductionCents: totalProduction,
+      tenurePoolCents: tenurePool,
+      productionPoolCents: productionPool,
+      reinvestmentCents: reinvestment,
+      status: 'calculating'
+    }).returning();
+    
+    // Get all active members with their tenure and production
+    const members = await this.getMembersWithMetrics();
+    
+    // Calculate tenure shares
+    const totalTenureMonths = members.reduce((sum, m) => sum + m.tenureMonths, 0);
+    
+    // Calculate production shares
+    const totalMemberProduction = members.reduce((sum, m) => sum + m.periodProduction, 0);
+    
+    // Calculate individual dividends
+    for (const member of members) {
+      const tenurePayout = Math.floor(
+        (member.tenureMonths / totalTenureMonths) * tenurePool
+      );
+      
+      const productionPayout = totalMemberProduction > 0
+        ? Math.floor((member.periodProduction / totalMemberProduction) * productionPool)
+        : 0;
+      
+      await db.insert(memberDividends).values({
+        distributionId: distribution.id,
+        memberId: member.id,
+        tenureMonths: member.tenureMonths,
+        tenureRankPercentile: member.tenureRank,
+        productionTotalCents: member.periodProduction,
+        productionRankPercentile: member.productionRank,
+        tenurePayoutCents: tenurePayout,
+        productionPayoutCents: productionPayout,
+        totalPayoutCents: tenurePayout + productionPayout,
+        status: 'pending'
+      });
+    }
+    
+    // Add reinvestment to fund
+    await db.update(acquisitionFund)
+      .set({ balanceCents: sql`balance_cents + ${reinvestment}` });
+    
+    // Mark distribution as calculated
+    await db.update(dividendDistributions)
+      .set({ status: 'calculated' })
+      .where(eq(dividendDistributions.id, distribution.id));
+    
+    // Process payouts via Stripe
+    await this.processPayouts(distribution.id);
+  }
+  
+  async processPayouts(distributionId: string): Promise<void> {
+    const dividends = await db.select()
+      .from(memberDividends)
+      .where(and(
+        eq(memberDividends.distributionId, distributionId),
+        eq(memberDividends.status, 'pending'),
+        gt(memberDividends.totalPayoutCents, 0)
+      ));
+    
+    for (const dividend of dividends) {
+      const member = await getMember(dividend.memberId);
+      
+      if (member.stripeConnectId) {
+        // Transfer via Stripe Connect
+        const transfer = await stripe.transfers.create({
+          amount: dividend.totalPayoutCents,
+          currency: 'usd',
+          destination: member.stripeConnectId,
+          metadata: {
+            type: 'acquisition_dividend',
+            distributionId,
+            memberId: dividend.memberId
+          }
+        });
+        
+        await db.update(memberDividends)
+          .set({ 
+            status: 'paid',
+            paidAt: new Date(),
+            stripeTransferId: transfer.id
+          })
+          .where(eq(memberDividends.id, dividend.id));
+      }
+    }
+    
+    // Mark distribution as complete
+    await db.update(dividendDistributions)
+      .set({ 
+        status: 'distributed',
+        distributedAt: new Date()
+      })
+      .where(eq(dividendDistributions.id, distributionId));
+  }
+  
+  async getAcquisitionCouncil(): Promise<Member[]> {
+    return db.select()
+      .from(members)
+      .where(eq(members.boardLevel, 'Cultivator'));
+  }
+}
+
+export const acquisitionFund = new AcquisitionFundService();
+```
+
+### Acquisition Fund Dashboard (Admin)
+
+```typescript
+// API route: /api/admin/acquisition-fund
+
+export async function GET() {
+  const fund = await acquisitionFund.getFundStatus();
+  const assets = await acquisitionFund.getAcquiredAssets();
+  const proposals = await acquisitionFund.getPendingProposals();
+  const recentDistributions = await acquisitionFund.getRecentDistributions(6);
+  
+  return Response.json({
+    fund: {
+      balance: fund.balance,
+      status: fund.status,
+      targetThreshold: fund.targetThreshold,
+      percentToThreshold: fund.percentToThreshold
+    },
+    assets: assets.map(a => ({
+      id: a.id,
+      name: a.name,
+      type: a.assetType,
+      purchasePrice: a.purchasePriceCents / 100,
+      monthlyProduction: a.currentMonthProduction / 100,
+      roi: a.annualizedROI
+    })),
+    proposals: proposals.map(p => ({
+      id: p.id,
+      name: p.propertyName,
+      askingPrice: p.askingPriceCents / 100,
+      estimatedROI: p.estimatedRoiPercent,
+      votesFor: p.votesFor,
+      votesAgainst: p.votesAgainst,
+      deadline: p.votingDeadline
+    })),
+    distributions: recentDistributions.map(d => ({
+      period: `${d.periodStart} - ${d.periodEnd}`,
+      totalProduction: d.totalProductionCents / 100,
+      distributed: d.tenurePoolCents + d.productionPoolCents,
+      reinvested: d.reinvestmentCents / 100,
+      status: d.status
+    }))
+  });
+}
+```
+
+### Acquisition Fund Cron Jobs
+
+```typescript
+// Cron: Monthly dividend distribution (1st of each month)
+// Schedule: 0 0 1 * *
+
+async function monthlyDividendDistribution() {
+  const lastMonth = {
+    start: startOfMonth(subMonths(new Date(), 1)),
+    end: endOfMonth(subMonths(new Date(), 1))
+  };
+  
+  await acquisitionFund.calculateAndDistributeDividends(
+    lastMonth.start,
+    lastMonth.end
+  );
+}
+
+// Cron: Asset production recording (daily)
+// Schedule: 0 0 * * *
+
+async function recordAssetProduction() {
+  const assets = await acquisitionFund.getActiveAssets();
+  
+  for (const asset of assets) {
+    // Pull from IoT/POS system
+    const todayProduction = await getAssetDailyProduction(asset.id);
+    await acquisitionFund.recordProduction(asset.id, todayProduction);
+  }
+}
+
+// Cron: Acquisition opportunity scan (weekly)
+// Schedule: 0 0 * * 0
+
+async function scanAcquisitionOpportunities() {
+  const fund = await acquisitionFund.getFundStatus();
+  
+  if (fund.status === 'acquiring' && fund.balance > 50000) {
+    // AI scans real estate listings, farm auctions, etc.
+    const opportunities = await aiScoutProperties({
+      maxPrice: fund.balance,
+      types: ['farm', 'greenhouse', 'processing'],
+      regions: await getHighDensityRegions()
+    });
+    
+    for (const opp of opportunities) {
+      await acquisitionFund.createProposal(opp);
+    }
+  }
+}
+```
+
+---
+
 *Ready to build?*
