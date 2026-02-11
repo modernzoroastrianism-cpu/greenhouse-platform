@@ -531,8 +531,8 @@ export default function LandingPage() {
               <h4 className="text-white font-medium mb-3">AMNI</h4>
               <ul className="space-y-2 text-sm">
                 <li><Link href="/about" className="hover:text-white">About</Link></li>
+                <li><Link href="/acquisition" className="hover:text-white">Acquisition Fund</Link></li>
                 <li><Link href="/lifestyle" className="hover:text-white">The Good Life</Link></li>
-                <li><Link href="/how-it-works" className="hover:text-white">How It Works</Link></li>
               </ul>
             </div>
           </div>
