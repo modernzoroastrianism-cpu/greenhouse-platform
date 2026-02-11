@@ -787,20 +787,6 @@ export default function CompensationPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-gray-400 py-8 px-6">
-        <div className="max-w-6xl mx-auto text-center text-sm">
-          <Link href="/" className="flex items-center justify-center gap-2 mb-4">
-            <span className="text-xl">🌱</span>
-            <span className="text-lg font-bold text-white">AMNI</span>
-          </Link>
-          <p>As Mother Nature Intended</p>
-          <p className="mt-2 text-xs text-gray-500">
-            AMNI is a food production network. Earnings vary based on individual effort and production volume. 
-            See our Income Disclosure Statement for typical participant earnings.
-          </p>
-        </div>
-      </footer>
     </div>
   )
 }

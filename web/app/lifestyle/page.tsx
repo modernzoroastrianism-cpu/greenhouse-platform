@@ -463,17 +463,6 @@ export default function LifestylePage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-gray-400 py-12 px-6">
-        <div className="max-w-5xl mx-auto text-center">
-          <p className="mb-4">🌱 Growing food. Building community. Living well.</p>
-          <div className="flex items-center justify-center gap-6 text-sm">
-            <Link href="/" className="hover:text-white">Home</Link>
-            <Link href="/join" className="hover:text-white">Join</Link>
-            <Link href="/about" className="hover:text-white">About</Link>
-          </div>
-        </div>
-      </footer>
     </div>
   )
 }

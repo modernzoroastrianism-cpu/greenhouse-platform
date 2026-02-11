@@ -310,12 +310,6 @@ export default function MarketplacePage() {
         </section>
       </main>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-gray-400 py-8 px-6 mt-12">
-        <div className="max-w-6xl mx-auto text-center text-sm">
-          <p>🌱 AMNI Marketplace — Local food from local producers</p>
-        </div>
-      </footer>
     </div>
   )
 }

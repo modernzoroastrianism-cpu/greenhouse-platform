@@ -517,51 +517,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-gray-400 py-12 px-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <div className="flex items-center gap-2 mb-3">
-                <span className="text-2xl">🌱</span>
-                <span className="text-xl font-bold text-white">AMNI</span>
-              </div>
-              <p className="text-sm">
-                Production by the mass.
-                <br />
-                Not mass production.
-              </p>
-            </div>
-            <div>
-              <h4 className="text-white font-medium mb-3">Produce</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/packages" className="hover:text-white">Packages</Link></li>
-                <li><Link href="/join" className="hover:text-white">Join Network</Link></li>
-                <li><Link href="/calculator" className="hover:text-white">Earning Calculator</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-medium mb-3">Consume</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/marketplace" className="hover:text-white">Marketplace</Link></li>
-                <li><Link href="/subscriptions" className="hover:text-white">Subscriptions</Link></li>
-                <li><Link href="/meal-kits" className="hover:text-white">Meal Kits</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-medium mb-3">AMNI</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/about" className="hover:text-white">About</Link></li>
-                <li><Link href="/acquisition" className="hover:text-white">Acquisition Fund</Link></li>
-                <li><Link href="/lifestyle" className="hover:text-white">The Good Life</Link></li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-gray-800 pt-8 text-center text-sm">
-            <p>🌱 AMNI — Resilient sharing ecosystem for the future of food</p>
-          </div>
-        </div>
-      </footer>
     </div>
   )
 }

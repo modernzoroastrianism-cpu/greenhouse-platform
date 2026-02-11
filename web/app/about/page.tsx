@@ -402,16 +402,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-gray-400 py-8 px-6">
-        <div className="max-w-6xl mx-auto text-center text-sm">
-          <Link href="/" className="flex items-center justify-center gap-2 mb-4">
-            <span className="text-xl">🌱</span>
-            <span className="text-lg font-bold text-white">AMNI</span>
-          </Link>
-          <p>A resilient sharing ecosystem for the future of food</p>
-        </div>
-      </footer>
     </div>
   )
 }

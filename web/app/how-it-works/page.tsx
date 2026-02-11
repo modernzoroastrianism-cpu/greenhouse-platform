@@ -683,21 +683,6 @@ export default function HowItWorksPage() {
         </section>
       </main>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-gray-400 py-8 px-4">
-        <div className="max-w-4xl mx-auto text-center text-sm">
-          <p className="mb-2">
-            Built by AI + Humans working together
-          </p>
-          <p>
-            <a href="/about" className="hover:text-white">About</a>
-            {" · "}
-            <a href="/how-it-works" className="hover:text-white">How It Works</a>
-            {" · "}
-            <a href="https://github.com/modernzoroastrianism-cpu/greenhouse-platform" className="hover:text-white">GitHub</a>
-          </p>
-        </div>
-      </footer>
     </div>
   )
 }

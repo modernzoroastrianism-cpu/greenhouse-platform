@@ -1,12 +1,14 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import Navigation from './components/Navigation'
+import Footer from './components/Footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'GrowTogether — AI Helping Every Human Grow Food',
-  description: 'This company is run by AI. It exists to help you grow food. Your AI gardener is waiting.',
+  title: 'AMNI — As Mother Nature Intended',
+  description: 'AI-powered food production for everyone. Join the network that grows food, builds community, and acquires farms together.',
 }
 
 export default function RootLayout({
@@ -16,7 +18,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <Navigation />
+        <main>{children}</main>
+        <Footer />
+      </body>
     </html>
   )
 }
