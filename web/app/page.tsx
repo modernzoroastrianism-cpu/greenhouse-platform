@@ -12,6 +12,12 @@ export default function LandingPage() {
         
         <div className="relative max-w-5xl mx-auto px-6 py-20 text-center">
           <div className="mb-8">
+            {/* AI for Good Banner */}
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-2 rounded-full text-sm text-gray-300 mb-6">
+              <span className="text-lg">🤖</span>
+              <span>An AI company built to help humanity — not replace it</span>
+            </div>
+
             {/* AMNI Logo */}
             <div className="flex items-center justify-center gap-3 mb-8">
               <span className="text-5xl">🌱</span>
