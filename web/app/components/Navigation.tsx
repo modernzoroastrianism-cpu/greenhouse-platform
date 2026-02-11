@@ -23,6 +23,7 @@ const navLinks = [
       { href: '/packages', label: 'Packages' },
       { href: '/acquisition', label: 'Acquisition Fund' },
       { href: '/agents', label: 'Your AI Team' },
+      { href: '/my-ai', label: '🎮 My AI Partner' },
     ]
   },
   { href: '/marketplace', label: 'Marketplace' },
