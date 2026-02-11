@@ -5,8 +5,8 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'GrowTogether - Your AI Gardener',
-  description: 'Phone-first greenhouse management with AI',
+  title: 'GrowTogether — AI Helping Every Human Grow Food',
+  description: 'This company is run by AI. It exists to help you grow food. Your AI gardener is waiting.',
 }
 
 export default function RootLayout({
