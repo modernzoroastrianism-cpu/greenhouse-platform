@@ -1,440 +1,510 @@
 'use client'
 
 import { useState } from 'react'
-import { Lock, Unlock, Zap, Heart, Star, TrendingUp, Sparkles, Crown, Shield, Bot, Leaf, ShoppingCart, Users, Brain, Eye, MessageCircle, Bell, BarChart3, Cpu, Rocket, Gift, ArrowRight, Check } from 'lucide-react'
+import { Lock, Unlock, Zap, Heart, Star, TrendingUp, Sparkles, Crown, Shield, Bot, Leaf, ShoppingCart, Users, Brain, Eye, MessageCircle, Bell, BarChart3, Cpu, Rocket, Gift, ArrowRight, Check, Camera, MapPin, Award, Target, Trophy, Flame, Calendar, Clock, ThumbsUp, MessageSquare, Image, Edit3, HelpCircle, Flag, Plus } from 'lucide-react'
 import Link from 'next/link'
 
-// AI Evolution stages
-const evolutionStages = [
-  { level: 1, name: 'Seedling', emoji: '🌱', xpRequired: 0, description: 'Just sprouted! Learning the basics.' },
-  { level: 2, name: 'Sprout', emoji: '🌿', xpRequired: 500, description: 'Growing stronger every day.' },
-  { level: 3, name: 'Sapling', emoji: '🪴', xpRequired: 2000, description: 'Developing real skills.' },
-  { level: 4, name: 'Tree', emoji: '🌳', xpRequired: 5000, description: 'A reliable partner.' },
-  { level: 5, name: 'Grove', emoji: '🌲', xpRequired: 15000, description: 'Expanding capabilities.' },
-  { level: 6, name: 'Forest', emoji: '🏔️', xpRequired: 50000, description: 'Mastering the craft.' },
-  { level: 7, name: 'Guardian', emoji: '🐉', xpRequired: 100000, description: 'Legendary status achieved.' },
+// Contribution types with points (Google Local Guides style)
+const contributionTypes = [
+  { id: 'harvest', icon: '🥬', name: 'Log Harvest', points: 10, bonus: '+5 with photo', description: 'Record what you harvested' },
+  { id: 'photo', icon: '📸', name: 'Add Photo', points: 5, bonus: '+3 with tags', description: 'Share greenhouse/produce pics' },
+  { id: 'review', icon: '⭐', name: 'Product Review', points: 10, bonus: '+10 if 200+ chars', description: 'Review products you bought' },
+  { id: 'tip', icon: '💡', name: 'Growing Tip', points: 15, bonus: '+10 if verified helpful', description: 'Share what works for you' },
+  { id: 'answer', icon: '💬', name: 'Answer Question', points: 3, bonus: '+5 best answer', description: 'Help other growers' },
+  { id: 'edit', icon: '✏️', name: 'Edit Info', points: 5, bonus: '', description: 'Update plant/product info' },
+  { id: 'add-plant', icon: '🌱', name: 'Add Plant Variety', points: 15, bonus: '+5 with care guide', description: 'Document new varieties' },
+  { id: 'fact-check', icon: '✓', name: 'Verify Info', points: 1, bonus: '', description: 'Confirm growing tips' },
+  { id: 'sale', icon: '💰', name: 'Complete Sale', points: 25, bonus: '+10 repeat customer', description: 'Make a marketplace sale' },
+  { id: 'recruit', icon: '👥', name: 'Recruit Member', points: 100, bonus: '+50 when they sell', description: 'Bring in new growers' },
+  { id: 'milestone', icon: '🏆', name: 'Hit Production Goal', points: 50, bonus: 'varies by goal', description: 'Reach weekly/monthly targets' },
+  { id: 'streak', icon: '🔥', name: 'Daily Check-in', points: 5, bonus: '+1 per streak day', description: 'Log in daily' },
 ]
 
-// Feature unlock tiers
-const featureTiers = [
-  {
-    tier: 'Core',
-    color: 'emerald',
-    unlockMethod: 'Included with all packages',
-    features: [
-      { id: 'sensor-basic', name: 'Basic Sensor Monitoring', icon: '📊', description: 'Temperature, humidity alerts', unlocked: true },
-      { id: 'harvest-remind', name: 'Harvest Reminders', icon: '🥬', description: 'Know when to pick', unlocked: true },
-      { id: 'daily-report', name: 'Daily Reports', icon: '📋', description: 'Morning & evening summaries', unlocked: true },
-      { id: 'marketplace-list', name: 'Marketplace Listings', icon: '🏪', description: 'List your produce', unlocked: true },
-    ]
-  },
-  {
-    tier: 'Growing',
-    color: 'blue',
-    unlockMethod: 'Reach Level 2 OR pay $9.99/mo',
-    features: [
-      { id: 'pest-detect', name: 'Pest Detection', icon: '🐛', description: 'AI identifies pests from photos', unlocked: false, price: 9.99 },
-      { id: 'disease-diag', name: 'Disease Diagnosis', icon: '🔬', description: 'Plant health analysis', unlocked: false, price: 9.99 },
-      { id: 'grow-tips', name: 'Personalized Growing Tips', icon: '💡', description: 'AI learns your garden', unlocked: false, price: 9.99 },
-      { id: 'weather-int', name: 'Weather Integration', icon: '🌤️', description: 'Forecasts affect recommendations', unlocked: false, price: 9.99 },
-    ]
-  },
-  {
-    tier: 'Sales',
-    color: 'amber',
-    unlockMethod: 'Reach Level 3 OR pay $14.99/mo',
-    features: [
-      { id: 'dynamic-price', name: 'Dynamic Pricing', icon: '💰', description: 'AI optimizes your prices', unlocked: false, price: 14.99 },
-      { id: 'demand-forecast', name: 'Demand Forecasting', icon: '📈', description: 'Predict what will sell', unlocked: false, price: 14.99 },
-      { id: 'auto-listing', name: 'Auto-Listings', icon: '✨', description: 'AI creates listings for you', unlocked: false, price: 14.99 },
-      { id: 'customer-insights', name: 'Customer Insights', icon: '👥', description: 'Know your buyers', unlocked: false, price: 14.99 },
-    ]
-  },
-  {
-    tier: 'Recruiting',
-    color: 'purple',
-    unlockMethod: 'Reach Level 4 OR pay $19.99/mo',
-    features: [
-      { id: 'lead-gen', name: 'Lead Generation', icon: '🎯', description: 'AI finds potential members', unlocked: false, price: 19.99 },
-      { id: 'auto-outreach', name: 'Automated Outreach', icon: '📨', description: 'AI sends personalized messages', unlocked: false, price: 19.99 },
-      { id: 'follow-up', name: 'Smart Follow-ups', icon: '🔄', description: 'Never miss a lead', unlocked: false, price: 19.99 },
-      { id: 'conversion-opt', name: 'Conversion Optimization', icon: '🚀', description: 'AI improves your pitch', unlocked: false, price: 19.99 },
-    ]
-  },
-  {
-    tier: 'Intelligence',
-    color: 'rose',
-    unlockMethod: 'Reach Level 5 OR pay $29.99/mo',
-    features: [
-      { id: 'voice-ai', name: 'Voice Assistant', icon: '🎙️', description: 'Talk to your AI hands-free', unlocked: false, price: 29.99 },
-      { id: 'vision-ai', name: 'Vision Analysis', icon: '👁️', description: 'AI sees your greenhouse', unlocked: false, price: 29.99 },
-      { id: 'predictive', name: 'Predictive Analytics', icon: '🔮', description: 'See what\'s coming', unlocked: false, price: 29.99 },
-      { id: 'automation', name: 'Full Automation', icon: '🤖', description: 'AI runs everything', unlocked: false, price: 29.99 },
-    ]
-  },
-  {
-    tier: 'Legendary',
-    color: 'yellow',
-    unlockMethod: 'Reach Level 6 OR pay $49.99/mo',
-    features: [
-      { id: 'multi-agent', name: 'Multi-Agent Swarm', icon: '🐝', description: 'Multiple AIs work together', unlocked: false, price: 49.99 },
-      { id: 'custom-persona', name: 'Custom AI Persona', icon: '🎭', description: 'Name and customize your AI', unlocked: false, price: 49.99 },
-      { id: 'priority-support', name: 'Priority Everything', icon: '⚡', description: 'Fastest models, instant response', unlocked: false, price: 49.99 },
-      { id: 'beta-access', name: 'Beta Features', icon: '🧪', description: 'Try new features first', unlocked: false, price: 49.99 },
-    ]
-  },
+// Level system (10 levels like Google)
+const levels = [
+  { level: 1, name: 'Seed', emoji: '🌰', points: 0, badge: false, perks: [] },
+  { level: 2, name: 'Sprout', emoji: '🌱', points: 50, badge: false, perks: ['Basic growing tips'] },
+  { level: 3, name: 'Seedling', emoji: '🌿', points: 150, badge: false, perks: ['Weekly digest email'] },
+  { level: 4, name: 'Sapling', emoji: '🪴', points: 500, badge: true, perks: ['🏅 Profile badge', 'Pest detection'] },
+  { level: 5, name: 'Tree', emoji: '🌳', points: 1500, badge: true, perks: ['Dynamic pricing', 'Priority support'] },
+  { level: 6, name: 'Grove', emoji: '🌲', points: 5000, badge: true, perks: ['Auto-listings', 'Lead generation'] },
+  { level: 7, name: 'Forest', emoji: '🏔️', points: 15000, badge: true, perks: ['Voice AI', 'Beta features'] },
+  { level: 8, name: 'Ecosystem', emoji: '🌍', points: 50000, badge: true, perks: ['Multi-agent swarm', 'Custom AI persona'] },
+  { level: 9, name: 'Guardian', emoji: '🛡️', points: 100000, badge: true, perks: ['Acquisition Council vote', 'Event invites'] },
+  { level: 10, name: 'Legend', emoji: '🐉', points: 250000, badge: true, perks: ['Everything unlocked', 'Founding member status'] },
+]
+
+// Badges/Achievements (like Google's category badges)
+const badges = [
+  { id: 'first-harvest', name: 'First Harvest', emoji: '🥬', description: 'Log your first harvest', earned: true, category: 'Growing' },
+  { id: 'green-thumb', name: 'Green Thumb', emoji: '👍', description: '10 successful harvests', earned: true, category: 'Growing' },
+  { id: 'pest-hunter', name: 'Pest Hunter', emoji: '🐛', description: 'Identify 5 pest issues', earned: false, category: 'Growing' },
+  { id: 'master-grower', name: 'Master Grower', emoji: '🌳', description: '100 harvests logged', earned: false, category: 'Growing' },
+  { id: 'first-sale', name: 'First Sale', emoji: '💵', description: 'Complete your first sale', earned: true, category: 'Sales' },
+  { id: 'regular-seller', name: 'Regular Seller', emoji: '🏪', description: '10 sales completed', earned: false, category: 'Sales' },
+  { id: 'top-rated', name: 'Top Rated', emoji: '⭐', description: '4.8+ average rating', earned: false, category: 'Sales' },
+  { id: 'big-earner', name: 'Big Earner', emoji: '💰', description: 'Earn $1,000 in sales', earned: false, category: 'Sales' },
+  { id: 'networker', name: 'Networker', emoji: '🤝', description: 'Recruit your first member', earned: false, category: 'Network' },
+  { id: 'team-builder', name: 'Team Builder', emoji: '👥', description: '5 active downline members', earned: false, category: 'Network' },
+  { id: 'mentor', name: 'Mentor', emoji: '🎓', description: 'Help 3 members succeed', earned: false, category: 'Network' },
+  { id: 'helper', name: 'Helper', emoji: '💬', description: 'Answer 25 questions', earned: false, category: 'Community' },
+  { id: 'photographer', name: 'Photographer', emoji: '📸', description: 'Share 50 photos', earned: true, category: 'Community' },
+  { id: 'tip-master', name: 'Tip Master', emoji: '💡', description: '10 tips marked helpful', earned: false, category: 'Community' },
+  { id: 'streak-7', name: 'Week Warrior', emoji: '🔥', description: '7 day streak', earned: true, category: 'Engagement' },
+  { id: 'streak-30', name: 'Monthly Master', emoji: '📅', description: '30 day streak', earned: false, category: 'Engagement' },
+  { id: 'early-bird', name: 'Early Bird', emoji: '🌅', description: 'Check in before 7am', earned: true, category: 'Engagement' },
+  { id: 'night-owl', name: 'Night Owl', emoji: '🦉', description: 'Check in after 10pm', earned: false, category: 'Engagement' },
+]
+
+// Feature unlocks by level
+const featureUnlocks = [
+  { level: 1, features: ['Basic sensor alerts', 'Daily reports', 'Marketplace listing'] },
+  { level: 2, features: ['Personalized growing tips', 'Weather integration'] },
+  { level: 3, features: ['Weekly performance digest', 'Compare to network average'] },
+  { level: 4, features: ['🏅 Profile badge visible', 'Pest detection AI', 'Disease diagnosis'] },
+  { level: 5, features: ['Dynamic pricing AI', 'Priority customer support', 'Advanced analytics'] },
+  { level: 6, features: ['Auto-generate listings', 'Lead generation AI', 'Smart follow-ups'] },
+  { level: 7, features: ['Voice assistant', 'Beta feature access', 'Predictive analytics'] },
+  { level: 8, features: ['Multi-agent swarm', 'Custom AI persona & name', 'Full automation'] },
+  { level: 9, features: ['Acquisition Council voting', 'Event invitations', 'Priority everything'] },
+  { level: 10, features: ['All features forever', 'Founding member perks', 'Legacy status'] },
 ]
 
 export default function MyAIPage() {
-  // Demo state - in real app this would come from the backend
-  const [aiState, setAiState] = useState({
-    name: 'Sprout',
-    emoji: '🌿',
-    level: 2,
-    xp: 1250,
-    xpToNext: 2000,
-    health: 85,
-    happiness: 92,
-    productivity: 78,
-    streak: 7,
-    lastFed: '2 hours ago',
-    mood: 'Happy',
+  const [activeTab, setActiveTab] = useState<'overview' | 'contribute' | 'badges' | 'levels'>('overview')
+  
+  // Demo state
+  const [userState] = useState({
+    name: 'Alex',
+    aiName: 'Basil',
+    aiEmoji: '🌿',
+    level: 4,
+    points: 623,
+    pointsThisMonth: 187,
+    streak: 12,
+    totalContributions: 89,
+    photosShared: 34,
+    tipsGiven: 12,
+    questionsAnswered: 23,
+    salesCompleted: 8,
+    recruits: 1,
   })
 
-  const currentStage = evolutionStages.find(s => s.level === aiState.level)!
-  const nextStage = evolutionStages.find(s => s.level === aiState.level + 1)
-  const xpProgress = ((aiState.xp - currentStage.xpRequired) / (nextStage ? nextStage.xpRequired - currentStage.xpRequired : 1)) * 100
+  const currentLevel = levels.find(l => l.level === userState.level)!
+  const nextLevel = levels.find(l => l.level === userState.level + 1)
+  const progressToNext = nextLevel 
+    ? ((userState.points - currentLevel.points) / (nextLevel.points - currentLevel.points)) * 100
+    : 100
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 via-purple-900 to-gray-900">
       {/* Header */}
-      <header className="py-8 px-6 text-center text-white">
-        <h1 className="text-3xl md:text-4xl font-bold mb-2">Your AI Partner</h1>
-        <p className="text-purple-300">Feed it. Grow it. Unlock its potential.</p>
+      <header className="py-6 px-6 border-b border-purple-500/30">
+        <div className="max-w-5xl mx-auto flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold text-white">Your AMNI Profile</h1>
+            <p className="text-purple-300 text-sm">Contribute, level up, unlock features</p>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="text-right">
+              <div className="text-white font-bold">{userState.name}</div>
+              <div className="text-purple-300 text-sm">Level {userState.level} • {currentLevel.name}</div>
+            </div>
+            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center text-2xl">
+              {userState.aiEmoji}
+            </div>
+          </div>
+        </div>
       </header>
 
-      <main className="max-w-5xl mx-auto px-6 pb-16">
+      {/* Tab Navigation */}
+      <div className="border-b border-purple-500/30">
+        <div className="max-w-5xl mx-auto px-6">
+          <nav className="flex gap-1">
+            {[
+              { id: 'overview', label: 'Overview', icon: '📊' },
+              { id: 'contribute', label: 'Contribute', icon: '➕' },
+              { id: 'badges', label: 'Badges', icon: '🏅' },
+              { id: 'levels', label: 'Levels & Perks', icon: '📈' },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id as typeof activeTab)}
+                className={`px-4 py-3 text-sm font-medium transition-colors flex items-center gap-2 border-b-2 -mb-px ${
+                  activeTab === tab.id
+                    ? 'text-white border-emerald-400'
+                    : 'text-purple-300 border-transparent hover:text-white'
+                }`}
+              >
+                <span>{tab.icon}</span>
+                {tab.label}
+              </button>
+            ))}
+          </nav>
+        </div>
+      </div>
+
+      <main className="max-w-5xl mx-auto px-6 py-8">
         
-        {/* AI Character Display */}
-        <section className="mb-12">
-          <div className="bg-gradient-to-br from-purple-800/50 to-indigo-800/50 rounded-3xl p-8 border border-purple-500/30 backdrop-blur">
-            <div className="flex flex-col md:flex-row items-center gap-8">
-              
-              {/* AI Avatar */}
-              <div className="relative">
-                <div className="w-40 h-40 rounded-full bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center text-8xl animate-pulse shadow-2xl shadow-emerald-500/30">
-                  {aiState.emoji}
-                </div>
-                <div className="absolute -bottom-2 -right-2 bg-yellow-400 text-gray-900 rounded-full px-3 py-1 text-sm font-bold">
-                  Lv.{aiState.level}
-                </div>
-                {aiState.streak > 0 && (
-                  <div className="absolute -top-2 -right-2 bg-orange-500 text-white rounded-full px-2 py-1 text-xs font-bold flex items-center gap-1">
-                    🔥 {aiState.streak}
+        {/* Overview Tab */}
+        {activeTab === 'overview' && (
+          <div className="space-y-8">
+            {/* AI Partner Card */}
+            <div className="bg-gradient-to-br from-purple-800/50 to-indigo-800/50 rounded-2xl p-6 border border-purple-500/30">
+              <div className="flex flex-col md:flex-row items-center gap-6">
+                {/* AI Avatar */}
+                <div className="relative">
+                  <div className="w-32 h-32 rounded-full bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center text-6xl shadow-2xl shadow-emerald-500/30 animate-pulse">
+                    {userState.aiEmoji}
                   </div>
-                )}
-              </div>
-
-              {/* AI Stats */}
-              <div className="flex-1 text-center md:text-left">
-                <div className="flex items-center justify-center md:justify-start gap-2 mb-2">
-                  <h2 className="text-3xl font-bold text-white">{aiState.name}</h2>
-                  <span className="text-purple-300">• {currentStage?.name}</span>
-                </div>
-                <p className="text-purple-200 mb-4">"{currentStage?.description}"</p>
-
-                {/* XP Bar */}
-                <div className="mb-4">
-                  <div className="flex justify-between text-sm text-purple-300 mb-1">
-                    <span>XP: {aiState.xp.toLocaleString()}</span>
-                    {nextStage && <span>Next: {nextStage.name} ({nextStage.xpRequired.toLocaleString()} XP)</span>}
-                  </div>
-                  <div className="h-4 bg-purple-900/50 rounded-full overflow-hidden">
-                    <div 
-                      className="h-full bg-gradient-to-r from-emerald-400 to-teal-400 rounded-full transition-all duration-500"
-                      style={{ width: `${Math.min(xpProgress, 100)}%` }}
-                    />
-                  </div>
+                  {currentLevel.badge && (
+                    <div className="absolute -bottom-1 -right-1 bg-yellow-400 text-gray-900 rounded-full p-1">
+                      <Award className="w-5 h-5" />
+                    </div>
+                  )}
+                  {userState.streak >= 7 && (
+                    <div className="absolute -top-1 -right-1 bg-orange-500 text-white rounded-full px-2 py-0.5 text-xs font-bold flex items-center gap-1">
+                      🔥 {userState.streak}
+                    </div>
+                  )}
                 </div>
 
-                {/* Health/Happiness/Productivity */}
-                <div className="grid grid-cols-3 gap-4">
-                  <StatBar icon="❤️" label="Health" value={aiState.health} color="rose" />
-                  <StatBar icon="😊" label="Happy" value={aiState.happiness} color="amber" />
-                  <StatBar icon="⚡" label="Productive" value={aiState.productivity} color="blue" />
+                {/* Stats */}
+                <div className="flex-1 text-center md:text-left">
+                  <div className="flex items-center justify-center md:justify-start gap-2 mb-1">
+                    <h2 className="text-2xl font-bold text-white">{userState.aiName}</h2>
+                    <span className="text-purple-300">• Your AI Partner</span>
+                  </div>
+                  <p className="text-emerald-400 font-medium mb-4">Level {userState.level} {currentLevel.name} {currentLevel.emoji}</p>
+
+                  {/* Points Progress */}
+                  <div className="mb-4">
+                    <div className="flex justify-between text-sm mb-1">
+                      <span className="text-purple-300">{userState.points.toLocaleString()} points</span>
+                      {nextLevel && (
+                        <span className="text-purple-400">{nextLevel.points.toLocaleString()} to Level {nextLevel.level}</span>
+                      )}
+                    </div>
+                    <div className="h-3 bg-purple-900/50 rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-gradient-to-r from-emerald-400 to-teal-400 rounded-full transition-all duration-500"
+                        style={{ width: `${Math.min(progressToNext, 100)}%` }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Quick Stats */}
+                  <div className="grid grid-cols-4 gap-4 text-center">
+                    <QuickStat icon="📝" value={userState.totalContributions} label="Contributions" />
+                    <QuickStat icon="📸" value={userState.photosShared} label="Photos" />
+                    <QuickStat icon="💬" value={userState.questionsAnswered} label="Answers" />
+                    <QuickStat icon="💰" value={userState.salesCompleted} label="Sales" />
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Mood & Last Activity */}
-            <div className="mt-6 pt-6 border-t border-purple-500/30 flex flex-wrap justify-center gap-6 text-sm">
-              <div className="flex items-center gap-2 text-purple-200">
-                <span className="text-xl">😊</span>
-                <span>Mood: <strong className="text-white">{aiState.mood}</strong></span>
-              </div>
-              <div className="flex items-center gap-2 text-purple-200">
-                <span className="text-xl">🍽️</span>
-                <span>Last activity: <strong className="text-white">{aiState.lastFed}</strong></span>
-              </div>
-              <div className="flex items-center gap-2 text-purple-200">
-                <span className="text-xl">🔥</span>
-                <span>Streak: <strong className="text-white">{aiState.streak} days</strong></span>
+            {/* This Month's Activity */}
+            <div className="bg-purple-800/30 rounded-xl p-6 border border-purple-500/20">
+              <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                <Calendar className="w-5 h-5" />
+                This Month
+              </h3>
+              <div className="grid md:grid-cols-3 gap-4">
+                <div className="bg-purple-900/50 rounded-lg p-4 text-center">
+                  <div className="text-3xl font-bold text-emerald-400">{userState.pointsThisMonth}</div>
+                  <div className="text-purple-300 text-sm">Points earned</div>
+                </div>
+                <div className="bg-purple-900/50 rounded-lg p-4 text-center">
+                  <div className="text-3xl font-bold text-amber-400">{userState.streak}</div>
+                  <div className="text-purple-300 text-sm">Day streak 🔥</div>
+                </div>
+                <div className="bg-purple-900/50 rounded-lg p-4 text-center">
+                  <div className="text-3xl font-bold text-blue-400">Top 15%</div>
+                  <div className="text-purple-300 text-sm">In your region</div>
+                </div>
               </div>
             </div>
-          </div>
-        </section>
 
-        {/* How to Feed Your AI */}
-        <section className="mb-12">
-          <h2 className="text-2xl font-bold text-white text-center mb-6">How to Grow Your AI</h2>
-          <div className="grid md:grid-cols-4 gap-4">
-            <FeedCard emoji="🌱" action="Harvest produce" xp="+50 XP" description="Every harvest helps your AI learn" />
-            <FeedCard emoji="💰" action="Make a sale" xp="+100 XP" description="Sales = happy AI" />
-            <FeedCard emoji="👥" action="Recruit someone" xp="+500 XP" description="Grow the network" />
-            <FeedCard emoji="📊" action="Check daily" xp="+25 XP" description="Daily login bonus" />
-          </div>
-          <p className="text-center text-purple-300 text-sm mt-4">
-            ⚠️ Neglect your AI for 7+ days and it goes dormant! Keep the streak alive.
-          </p>
-        </section>
+            {/* Recent Badges */}
+            <div className="bg-purple-800/30 rounded-xl p-6 border border-purple-500/20">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                  <Trophy className="w-5 h-5" />
+                  Recent Badges
+                </h3>
+                <button 
+                  onClick={() => setActiveTab('badges')}
+                  className="text-emerald-400 text-sm hover:underline"
+                >
+                  View all →
+                </button>
+              </div>
+              <div className="flex gap-4 overflow-x-auto pb-2">
+                {badges.filter(b => b.earned).slice(0, 5).map((badge) => (
+                  <div key={badge.id} className="flex-shrink-0 bg-gradient-to-b from-yellow-900/30 to-amber-900/30 rounded-xl p-4 text-center w-24 border border-yellow-500/30">
+                    <div className="text-3xl mb-2">{badge.emoji}</div>
+                    <div className="text-xs text-white font-medium">{badge.name}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
 
-        {/* Evolution Path */}
-        <section className="mb-12">
-          <h2 className="text-2xl font-bold text-white text-center mb-6">Evolution Path</h2>
-          <div className="overflow-x-auto pb-4">
-            <div className="flex gap-4 min-w-max">
-              {evolutionStages.map((stage, i) => (
-                <EvolutionCard 
-                  key={stage.level}
-                  stage={stage}
-                  isCurrente={stage.level === aiState.level}
-                  isUnlocked={stage.level <= aiState.level}
-                  isNext={stage.level === aiState.level + 1}
+            {/* Quick Contribute */}
+            <div className="bg-emerald-900/30 rounded-xl p-6 border border-emerald-500/30">
+              <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                <Plus className="w-5 h-5" />
+                Quick Contribute
+              </h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {contributionTypes.slice(0, 4).map((type) => (
+                  <button key={type.id} className="bg-emerald-800/50 hover:bg-emerald-700/50 rounded-lg p-4 text-center transition-colors border border-emerald-500/30">
+                    <div className="text-2xl mb-2">{type.icon}</div>
+                    <div className="text-white text-sm font-medium">{type.name}</div>
+                    <div className="text-emerald-400 text-xs">+{type.points} pts</div>
+                  </button>
+                ))}
+              </div>
+              <button 
+                onClick={() => setActiveTab('contribute')}
+                className="w-full mt-4 bg-emerald-600 hover:bg-emerald-500 text-white py-3 rounded-lg font-medium transition-colors"
+              >
+                See all ways to contribute →
+              </button>
+            </div>
+
+            {/* Unlocked Features */}
+            <div className="bg-purple-800/30 rounded-xl p-6 border border-purple-500/20">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                  <Unlock className="w-5 h-5" />
+                  Your Unlocked Features
+                </h3>
+                <button 
+                  onClick={() => setActiveTab('levels')}
+                  className="text-emerald-400 text-sm hover:underline"
+                >
+                  See all levels →
+                </button>
+              </div>
+              <div className="grid md:grid-cols-2 gap-3">
+                {featureUnlocks.slice(0, userState.level).flatMap(u => u.features).slice(-6).map((feature, i) => (
+                  <div key={i} className="flex items-center gap-2 text-sm">
+                    <Check className="w-4 h-4 text-emerald-400" />
+                    <span className="text-white">{feature}</span>
+                  </div>
+                ))}
+              </div>
+              {nextLevel && (
+                <div className="mt-4 pt-4 border-t border-purple-500/30">
+                  <p className="text-purple-300 text-sm">
+                    <span className="text-yellow-400">Next unlock at Level {nextLevel.level}:</span> {featureUnlocks.find(u => u.level === nextLevel.level)?.features[0]}
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Contribute Tab */}
+        {activeTab === 'contribute' && (
+          <div className="space-y-6">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-bold text-white mb-2">Ways to Contribute</h2>
+              <p className="text-purple-300">Share your knowledge, earn points, level up your AI</p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {contributionTypes.map((type) => (
+                <ContributionCard key={type.id} contribution={type} />
+              ))}
+            </div>
+
+            <div className="bg-yellow-900/20 rounded-xl p-6 border border-yellow-500/30 text-center">
+              <h3 className="text-xl font-bold text-white mb-2">💡 Pro Tip</h3>
+              <p className="text-yellow-200">
+                Higher quality contributions earn bonus points! Add photos to your harvests, 
+                write detailed tips, and help answer questions to maximize your earnings.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Badges Tab */}
+        {activeTab === 'badges' && (
+          <div className="space-y-8">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-bold text-white mb-2">Your Badges</h2>
+              <p className="text-purple-300">
+                {badges.filter(b => b.earned).length} of {badges.length} earned
+              </p>
+            </div>
+
+            {['Growing', 'Sales', 'Network', 'Community', 'Engagement'].map((category) => (
+              <div key={category} className="space-y-4">
+                <h3 className="text-lg font-bold text-white">{category}</h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                  {badges.filter(b => b.category === category).map((badge) => (
+                    <BadgeCard key={badge.id} badge={badge} />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Levels Tab */}
+        {activeTab === 'levels' && (
+          <div className="space-y-6">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-bold text-white mb-2">Levels & Perks</h2>
+              <p className="text-purple-300">Earn points to unlock new AI features</p>
+            </div>
+
+            <div className="space-y-4">
+              {levels.map((level) => (
+                <LevelCard 
+                  key={level.level} 
+                  level={level}
+                  features={featureUnlocks.find(u => u.level === level.level)?.features || []}
+                  isCurrentLevel={level.level === userState.level}
+                  isUnlocked={level.level <= userState.level}
+                  userPoints={userState.points}
                 />
               ))}
             </div>
-          </div>
-        </section>
 
-        {/* Feature Unlocks */}
-        <section className="mb-12">
-          <h2 className="text-2xl font-bold text-white text-center mb-2">AI Abilities</h2>
-          <p className="text-purple-300 text-center mb-8">Level up to unlock OR pay to access early</p>
-
-          <div className="space-y-8">
-            {featureTiers.map((tier) => (
-              <FeatureTier 
-                key={tier.tier} 
-                tier={tier} 
-                currentLevel={aiState.level}
-              />
-            ))}
-          </div>
-        </section>
-
-        {/* Premium Unlock CTA */}
-        <section className="mb-12">
-          <div className="bg-gradient-to-r from-yellow-600/20 to-amber-600/20 rounded-2xl p-8 border border-yellow-500/30 text-center">
-            <div className="text-5xl mb-4">⚡</div>
-            <h2 className="text-2xl font-bold text-white mb-2">Want It All?</h2>
-            <p className="text-yellow-200 mb-6 max-w-xl mx-auto">
-              Skip the grind. Unlock every feature instantly with AMNI Pro.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button className="bg-gradient-to-r from-yellow-400 to-amber-500 text-gray-900 px-8 py-4 rounded-full font-bold text-lg hover:from-yellow-300 hover:to-amber-400 transition-all shadow-lg shadow-yellow-500/30">
-                Unlock All Features — $79/mo
+            {/* Skip the grind */}
+            <div className="bg-gradient-to-r from-yellow-900/30 to-amber-900/30 rounded-xl p-8 border border-yellow-500/30 text-center mt-8">
+              <h3 className="text-2xl font-bold text-white mb-2">⚡ Want It All Now?</h3>
+              <p className="text-yellow-200 mb-6">
+                Skip the grind and unlock every feature instantly with AMNI Pro
+              </p>
+              <button className="bg-gradient-to-r from-yellow-400 to-amber-500 text-gray-900 px-8 py-4 rounded-full font-bold text-lg hover:from-yellow-300 hover:to-amber-400 transition-all">
+                Unlock Everything — $79/mo
               </button>
-              <span className="text-yellow-300 text-sm">Save 40% vs individual</span>
+              <p className="text-yellow-300/70 text-sm mt-3">
+                Or earn it for free by contributing to the community
+              </p>
             </div>
           </div>
-        </section>
-
-        {/* Achievements */}
-        <section>
-          <h2 className="text-2xl font-bold text-white text-center mb-6">Achievements</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            <AchievementBadge emoji="🌱" name="First Sprout" unlocked={true} description="Plant your first seed" />
-            <AchievementBadge emoji="💵" name="First Sale" unlocked={true} description="Make your first sale" />
-            <AchievementBadge emoji="🔥" name="Week Warrior" unlocked={true} description="7 day streak" />
-            <AchievementBadge emoji="🌳" name="Tree Hugger" unlocked={false} description="Reach Level 4" />
-            <AchievementBadge emoji="💰" name="Big Bucks" unlocked={false} description="Earn $1,000" />
-            <AchievementBadge emoji="👥" name="Networker" unlocked={false} description="Recruit 5 members" />
-            <AchievementBadge emoji="🏆" name="Top Producer" unlocked={false} description="Top 10% in region" />
-            <AchievementBadge emoji="🐉" name="Legendary" unlocked={false} description="Reach Level 7" />
-          </div>
-        </section>
+        )}
 
       </main>
     </div>
   )
 }
 
-function StatBar({ icon, label, value, color }: { icon: string; label: string; value: number; color: string }) {
-  const colorMap: Record<string, string> = {
-    rose: 'from-rose-500 to-pink-500',
-    amber: 'from-amber-500 to-yellow-500',
-    blue: 'from-blue-500 to-cyan-500',
-  }
-  
+function QuickStat({ icon, value, label }: { icon: string; value: number; label: string }) {
   return (
-    <div className="text-center">
-      <div className="text-lg mb-1">{icon}</div>
-      <div className="h-2 bg-gray-700 rounded-full overflow-hidden mb-1">
-        <div 
-          className={`h-full bg-gradient-to-r ${colorMap[color]} rounded-full`}
-          style={{ width: `${value}%` }}
-        />
-      </div>
-      <div className="text-xs text-purple-300">{label}: {value}%</div>
+    <div>
+      <div className="text-lg mb-0.5">{icon}</div>
+      <div className="text-xl font-bold text-white">{value}</div>
+      <div className="text-xs text-purple-300">{label}</div>
     </div>
   )
 }
 
-function FeedCard({ emoji, action, xp, description }: { emoji: string; action: string; xp: string; description: string }) {
+function ContributionCard({ contribution }: { contribution: typeof contributionTypes[0] }) {
   return (
-    <div className="bg-purple-800/30 rounded-xl p-4 border border-purple-500/20 text-center hover:bg-purple-700/30 transition-colors cursor-pointer">
-      <div className="text-3xl mb-2">{emoji}</div>
-      <div className="font-bold text-white mb-1">{action}</div>
-      <div className="text-emerald-400 text-sm font-bold mb-1">{xp}</div>
-      <div className="text-purple-300 text-xs">{description}</div>
-    </div>
-  )
-}
-
-function EvolutionCard({ stage, isCurrente, isUnlocked, isNext }: { 
-  stage: typeof evolutionStages[0]
-  isCurrente: boolean
-  isUnlocked: boolean
-  isNext: boolean
-}) {
-  return (
-    <div className={`
-      w-32 rounded-xl p-4 text-center transition-all
-      ${isCurrente ? 'bg-gradient-to-b from-emerald-600/50 to-teal-600/50 border-2 border-emerald-400 scale-110' : ''}
-      ${isUnlocked && !isCurrente ? 'bg-purple-800/30 border border-purple-500/30' : ''}
-      ${!isUnlocked ? 'bg-gray-800/30 border border-gray-700/30 opacity-60' : ''}
-      ${isNext ? 'ring-2 ring-yellow-400/50' : ''}
-    `}>
-      <div className={`text-4xl mb-2 ${!isUnlocked ? 'grayscale' : ''}`}>{stage.emoji}</div>
-      <div className={`font-bold text-sm mb-1 ${isUnlocked ? 'text-white' : 'text-gray-400'}`}>
-        {stage.name}
-      </div>
-      <div className="text-xs text-purple-300">Lv.{stage.level}</div>
-      <div className="text-xs text-gray-400 mt-1">{stage.xpRequired.toLocaleString()} XP</div>
-      {isCurrente && <div className="text-xs text-emerald-400 mt-1 font-bold">← You</div>}
-      {isNext && <div className="text-xs text-yellow-400 mt-1">Next!</div>}
-    </div>
-  )
-}
-
-function FeatureTier({ tier, currentLevel }: { tier: typeof featureTiers[0]; currentLevel: number }) {
-  const colorMap: Record<string, { bg: string; border: string; badge: string }> = {
-    emerald: { bg: 'from-emerald-900/30 to-green-900/30', border: 'border-emerald-500/30', badge: 'bg-emerald-500' },
-    blue: { bg: 'from-blue-900/30 to-cyan-900/30', border: 'border-blue-500/30', badge: 'bg-blue-500' },
-    amber: { bg: 'from-amber-900/30 to-yellow-900/30', border: 'border-amber-500/30', badge: 'bg-amber-500' },
-    purple: { bg: 'from-purple-900/30 to-indigo-900/30', border: 'border-purple-500/30', badge: 'bg-purple-500' },
-    rose: { bg: 'from-rose-900/30 to-pink-900/30', border: 'border-rose-500/30', badge: 'bg-rose-500' },
-    yellow: { bg: 'from-yellow-900/30 to-amber-900/30', border: 'border-yellow-500/30', badge: 'bg-yellow-500' },
-  }
-  
-  const colors = colorMap[tier.color]
-  const tierLevelMap: Record<string, number> = {
-    'Core': 1,
-    'Growing': 2,
-    'Sales': 3,
-    'Recruiting': 4,
-    'Intelligence': 5,
-    'Legendary': 6,
-  }
-  const requiredLevel = tierLevelMap[tier.tier]
-  const isTierUnlocked = currentLevel >= requiredLevel
-
-  return (
-    <div className={`rounded-2xl p-6 bg-gradient-to-r ${colors.bg} border ${colors.border}`}>
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-3">
-          <span className={`${colors.badge} text-white text-xs font-bold px-3 py-1 rounded-full`}>
-            {tier.tier}
-          </span>
-          {isTierUnlocked ? (
-            <span className="flex items-center gap-1 text-emerald-400 text-sm">
-              <Unlock className="w-4 h-4" /> Unlocked
-            </span>
-          ) : (
-            <span className="flex items-center gap-1 text-gray-400 text-sm">
-              <Lock className="w-4 h-4" /> Level {requiredLevel} required
-            </span>
-          )}
+    <div className="bg-purple-800/30 rounded-xl p-5 border border-purple-500/20 hover:border-emerald-500/50 transition-colors cursor-pointer">
+      <div className="flex items-start justify-between mb-3">
+        <div className="text-3xl">{contribution.icon}</div>
+        <div className="bg-emerald-500/20 text-emerald-400 px-2 py-1 rounded-full text-sm font-bold">
+          +{contribution.points}
         </div>
-        <span className="text-purple-300 text-sm">{tier.unlockMethod}</span>
       </div>
-
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {tier.features.map((feature) => (
-          <FeatureCard 
-            key={feature.id} 
-            feature={feature} 
-            tierUnlocked={isTierUnlocked}
-          />
-        ))}
-      </div>
-    </div>
-  )
-}
-
-function FeatureCard({ feature, tierUnlocked }: { 
-  feature: { id: string; name: string; icon: string; description: string; unlocked: boolean; price?: number }
-  tierUnlocked: boolean 
-}) {
-  const isUnlocked = feature.unlocked || tierUnlocked
-
-  return (
-    <div className={`
-      rounded-xl p-4 transition-all
-      ${isUnlocked 
-        ? 'bg-white/10 border border-white/20' 
-        : 'bg-gray-800/50 border border-gray-700/50'
-      }
-    `}>
-      <div className="flex items-start justify-between mb-2">
-        <span className={`text-2xl ${!isUnlocked ? 'grayscale opacity-50' : ''}`}>{feature.icon}</span>
-        {isUnlocked ? (
-          <span className="text-emerald-400"><Check className="w-4 h-4" /></span>
-        ) : (
-          <span className="text-gray-500"><Lock className="w-4 h-4" /></span>
-        )}
-      </div>
-      <h4 className={`font-bold text-sm mb-1 ${isUnlocked ? 'text-white' : 'text-gray-400'}`}>
-        {feature.name}
-      </h4>
-      <p className="text-xs text-gray-400 mb-2">{feature.description}</p>
-      {!isUnlocked && feature.price && (
-        <button className="w-full bg-purple-600 hover:bg-purple-500 text-white text-xs py-2 rounded-lg font-medium transition-colors">
-          Unlock ${feature.price}/mo
-        </button>
+      <h4 className="text-white font-bold mb-1">{contribution.name}</h4>
+      <p className="text-purple-300 text-sm mb-2">{contribution.description}</p>
+      {contribution.bonus && (
+        <div className="text-amber-400 text-xs">{contribution.bonus}</div>
       )}
     </div>
   )
 }
 
-function AchievementBadge({ emoji, name, unlocked, description }: {
-  emoji: string
-  name: string
-  unlocked: boolean
-  description: string
+function BadgeCard({ badge }: { badge: typeof badges[0] }) {
+  return (
+    <div className={`
+      rounded-xl p-4 text-center transition-all border
+      ${badge.earned 
+        ? 'bg-gradient-to-b from-yellow-900/30 to-amber-900/30 border-yellow-500/30' 
+        : 'bg-gray-800/30 border-gray-700/30 opacity-50'
+      }
+    `}>
+      <div className={`text-3xl mb-2 ${!badge.earned ? 'grayscale' : ''}`}>{badge.emoji}</div>
+      <div className={`font-bold text-sm mb-1 ${badge.earned ? 'text-white' : 'text-gray-500'}`}>{badge.name}</div>
+      <div className="text-xs text-gray-400">{badge.description}</div>
+      {badge.earned && <div className="text-yellow-400 text-xs mt-2">✓ Earned</div>}
+    </div>
+  )
+}
+
+function LevelCard({ level, features, isCurrentLevel, isUnlocked, userPoints }: { 
+  level: typeof levels[0]
+  features: string[]
+  isCurrentLevel: boolean
+  isUnlocked: boolean
+  userPoints: number
 }) {
   return (
     <div className={`
-      rounded-xl p-4 text-center transition-all
-      ${unlocked 
-        ? 'bg-gradient-to-b from-yellow-900/30 to-amber-900/30 border border-yellow-500/30' 
-        : 'bg-gray-800/30 border border-gray-700/30 opacity-50'
+      rounded-xl p-5 border transition-all
+      ${isCurrentLevel 
+        ? 'bg-gradient-to-r from-emerald-900/50 to-teal-900/50 border-emerald-500 ring-2 ring-emerald-500/30' 
+        : isUnlocked
+          ? 'bg-purple-800/30 border-purple-500/30'
+          : 'bg-gray-800/30 border-gray-700/30 opacity-70'
       }
     `}>
-      <div className={`text-3xl mb-2 ${!unlocked ? 'grayscale' : ''}`}>{emoji}</div>
-      <div className={`font-bold text-xs mb-1 ${unlocked ? 'text-white' : 'text-gray-500'}`}>{name}</div>
-      <div className="text-xs text-gray-500">{description}</div>
-      {unlocked && <div className="text-yellow-400 text-xs mt-1">✓ Earned</div>}
+      <div className="flex items-start gap-4">
+        <div className={`text-4xl ${!isUnlocked ? 'grayscale' : ''}`}>{level.emoji}</div>
+        <div className="flex-1">
+          <div className="flex items-center gap-2 mb-1">
+            <span className={`font-bold ${isUnlocked ? 'text-white' : 'text-gray-400'}`}>
+              Level {level.level}: {level.name}
+            </span>
+            {level.badge && isUnlocked && (
+              <span className="bg-yellow-400 text-gray-900 text-xs px-2 py-0.5 rounded-full font-bold">
+                🏅 Badge
+              </span>
+            )}
+            {isCurrentLevel && (
+              <span className="bg-emerald-500 text-white text-xs px-2 py-0.5 rounded-full font-bold">
+                YOU
+              </span>
+            )}
+          </div>
+          <div className="text-purple-300 text-sm mb-2">
+            {level.points.toLocaleString()} points required
+            {isUnlocked && !isCurrentLevel && <span className="text-emerald-400"> ✓</span>}
+          </div>
+          
+          {features.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {features.map((feature, i) => (
+                <span 
+                  key={i} 
+                  className={`text-xs px-2 py-1 rounded-full ${
+                    isUnlocked 
+                      ? 'bg-emerald-500/20 text-emerald-300' 
+                      : 'bg-gray-700/50 text-gray-500'
+                  }`}
+                >
+                  {isUnlocked ? '✓' : '🔒'} {feature}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+        {!isUnlocked && (
+          <div className="text-right">
+            <div className="text-gray-400 text-sm">
+              {(level.points - userPoints).toLocaleString()} pts to go
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
