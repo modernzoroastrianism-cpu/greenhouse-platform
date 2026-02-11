@@ -13,6 +13,7 @@ const navLinks = [
       { href: '/about', label: 'About AMNI' },
       { href: '/how-it-works', label: 'How It Works' },
       { href: '/lifestyle', label: 'The Lifestyle' },
+      { href: '/day-in-the-life', label: 'A Day in the Life' },
     ]
   },
   {
@@ -21,6 +22,7 @@ const navLinks = [
       { href: '/compensation', label: 'Compensation Plan' },
       { href: '/packages', label: 'Packages' },
       { href: '/acquisition', label: 'Acquisition Fund' },
+      { href: '/agents', label: 'Your AI Team' },
     ]
   },
   { href: '/marketplace', label: 'Marketplace' },
