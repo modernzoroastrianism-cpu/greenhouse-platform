@@ -1,12 +1,13 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
+import { createClient } from '@/lib/supabase/client'
 import { 
   LayoutDashboard, Users, Globe, ShoppingBag, DollarSign, FileText, 
   Plug, HeadphonesIcon, BarChart3, Settings, ChevronDown, ChevronRight,
-  Menu, X, Bell, Search, LogOut, Shield
+  Menu, X, Bell, Search, LogOut, Shield, History
 } from 'lucide-react'
 
 interface NavItem {
@@ -55,8 +56,13 @@ const navigation: NavItem[] = [
     href: '/admin/finance', 
     icon: <DollarSign className="w-5 h-5" />,
     children: [
+      { name: 'Dashboard', href: '/admin/finance' },
+      { name: 'Revenue & P&L', href: '/admin/finance/revenue' },
+      { name: 'Accounts Receivable', href: '/admin/finance/ar' },
+      { name: 'Accounts Payable', href: '/admin/finance/ap' },
       { name: 'Commissions', href: '/admin/finance/commissions' },
-      { name: 'Revenue', href: '/admin/finance/revenue' },
+      { name: 'Payouts', href: '/admin/finance/payouts' },
+      { name: 'Reconciliation', href: '/admin/finance/reconciliation' },
       { name: 'Acquisition Fund', href: '/admin/finance/fund' },
     ]
   },
@@ -64,13 +70,61 @@ const navigation: NavItem[] = [
   { name: 'Integrations', href: '/admin/integrations', icon: <Plug className="w-5 h-5" /> },
   { name: 'Support', href: '/admin/support', icon: <HeadphonesIcon className="w-5 h-5" /> },
   { name: 'Analytics', href: '/admin/analytics', icon: <BarChart3 className="w-5 h-5" /> },
+  { name: 'Audit Log', href: '/admin/audit', icon: <History className="w-5 h-5" /> },
   { name: 'Settings', href: '/admin/settings', icon: <Settings className="w-5 h-5" /> },
 ]
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
+  const router = useRouter()
   const [sidebarOpen, setSidebarOpen] = useState(true)
-  const [expandedItems, setExpandedItems] = useState<string[]>(['Members', 'Network'])
+  const [expandedItems, setExpandedItems] = useState<string[]>(['Members', 'Network', 'Finance'])
+  const [adminUser, setAdminUser] = useState<{ email: string; name: string; role: string } | null>(null)
+
+  // Skip auth check on login page
+  const isLoginPage = pathname === '/admin/login'
+
+  useEffect(() => {
+    if (isLoginPage) return
+
+    const checkAuth = async () => {
+      const supabase = createClient()
+      const { data: { user } } = await supabase.auth.getUser()
+      
+      if (!user) {
+        router.push('/admin/login')
+        return
+      }
+
+      // Get admin user details
+      const { data: admin } = await supabase
+        .from('admin_users')
+        .select('email, name, role')
+        .eq('email', user.email!)
+        .single()
+
+      if (!admin) {
+        await supabase.auth.signOut()
+        router.push('/admin/login')
+        return
+      }
+
+      setAdminUser(admin)
+    }
+
+    checkAuth()
+  }, [pathname, router, isLoginPage])
+
+  const handleLogout = async () => {
+    const supabase = createClient()
+    await supabase.auth.signOut()
+    router.push('/admin/login')
+  }
+
+  // Render login page without layout
+  if (isLoginPage) {
+    return <>{children}</>
+  }
 
   const toggleExpand = (name: string) => {
     setExpandedItems(prev => 
@@ -116,11 +170,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </button>
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-emerald-600 rounded-full flex items-center justify-center font-medium">
-              A
+              {adminUser?.name?.charAt(0) || 'A'}
             </div>
-            <span className="text-sm">Admin</span>
+            <div className="text-sm">
+              <div className="font-medium">{adminUser?.name || 'Admin'}</div>
+              <div className="text-xs text-gray-400">{adminUser?.role?.replace('_', ' ') || ''}</div>
+            </div>
           </div>
-          <button className="p-2 hover:bg-gray-800 rounded-lg">
+          <button onClick={handleLogout} className="p-2 hover:bg-gray-800 rounded-lg" title="Sign out">
             <LogOut className="w-5 h-5" />
           </button>
         </div>
