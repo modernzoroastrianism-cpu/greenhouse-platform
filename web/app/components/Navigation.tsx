@@ -6,7 +6,6 @@ import { Menu, X, ChevronDown } from 'lucide-react'
 
 const navLinks = [
   { href: '/', label: 'Home' },
-  { href: '/dashboard', label: '📊 Dashboard' },
   { 
     label: 'Learn',
     children: [
@@ -29,6 +28,7 @@ const navLinks = [
   {
     label: 'My AMNI',
     children: [
+      { href: '/dashboard', label: '📊 Dashboard' },
       { href: '/my-ai', label: '🎮 My AI Partner' },
       { href: '/network', label: '🌐 Agent Network' },
     ]
