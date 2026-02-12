@@ -31,6 +31,7 @@ const navLinks = [
       { href: '/dashboard', label: '📊 Dashboard' },
       { href: '/my-ai', label: '🎮 My AI Partner' },
       { href: '/network', label: '🌐 Agent Network' },
+      { href: '/integrations', label: '🔌 Integrations' },
     ]
   },
   { href: '/marketplace', label: 'Marketplace' },
