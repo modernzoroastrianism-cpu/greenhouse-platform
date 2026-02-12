@@ -7,7 +7,6 @@ import { Menu, X, ChevronDown } from 'lucide-react'
 const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/dashboard', label: '📊 Dashboard' },
-  { href: '/dashboard', label: '📊 Dashboard' },
   { 
     label: 'Learn',
     children: [
@@ -25,6 +24,11 @@ const navLinks = [
       { href: '/packages', label: 'Packages' },
       { href: '/acquisition', label: 'Acquisition Fund' },
       { href: '/agents', label: 'Your AI Team' },
+    ]
+  },
+  {
+    label: 'My AMNI',
+    children: [
       { href: '/my-ai', label: '🎮 My AI Partner' },
       { href: '/network', label: '🌐 Agent Network' },
     ]
