@@ -24,6 +24,7 @@ const navLinks = [
       { href: '/acquisition', label: 'Acquisition Fund' },
       { href: '/agents', label: 'Your AI Team' },
       { href: '/my-ai', label: '🎮 My AI Partner' },
+      { href: '/network', label: '🌐 Agent Network' },
     ]
   },
   { href: '/marketplace', label: 'Marketplace' },
